@@ -21,7 +21,7 @@ import router from '../router'
 let headerVisible = true // eslint-disable-line no-unused-vars
 
 router.afterEach((to, from) => {
-  headerVisible = (to.path === '/post')
+  headerVisible = (to.path === '/post') || (to.path === '/home')
 })
 
 export default {
