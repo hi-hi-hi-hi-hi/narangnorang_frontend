@@ -9,22 +9,22 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('../views/LoginView.vue')
+    component: () => import('../views/member/LoginView.vue')
   },
   {
     path: '/signUp',
     name: 'signUp',
-    component: () => import('../views/SignUpView.vue')
+    component: () => import('../views/member/SignUpView.vue')
   },
   {
     path: '/generalSignUp',
     name: 'generalSignUp',
-    component: () => import('../views/GeneralSignUpView.vue')
+    component: () => import('../views/member/GeneralSignUpView.vue')
   },
   {
     path: '/home',
     name: 'home',
-    component: () => import('../views/HomeView.vue')
+    component: () => import('../views/miniroom/HomeView.vue')
   },
   {
     path: '/post',
