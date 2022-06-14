@@ -11,7 +11,7 @@ export default {
   methods: {
     test () {
       axios({
-        url: '/home',
+        url: '/api/home',
         method: 'post',
         responseType: 'json'
       }).then((response) => {

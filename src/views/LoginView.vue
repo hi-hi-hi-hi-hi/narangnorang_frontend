@@ -25,7 +25,7 @@ export default {
   methods: {
     login () {
       axios({
-        url: '/login',
+        url: 'api/login',
         method: 'post',
         params: { email: this.email, password: this.password },
         responseType: 'json'
