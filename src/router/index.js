@@ -1,20 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-// import HomeView from '../views/HomeView.vue'
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'home',
-  //   component: HomeView
-  // },
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  // }
   {
     path: '/',
     name: 'main',
@@ -23,27 +9,42 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('../views/LoginView.vue')
+    component: () => import('../views/member/LoginView.vue')
   },
   {
     path: '/signUp',
     name: 'signUp',
-    component: () => import('../views/SignUpView.vue')
+    component: () => import('../views/member/SignUpView.vue')
   },
   {
     path: '/generalSignUp',
     name: 'generalSignUp',
-    component: () => import('../views/GeneralSignUpView.vue')
+    component: () => import('../views/member/GeneralSignUpView.vue')
   },
   {
     path: '/home',
     name: 'home',
-    component: () => import('../views/HomeView.vue')
+    component: () => import('../views/miniroom/HomeView.vue')
   },
   {
     path: '/post',
     name: 'post',
     component: () => import('../views/post/PostView.vue')
+  },
+  {
+    path: '/post/write',
+    name: 'postWrite',
+    component: () => import('../views/post/PostWrite.vue')
+  },
+  {
+    path: '/test',
+    name: 'test',
+    component: () => import('../views/test/TestView.vue')
+  },
+  {
+    path: '/test/1',
+    name: 'test1',
+    component: () => import('../views/test/Test1View.vue')
   }
 ]
 
