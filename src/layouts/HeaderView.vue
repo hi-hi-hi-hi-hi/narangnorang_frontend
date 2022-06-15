@@ -9,7 +9,7 @@
     </div>
     <div class="navBar" v-if="headerVisible">
         <router-link class="nav_link" to="/post">커뮤니티</router-link> |
-        <router-link class="nav_link" to="/">테스트</router-link> |
+        <router-link class="nav_link" to="/test">테스트</router-link> |
         <router-link class="nav_link" to="/">상담하기</router-link> |
         <router-link class="nav_link" to="/">일일데이터</router-link> |
         <router-link class="nav_link" to="/">기분상태</router-link> |
