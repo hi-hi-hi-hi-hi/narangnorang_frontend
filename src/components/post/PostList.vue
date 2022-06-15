@@ -2,8 +2,8 @@
   <div class="postListArea">
     <div class="postButtonArea">
       <button id="btn_allList">전체글</button>
-      <button id="btn_overTen">추천 10개 이상</button>
-      <button id="btn_overThirty">추천 30개 이상</button>
+      <button id="btn_overTen" @click="fnChangeLikes(10)">추천 10개 이상</button>
+      <button id="btn_overThirty" @click="fnChangeLikes(30)">추천 30개 이상</button>
     </div>
     <select id="searchCol">
         <option value="title">제목</option>
@@ -24,7 +24,7 @@
       <tbody>
         <tr v-for="(row, idx) in list" :key="idx">
           <td>{{ row.id }}</td>
-          <td>{{ row.title }}</td>
+          <td><a v-on:click="fnRetrieve('${row.idx}')">{{ row.title }}</a></td>
           <td>{{ row.memberName }}</td>
           <td>{{ row.datetime }}</td>
           <td>{{ row.views }}</td>
@@ -43,18 +43,24 @@ export default {
   props: ['category'],
   data () {
     return {
-      list: {}
+      requestBody: {},
+      list: {},
+      likes: 0
     }
   },
   mounted () {
-    this.getList(this.category)
+    this.fnGetList()
   },
   methods: {
-    getList () {
+    fnGetList () {
+      console.log(this.likes)
+      this.requestBody = {
+        category: this.category,
+        likes: this.likes
+      }
+
       axios.get('/api/post/list', {
-        params: {
-          category: this.category
-        }
+        params: this.requestBody
       })
       .then((res) => {
         this.list = res.data.postDto
@@ -62,11 +68,23 @@ export default {
       .catch((err) => {
         console.log(err)
       })
+    },
+    fnChangeLikes (likes) {
+      this.likes = likes
     }
+    // fnRetrieve (id) {
+    //   this.requestBody.id = id
+    //   this.$router.push({
+    //     path: '/post/retrieve'
+    //   })
+    // }
   },
   watch: {
-    category (newCategory) {
-      this.getList(newCategory)
+    category () {
+      this.fnGetList()
+    },
+    likes () {
+      this.fnGetList()
     }
   }
 }
