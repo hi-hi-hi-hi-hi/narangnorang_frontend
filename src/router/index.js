@@ -1,11 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
+  // common
   {
     path: '/',
     name: 'main',
     component: () => import('../views/MainView.vue')
   },
+
+  // Member
   {
     path: '/login',
     name: 'login',
@@ -22,20 +25,39 @@ const routes = [
     component: () => import('../views/member/GeneralSignUpView.vue')
   },
   {
-    path: '/home',
-    name: 'home',
-    component: () => import('../views/miniroom/HomeView.vue')
+    path: '/counselorSignUp',
+    name: 'counselorSignUp',
+    component: () => import('../views/member/CounselorSignUpView.vue')
   },
+  {
+    path: '/findPw',
+    name: 'findPw',
+    component: () => import('../views/member/FindPwView.vue')
+  },
+  {
+    path: '/myPage',
+    name: 'myPage',
+    component: () => import('../views/member/MyPageView.vue')
+  },
+  
+  //post
   {
     path: '/post',
     name: 'post',
     component: () => import('../views/post/PostView.vue')
   },
   {
+    path: '/post/retrieve',
+    name: 'postRetrieve',
+    component: () => import('../views/post/PostRetrieve.vue')
+  },
+  {
     path: '/post/write',
     name: 'postWrite',
     component: () => import('../views/post/PostWrite.vue')
   },
+  
+  //test
   {
     path: '/test',
     name: 'testList',
@@ -51,6 +73,13 @@ const routes = [
     name: 'testResult',
     component: () => import('../views/test/TestResultView.vue')
   },
+  {
+    path: '/test/1',
+    name: 'test1',
+    component: () => import('../views/test/Test1View.vue')
+  },
+  
+  //mynorang
   {
     path: '/mynorang',
     name: 'myNorang',
@@ -75,7 +104,21 @@ const routes = [
     path: '/mynorang/challenge',
     name: 'myNorangChallenge',
     component: () => import('../views/mynorang/ChallengeView.vue')
-  }
+  },
+
+  // miniroom
+  {
+    path: '/home',
+    name: 'home',
+    component: () => import('../views/miniroom/HomeView.vue')
+  },
+
+  // Counsel
+  {
+    path: '/counsel',
+    name: 'counsel',
+    component: () => import('../views/counsel/CounselView.vue')
+   }
 ]
 
 const router = createRouter({
