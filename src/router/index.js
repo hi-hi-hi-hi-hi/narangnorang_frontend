@@ -37,6 +37,16 @@ const routes = [
     component: () => import('../views/member/FindPwView.vue')
   },
   {
+    path: '/post/retrieve',
+    name: 'postRetrieve',
+    component: () => import('../views/post/PostRetrieve.vue')
+  },
+  {
+    path: '/post/write',
+    name: 'postWrite',
+    component: () => import('../views/post/PostWrite.vue')
+  },
+  {
     path: '/myPage',
     name: 'myPage',
     component: () => import('../views/member/MyPageView.vue')
