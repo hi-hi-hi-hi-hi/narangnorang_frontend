@@ -3,7 +3,7 @@
     <table class="buyTable">
       <thead>
         <tr>
-          <th><button>침대</button></th>
+          <th><button @click="changeCategory('bed')>침대</button></th>
           <th><button>옷장</button></th>
           <th><button>바닥</button></th>
           <th><button>벽지</button></th>
@@ -13,19 +13,7 @@
           <th><button>왼쪽벽장식</button></th>
         </tr>
       </thead>
-      <tbody>
-        <tr v-for="(row, idx) in list" :key="idx">
-          <td>{{ row.id }}</td>
-          <td>{{ row.title }}</td>
-          <td>{{ row.memberName }}</td>
-          <td>{{ row.datetime }}</td>
-          <td>{{ row.views }}</td>
-          <td>{{ row.likes }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</template>
+
 
 <script>
 import axios from 'axios'

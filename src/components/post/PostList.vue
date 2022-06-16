@@ -10,7 +10,38 @@
     <input type="text" id="keyword">
 </template>
 <script>
-export default ({
-  name: 'PostList'
-})
+import axios from 'axios'
+
+export default {
+  name: 'PostList',
+  props: ['category'],
+  data () {
+    return {
+      list: {}
+    }
+  },
+  mounted () {
+    this.getList(this.category)
+  },
+  methods: {
+    getList () {
+      axios.get('/api/home/buy', {
+        params: {
+          category: this.category
+        }
+      })
+      .then((res) => {
+        this.list = res.data.postDto
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
+  },
+  watch: {
+    category (newCategory) {
+      this.getList(newCategory)
+    }
+  }
+}
 </script>
