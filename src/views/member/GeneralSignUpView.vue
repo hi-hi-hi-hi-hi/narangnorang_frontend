@@ -88,7 +88,6 @@
 <script>
 import axios from 'axios'
 
-
 let idDuplication = false
 let pwCompare = false
 let nicknameDuplication = false
