@@ -1,6 +1,6 @@
 <template>
   <div class="signUp">
-    <form @submit.prevent="generalSignUp">
+    <form @submit.prevent="counselorSignUp">
       <div>
         <label for="email">아이디(이메일)</label>
         <input
@@ -48,16 +48,14 @@
         <span id="pwCheckResult" style="color: blue"></span><br />
       </div>
       <div>
-        <label for="name">닉네임</label>
+        <label for="name">이름</label>
         <input
           type="text"
           id="name"
           v-model="name"
-          placeholder="NICKNAME"
+          placeholder="NAME"
           required="required"
         />
-        <button type="button" @click="checkName">중복 체크</button>
-        <span id="nicknameCheckResult" style="color: blue"></span><br />
       </div>
       <div>
         <label for="phone">휴대전화</label>
@@ -70,16 +68,37 @@
         /><br />
       </div>
       <div>
-        <label for="region">지역</label>
+        <label for="address">근무지 주소</label>
+        <div id="address">
+          <input type="text" id="postcode" v-model="postcode" placeholder="우편번호" required="required">
+		      <button type="button" @click="execDaumPostcode">우편번호 찾기</button><br>
+		      <input type="text" id="address1" v-model="address1" placeholder="도로명주소" required="required">
+		      <input type="text" id="address2" v-model="address2" placeholder="지번주소" required="required"><br>
+		      <input type="text" id="address3" v-model="address3" placeholder="상세주소" required="required"><br>
+		      <input type="hidden" id="guide" style="color:#999"><br>
+        </div>
+      </div>
+      <div>
+        <label for="job">직업</label>
         <input
           type="text"
-          id="region"
-          v-model="region"
-          placeholder="지역(시/군/구)"
+          id="job"
+          v-model="job"
+          placeholder="job"
           required="required"
         /><br />
       </div>
-      <br />
+      <div>
+        <label for="introduction">소개</label><br>
+        <textarea
+          rows="20"
+          cols="40"
+          id="introduction"
+          v-model="introduction"
+          placeholder="introduction"
+          required="required"
+        /><br />
+      </div>
       <button type="submit">회원가입</button>
     </form>
   </div>
@@ -89,10 +108,9 @@
 
 let idDuplication = false
 let pwCompare = false
-let nicknameDuplication = false
 
 export default {
-  name: 'generalSignUp',
+  name: 'counselorSignUp',
   data () {
     return {
       email: '',
@@ -101,7 +119,12 @@ export default {
       password2: '',
       name: '',
       phone: '',
-      region: ''
+      postcode: '',
+      address1: '',
+      address2: '',
+      address3: '',
+      job: '',
+      introduction: ''
     }
   },
   methods: {
@@ -160,31 +183,8 @@ export default {
       }
       document.getElementById('pwCheckResult').innerText = mesg
     },
-    // 닉네임 중복 검사
-    checkName () {
-      let mesg = '사용 가능한 닉네임입니다.'
-      this.axios({
-        url: '/api/checkName',
-        method: 'POST',
-        params: { name: this.name }
-      })
-      .then(function (response) {
-        if (response.data !== 1) {
-          document.getElementById('nicknameCheckResult').setAttribute('style', 'color: blue')
-          nicknameDuplication = true
-        } else {
-          document.getElementById('nicknameCheckResult').setAttribute('style', 'color: red')
-          mesg = '이미 사용중인 닉네임입니다.'
-          nicknameDuplication = false
-        }
-        document.getElementById('nicknameCheckResult').innerText = mesg
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
-    },
     // 회원 가입 처리
-    generalSignUp (event) {
+    counselorSignUp (event) {
       if (!this.email_check(this.email)) {
         alert('이메일 형식에 맞게 입력해주세요')
         event.preventDefault()
@@ -194,19 +194,21 @@ export default {
       } else if (pwCompare === false) {
         alert('비밀번호가 일치하지 않습니다')
         event.preventDefault()
-      } else if (nicknameDuplication === false) {
-        alert('닉네임 중복검사를 해주세요')
-        event.preventDefault()
       } else {
         this.axios({
-        url: '/api/generalSignUp',
+        url: '/api/counselorSignUp',
         method: 'POST',
         params: {
           email: this.email,
           password: this.password,
           name: this.name,
           phone: this.phone,
-          region: this.region
+          postcode: this.postcode,
+          address1: this.address1,
+          address2: this.address2,
+          address3: this.address3,
+          job: this.job,
+          introduction: this.introduction
         }
         })
         .then((response) => {
@@ -217,6 +219,40 @@ export default {
           console.log(error)
         })
       }
+    },
+    // 다음 지도
+    execDaumPostcode () {
+      new window.daum.Postcode({
+        oncomplete: (data) => {
+          // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+          // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+          // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+          const roadAddr = data.roadAddress // 도로명 주소 변수
+          let extraRoadAddr = '' // 참고 항목 변수
+
+          // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+          // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+          if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+            extraRoadAddr += data.bname
+          }
+          // 건물명이 있고, 공동주택일 경우 추가한다.
+          if (data.buildingName !== '' && data.apartment === 'Y') {
+            extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName)
+          }
+          // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+          if (extraRoadAddr !== '') {
+            extraRoadAddr = ' (' + extraRoadAddr + ')'
+          }
+
+          // 우편번호와 주소 정보를 해당 필드에 넣는다.
+          // document.getElementById('postcode').value = data.zonecode
+          // document.getElementById('address1').value = roadAddr
+          // document.getElementById('address2').value = data.jibunAddress
+          this.postcode = data.zonecode
+          this.address1 = roadAddr
+          this.address2 = data.jibunAddress
+        }
+      }).open()
     }
     // 인증 메일 전송
     // sendMail () {
