@@ -1,45 +1,75 @@
 import { createRouter, createWebHistory } from 'vue-router'
-// import HomeView from '../views/HomeView.vue'
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'home',
-  //   component: HomeView
-  // },
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  // }
+  // common
   {
     path: '/',
     name: 'main',
     component: () => import('../views/MainView.vue')
   },
+
+  // Member
   {
     path: '/login',
     name: 'login',
-    component: () => import('../views/LoginView.vue')
+    component: () => import('../views/member/LoginView.vue')
   },
   {
     path: '/signUp',
     name: 'signUp',
-    component: () => import('../views/SignUpView.vue')
+    component: () => import('../views/member/SignUpView.vue')
   },
   {
     path: '/generalSignUp',
     name: 'generalSignUp',
-    component: () => import('../views/GeneralSignUpView.vue')
+    component: () => import('../views/member/GeneralSignUpView.vue')
   },
+  {
+    path: '/counselorSignUp',
+    name: 'counselorSignUp',
+    component: () => import('../views/member/CounselorSignUpView.vue')
+  },
+
+  // Post
+  {
+    path: '/findPw',
+    name: 'findPw',
+    component: () => import('../views/member/FindPwView.vue')
+  },
+  {
+    path: '/post/retrieve',
+    name: 'postRetrieve',
+    component: () => import('../views/post/PostRetrieve.vue')
+  },
+  {
+    path: '/post/write',
+    name: 'postWrite',
+    component: () => import('../views/post/PostWrite.vue')
+  },
+  {
+    path: '/myPage',
+    name: 'myPage',
+    component: () => import('../views/member/MyPageView.vue')
+  },
+
+  // Test
   {
     path: '/home',
     name: 'home',
-    component: () => import('../views/HomeView.vue')
+    component: () => import('../views/miniroom/HomeView.vue')
   },
+  {
+    path: '/test/1',
+    name: 'test1',
+    component: () => import('../views/test/Test1View.vue')
+  },
+
+  // Counsel
+  {
+    path: '/counsel',
+    name: 'counsel',
+    component: () => import('../views/counsel/CounselView.vue')
+   },
   {
     path: '/post',
     name: 'post',
