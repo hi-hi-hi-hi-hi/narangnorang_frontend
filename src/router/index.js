@@ -1,11 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
+  // common
   {
     path: '/',
     name: 'main',
     component: () => import('../views/MainView.vue')
   },
+
+  // Member
   {
     path: '/login',
     name: 'login',
@@ -26,6 +29,8 @@ const routes = [
     name: 'counselorSignUp',
     component: () => import('../views/member/CounselorSignUpView.vue')
   },
+
+  // Post
   {
     path: '/findPw',
     name: 'findPw',
@@ -36,11 +41,25 @@ const routes = [
     name: 'myPage',
     component: () => import('../views/member/MyPageView.vue')
   },
+
+  // Test
   {
     path: '/home',
     name: 'home',
     component: () => import('../views/miniroom/HomeView.vue')
   },
+  {
+    path: '/test/1',
+    name: 'test1',
+    component: () => import('../views/test/Test1View.vue')
+  },
+
+  // Counsel
+  {
+    path: '/counsel',
+    name: 'counsel',
+    component: () => import('../views/counsel/CounselView.vue')
+   },
   {
     path: '/post',
     name: 'post',
