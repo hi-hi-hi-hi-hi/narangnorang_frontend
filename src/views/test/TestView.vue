@@ -1,32 +1,75 @@
 <template>
     <div>
-        <hr />
         <div>
-            <img src="../../assets/test/1.jpg" style="width: 18rem;" />
-            <div>
-                <h5>우울증</h5>
-                <p>한국, 우울증 발생률 36.8%로 OECD 1위...&nbsp;알고 계셨나요?</p>
-                <router-link to="/test/1">검사 시작</router-link>
+            <div style="height: 30px;">
+                <div class="progress-bar"></div>
+            </div>
+            <img :src="require('@/assets/test/type' + this.$route.params.type + '.jpg')" style="width: 18rem;" />
+            <div v-for="(qna, i) in qnaList" :key="i" v-show="i === idx">
+                <div class="question">
+                    <h5>{{qna.question}}</h5>
+                </div>
+                <div class="answer">
+                    <div v-for="(answer, j) in qna.answer" :key="j">
+                        <div @click="select(i, answer.value)">{{answer.text}}</div>
+                    </div>
+                </div>
             </div>
         </div>
-        <hr />
-        <div>
-            <img src="../../assets/test/2.jpg" style="width: 18rem;" />
-            <div>
-                <h5>알코올 중독</h5>
-                <p>술잔을 기울이는 대신<br>마음에 귀를 기울여보세요!</p>
-                <router-link to="/test/2">검사 시작</router-link>
-            </div>
-        </div>
-        <hr />
-        <div>
-            <img src="../../assets/test/3.jpg" style="width: 18rem;" />
-            <div>
-                <h5>스트레스</h5>
-                <p>현대인의 '적' 스트레스,<br>쌓이면 병이 됩니다.</p>
-                <router-link to="/test/3">검사 시작</router-link>
-            </div>
-        </div>
-        <hr />
     </div>
 </template>
+<script>
+import axios from 'axios'
+import qnaList1 from '@/components/test/qnaList1'
+import qnaList2 from '@/components/test/qnaList2'
+import qnaList3 from '@/components/test/qnaList3'
+export default {
+    data () {
+        return {
+            qnaList: [],
+            selectList: [],
+            idx: 0
+        }
+    },
+    methods: {
+        select (idx, option) {
+            this.selectList[idx] = option
+            if (idx + 1 < this.qnaList.length) {
+                this.idx = idx + 1
+            } else {
+                this.goResult()
+            }
+        },
+        goResult () {
+            let result = 0
+            for (let i = 0; i < this.qnaList.length; i++) {
+                result += this.selectList[i]
+            }
+            axios({
+                url: '/api/test/' + this.$route.params.type + '/' + result,
+                method: 'post',
+                params: { type: this.$route.params.type, result: result },
+                responseType: 'json'
+            }).then((response) => {
+                console.log(response)
+                if (response.data.flag === true) {
+                    this.$router.push('/test/' + this.$route.params.type + '/' + result)
+                }
+            })
+        }
+    },
+    mounted () {
+        switch (this.$route.params.type) {
+            case '1':
+                this.qnaList = qnaList1
+                break
+            case '2':
+                this.qnaList = qnaList2
+                break
+            case '3':
+                this.qnaList = qnaList3
+                break
+        }
+    }
+}
+</script>

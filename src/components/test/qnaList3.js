@@ -1,4 +1,4 @@
-const qnaList = [{
+const qnaList3 = [{
 	question: '1) 예상치 못했던 일 때문에 당황했던 적이 얼마나 있었습니까?',
 	answer: [{
 		text: '전혀 없었다.',
@@ -180,4 +180,4 @@ const qnaList = [{
 	}]
 }]
 
-export default qnaList
+export default qnaList3

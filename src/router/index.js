@@ -29,12 +29,22 @@ const routes = [
     name: 'counselorSignUp',
     component: () => import('../views/member/CounselorSignUpView.vue')
   },
-
-  // Post
   {
     path: '/findPw',
     name: 'findPw',
     component: () => import('../views/member/FindPwView.vue')
+  },
+  {
+    path: '/myPage',
+    name: 'myPage',
+    component: () => import('../views/member/MyPageView.vue')
+  },
+  
+  //post
+  {
+    path: '/post',
+    name: 'post',
+    component: () => import('../views/post/PostView.vue')
   },
   {
     path: '/post/retrieve',
@@ -46,22 +56,61 @@ const routes = [
     name: 'postWrite',
     component: () => import('../views/post/PostWrite.vue')
   },
+  
+  //test
   {
-    path: '/myPage',
-    name: 'myPage',
-    component: () => import('../views/member/MyPageView.vue')
+    path: '/test',
+    name: 'testList',
+    component: () => import('../views/test/TestListView.vue')
   },
-
-  // Test
   {
-    path: '/home',
-    name: 'home',
-    component: () => import('../views/miniroom/HomeView.vue')
+    path: '/test/:type',
+    name: 'test',
+    component: () => import('../views/test/TestView.vue')
+  },
+  {
+    path: '/test/:type/:result',
+    name: 'testResult',
+    component: () => import('../views/test/TestResultView.vue')
   },
   {
     path: '/test/1',
     name: 'test1',
     component: () => import('../views/test/Test1View.vue')
+  },
+  
+  //mynorang
+  {
+    path: '/mynorang',
+    name: 'myNorang',
+    component: () => import('../views/mynorang/MyNorangView.vue')
+  },
+  {
+    path: '/mynorang/testresult',
+    name: 'myNorangTestResult',
+    component: () => import('../views/mynorang/TestResultView.vue')
+  },
+  {
+    path: '/mynorang/moodstate',
+    name: 'myNorangMoodState',
+    component: () => import('../views/mynorang/MoodStateView.vue')
+  },
+  {
+    path: '/mynorang/dailylog',
+    name: 'myNorangDailyLog',
+    component: () => import('../views/mynorang/DailyLogView.vue')
+  },
+  {
+    path: '/mynorang/challenge',
+    name: 'myNorangChallenge',
+    component: () => import('../views/mynorang/ChallengeView.vue')
+  },
+
+  // miniroom
+  {
+    path: '/home',
+    name: 'home',
+    component: () => import('../views/miniroom/HomeView.vue')
   },
 
   // Counsel
@@ -69,12 +118,7 @@ const routes = [
     path: '/counsel',
     name: 'counsel',
     component: () => import('../views/counsel/CounselView.vue')
-   },
-  {
-    path: '/post',
-    name: 'post',
-    component: () => import('../views/post/PostView.vue')
-  }
+   }
 ]
 
 const router = createRouter({
