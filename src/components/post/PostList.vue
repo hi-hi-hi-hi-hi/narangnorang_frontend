@@ -5,33 +5,49 @@
       <button id="btn_overTen" @click="fnChangeLikes(10)">추천 10개 이상</button>
       <button id="btn_overThirty" @click="fnChangeLikes(30)">추천 30개 이상</button>
     </div>
-    <select id="searchCol">
-        <option value="title">제목</option>
-        <option value="member_name">작성자</option>
-    </select>
-    <input type="text" id="keyword">
-    <table class="postTable">
-      <thead>
-        <tr>
-          <th>번호</th>
-          <th>제목</th>
-          <th>글쓴이</th>
-          <th>작성일</th>
-          <th>조회</th>
-          <th>추천</th>
-        </tr>
-      </thead>
-      <tbody>
+    <div class="searchArea">
+      <select id="searchCol">
+          <option value="title">제목</option>
+          <option value="member_name">작성자</option>
+      </select>
+      <input type="text" id="keyword">
+    </div>
+    <div class="postSection">
+      <table class="postTable">
+      <span v-if="category === '대나무숲'">
         <tr v-for="(row, idx) in list" :key="idx">
-          <td>{{ row.id }}</td>
-          <td><a v-on:click="fnRetrieve('${row.idx}')">{{ row.title }}</a></td>
-          <td>{{ row.memberName }}</td>
-          <td>{{ row.datetime }}</td>
-          <td>{{ row.views }}</td>
-          <td>{{ row.likes }}</td>
+            <td>
+              익명 {{ row.datetime }} <button>추천 {{ row.likes }}</button>
+              <br>
+              {{ row.content }}
+            </td>
+            <hr>
         </tr>
-      </tbody>
-    </table>
+      </span>
+      <span v-else>
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>글쓴이</th>
+            <th>작성일</th>
+            <th>조회</th>
+            <th>추천</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(row, idx) in list" :key="idx">
+            <td>{{ row.id }}</td>
+            <td><a v-on:click="fnRetrieve('${row.idx}')">{{ row.title }}</a></td>
+            <td>{{ row.memberName }}</td>
+            <td>{{ row.datetime }}</td>
+            <td>{{ row.views }}</td>
+            <td>{{ row.likes }}</td>
+          </tr>
+        </tbody>
+      </span>
+      </table>
+    </div>
   </div>
 </template>
 
