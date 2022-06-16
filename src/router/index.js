@@ -38,13 +38,43 @@ const routes = [
   },
   {
     path: '/test',
+    name: 'testList',
+    component: () => import('../views/test/TestListView.vue')
+  },
+  {
+    path: '/test/:type',
     name: 'test',
     component: () => import('../views/test/TestView.vue')
   },
   {
-    path: '/test/1',
-    name: 'test1',
-    component: () => import('../views/test/Test1View.vue')
+    path: '/test/:type/:result',
+    name: 'testResult',
+    component: () => import('../views/test/TestResultView.vue')
+  },
+  {
+    path: '/mynorang',
+    name: 'myNorang',
+    component: () => import('../views/mynorang/MyNorangView.vue')
+  },
+  {
+    path: '/mynorang/testresult',
+    name: 'myNorangTestResult',
+    component: () => import('../views/mynorang/TestResultView.vue')
+  },
+  {
+    path: '/mynorang/moodstate',
+    name: 'myNorangMoodState',
+    component: () => import('../views/mynorang/MoodStateView.vue')
+  },
+  {
+    path: '/mynorang/dailylog',
+    name: 'myNorangDailyLog',
+    component: () => import('../views/mynorang/DailyLogView.vue')
+  },
+  {
+    path: '/mynorang/challenge',
+    name: 'myNorangChallenge',
+    component: () => import('../views/mynorang/ChallengeView.vue')
   }
 ]
 
