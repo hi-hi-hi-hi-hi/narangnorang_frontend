@@ -86,7 +86,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 
 let idDuplication = false
 let pwCompare = false
@@ -119,7 +118,7 @@ export default {
         alert('이메일 형식에 맞게 입력해주세요')
         event.preventDefault()
       } else {
-          axios({
+          this.axios({
           url: '/api/checkEmail',
           method: 'POST',
           params: { email: this.email }
@@ -161,9 +160,10 @@ export default {
       }
       document.getElementById('pwCheckResult').innerText = mesg
     },
+    // 닉네임 중복 검사
     checkName () {
       let mesg = '사용 가능한 닉네임입니다.'
-      axios({
+      this.axios({
         url: '/api/checkName',
         method: 'POST',
         params: { name: this.name }
@@ -198,7 +198,7 @@ export default {
         alert('닉네임 중복검사를 해주세요')
         event.preventDefault()
       } else {
-        axios({
+        this.axios({
         url: '/api/generalSignUp',
         method: 'POST',
         params: {
