@@ -25,28 +25,28 @@ const routes = [
     component: () => import('../views/member/GeneralSignUpView.vue')
   },
   {
-    path: '/home',
-    name: 'home',
-    component: () => import('../views/miniroom/HomeView.vue')
+    path: '/counselorSignUp',
+    name: 'counselorSignUp',
+    component: () => import('../views/member/CounselorSignUpView.vue')
   },
 
   // Post
   {
-    path: '/post',
-    name: 'post',
-    component: () => import('../views/post/PostView.vue')
+    path: '/findPw',
+    name: 'findPw',
+    component: () => import('../views/member/FindPwView.vue')
   },
   {
-    path: '/post/write',
-    name: 'postWrite',
-    component: () => import('../views/post/PostWrite.vue')
+    path: '/myPage',
+    name: 'myPage',
+    component: () => import('../views/member/MyPageView.vue')
   },
 
   // Test
   {
-    path: '/test',
-    name: 'test',
-    component: () => import('../views/test/TestView.vue')
+    path: '/home',
+    name: 'home',
+    component: () => import('../views/miniroom/HomeView.vue')
   },
   {
     path: '/test/1',
@@ -59,6 +59,11 @@ const routes = [
     path: '/counsel',
     name: 'counsel',
     component: () => import('../views/counsel/CounselView.vue')
+   },
+  {
+    path: '/post',
+    name: 'post',
+    component: () => import('../views/post/PostView.vue')
   }
 ]
 
