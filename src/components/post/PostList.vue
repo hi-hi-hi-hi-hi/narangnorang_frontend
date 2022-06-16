@@ -1,7 +1,7 @@
 <template>
   <div class="postListArea">
-    <div class="postButtonArea">
-      <button id="btn_allList">전체글</button>
+    <div class="postButtonsArea">
+      <button id="btn_allList" @click="fnChangeLikes(0)">전체글</button>
       <button id="btn_overTen" @click="fnChangeLikes(10)">추천 10개 이상</button>
       <button id="btn_overThirty" @click="fnChangeLikes(30)">추천 30개 이상</button>
     </div>
@@ -43,9 +43,11 @@ export default {
   props: ['category'],
   data () {
     return {
-      requestBody: {},
-      list: {},
-      likes: 0
+      requestBody: {
+        category: '자유게시판',
+        likes: 0
+      },
+      list: {}
     }
   },
   mounted () {
@@ -53,7 +55,6 @@ export default {
   },
   methods: {
     fnGetList () {
-      console.log(this.likes)
       this.requestBody = {
         category: this.category,
         likes: this.likes
@@ -71,19 +72,18 @@ export default {
     },
     fnChangeLikes (likes) {
       this.likes = likes
+      this.fnGetList()
+    },
+    fnRetrieve (id) {
+      this.requestBody.id = id
+      this.$router.push({
+        path: '/post/retrieve'
+      })
     }
-    // fnRetrieve (id) {
-    //   this.requestBody.id = id
-    //   this.$router.push({
-    //     path: '/post/retrieve'
-    //   })
-    // }
   },
   watch: {
     category () {
-      this.fnGetList()
-    },
-    likes () {
+      this.likes = 0
       this.fnGetList()
     }
   }
