@@ -14,7 +14,6 @@
         </tr>
       </thead>
 
-
 <script>
 import axios from 'axios'
 
