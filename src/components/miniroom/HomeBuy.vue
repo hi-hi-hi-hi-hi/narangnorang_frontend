@@ -3,18 +3,16 @@
     <table class="buyTable">
       <thead>
         <tr>
-          <th><button @click="changeCategory('bed')>침대</button></th>
-          <th><button>옷장</button></th>
-          <th><button>바닥</button></th>
-          <th><button>벽지</button></th>
-          <th><button>책상</button></th>
-          <th><button>의자</button></th>
-          <th><button>오른쪽벽장식</button></th>
-          <th><button>왼쪽벽장식</button></th>
+          <th><button click="changeCategory('bed')>침대</button></th>
+          <th><button click="changeCategory('closet') >옷장</button></th>
+          <th><button click="changeCategory('floor') >바닥</button></th>
+          <th><button click="changeCategory('wallpaper') >벽지</button></th>
+          <th><button click="changeCategory('desk') >책상</button></th>
+          <th><button click="changeCategory('chair') >의자</button></th>
+          <th><button click="changeCategory('walldecoRight') >오른쪽벽장식</button></th>
+          <th><button click="changeCategory('walldecoLeft') >왼쪽벽장식</button></th>
         </tr>
       </thead>
-
-
 <script>
 import axios from 'axios'
 
@@ -23,7 +21,8 @@ export default {
   props: ['category'],
   data () {
     return {
-      list: {}
+      list: {},
+      category: ''
     }
   },
   mounted () {
@@ -42,6 +41,10 @@ export default {
       .catch((err) => {
         console.log(err)
       })
+    },
+    changeCategory (nCategory) {
+      this.category = nCategory
+
     }
   }
 }
