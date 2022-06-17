@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <input type="button" value="세션 유지 테스트" @click="test" />
     <input type="button" @click="getImage">
     <p :v-bind="myRoomDTO.floor"></p>
     <input type="text" :v-bind="myRoomDTO.floor" :value="myRoomDTO.floor">
@@ -67,15 +66,6 @@ export default {
     }
   },
   methods: {
-    test () {
-      axios({
-        url: '/api/home',
-        method: 'post',
-        responseType: 'json'
-      }).then((response) => {
-        console.log(response)
-      })
-    },
     getImage () {
       axios({
         url: '/api/home',
