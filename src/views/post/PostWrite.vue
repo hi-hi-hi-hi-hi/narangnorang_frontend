@@ -28,7 +28,9 @@ export default {
       this.axios({
         method: 'post',
         url: '/api/post/write',
-        data: this.requestBody
+        params: this.requestBody
+      }).then((res) => {
+        alert('게시글이 등록되었습니다.')
       })
     }
   }
