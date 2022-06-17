@@ -13,6 +13,7 @@
           <th><button click="changeCategory('walldecoLeft') >왼쪽벽장식</button></th>
         </tr>
       </thead>
+</template>
 <script>
 import axios from 'axios'
 

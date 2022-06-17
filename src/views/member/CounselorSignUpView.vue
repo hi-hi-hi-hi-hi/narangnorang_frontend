@@ -12,8 +12,8 @@
         />
         <button type="button" @click="checkEmail">중복 체크</button>
         <!-- <button type="button" @click="sendMail">인증메일보내기</button><br /> -->
-        <span id="emailCheckResult" style="color: blue"></span
-        ><br />
+        <span id="emailCheckResult" style="color: blue">{{ emailCheckResult }}</span>
+        <br />
       </div>
       <!-- <div>
         <label for="com">인증확인</label>
@@ -45,7 +45,7 @@
           placeholder="CONFIRM PASSWORD"
           required="required"
         /><br />
-        <span id="pwCheckResult" style="color: blue"></span><br />
+        <span id="pwCheckResult" style="color: blue">{{ pwCheckResult }}</span><br />
       </div>
       <div>
         <label for="name">이름</label>
@@ -106,9 +106,6 @@
 
 <script>
 
-let idDuplication = false
-let pwCompare = false
-
 export default {
   name: 'counselorSignUp',
   data () {
@@ -124,7 +121,11 @@ export default {
       address2: '',
       address3: '',
       job: '',
-      introduction: ''
+      introduction: '',
+      emailCheckResult: '',
+      pwCheckResult: '',
+      idDuplication: false,
+      pwCompare: false
     }
   },
   methods: {
@@ -146,24 +147,22 @@ export default {
           method: 'POST',
           params: { email: this.email }
         })
-          .then(function (response) {
+          .then((response) => {
             if (response.data !== 1) {
               document.getElementById('emailCheckResult').setAttribute('style', 'color: blue')
-              document.getElementById('emailCheckResult').innerText = mesg
-              idDuplication = true
+              this.idDuplication = true
             } else if (response.data === 'error') {
               mesg = '에러'
               document.getElementById('emailCheckResult').setAttribute('style', 'color: red')
-              document.getElementById('emailCheckResult').innerText = mesg
-              idDuplication = false
+              this.idDuplication = false
             } else {
               mesg = '등록된 이메일입니다.'
               document.getElementById('emailCheckResult').setAttribute('style', 'color: red')
-              document.getElementById('emailCheckResult').innerText = mesg
-              idDuplication = false
+              this.idDuplication = false
             }
+            this.emailCheckResult = mesg
           })
-          .catch(function (error) {
+          .catch((error) => {
             console.log(error)
           })
       }
@@ -176,22 +175,22 @@ export default {
       if (pw !== pw2) {
         mesg = '비번 불일치'
         document.getElementById('pwCheckResult').setAttribute('style', 'color: red')
-        pwCompare = false
+        this.pwCompare = false
       } else {
         document.getElementById('pwCheckResult').setAttribute('style', 'color: blue')
-        pwCompare = true
+        this.pwCompare = true
       }
-      document.getElementById('pwCheckResult').innerText = mesg
+      this.pwCheckResult = mesg
     },
     // 회원 가입 처리
     counselorSignUp (event) {
       if (!this.email_check(this.email)) {
         alert('이메일 형식에 맞게 입력해주세요')
         event.preventDefault()
-      } else if (idDuplication === false) {
+      } else if (this.idDuplication === false) {
         alert('아이디 중복검사를 해주세요')
         event.preventDefault()
-      } else if (pwCompare === false) {
+      } else if (this.pwCompare === false) {
         alert('비밀번호가 일치하지 않습니다')
         event.preventDefault()
       } else {

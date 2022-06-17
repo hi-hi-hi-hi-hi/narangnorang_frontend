@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+
 export default {
   data () {
     return {
@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     login () {
-      axios({
+      this.axios({
         url: '/api/login',
         method: 'post',
         params: { email: this.email, password: this.password },

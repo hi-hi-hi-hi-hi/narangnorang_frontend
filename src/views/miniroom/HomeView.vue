@@ -1,6 +1,10 @@
 <template>
   <div class="home">
-    <input type="button" value="세션 유지 테스트" @click="test" />
+    <input type="button" @click="getImage">
+    <p :v-bind="myRoomDTO.floor"></p>
+    <input type="text" :v-bind="myRoomDTO.floor" :value="myRoomDTO.floor">
+    <h1>{{myRoomDTO.floor}}</h1>
+    <h1>{{myRoomDTO.bed}}</h1>
     <div class="Miniroom">
       <div v-if="myRoomDTO.bed !== 0">
         <img :srcset="require(`@/assets/items/${myRoomDTO.floor}.png`)">
@@ -60,15 +64,6 @@ export default {
     }
   },
   methods: {
-    test () {
-      axios({
-        url: '/api/home',
-        method: 'post',
-        responseType: 'json'
-      }).then((response) => {
-        console.log(response)
-      })
-    },
     getImage () {
       axios({
         url: '/api/home',

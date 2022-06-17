@@ -1,11 +1,9 @@
 <template>
     <div class="postRetrieve">
-        {{ category }}
-        <button>추천</button>
+        글 자세히보기 화면
     </div>
 </template>
 <script>
 export default {
-    props: ['category']
 }
 </script>

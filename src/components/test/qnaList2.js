@@ -1,4 +1,4 @@
-const qnaList = [{
+const qnaList2 = [{
 	question: '1) 얼마나 자주 술을 마십니까?',
 	answer: [{
 		text: '전혀안마심',
@@ -168,4 +168,4 @@ const qnaList = [{
 	}]
 }]
 
-export default qnaList
+export default qnaList2

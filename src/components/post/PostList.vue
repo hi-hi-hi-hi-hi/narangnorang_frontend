@@ -1,66 +1,51 @@
 <template>
-  <div class="postListArea">
-    <div class="postButtonsArea">
-      <button id="btn_allList" @click="fnChangeLikes(0)">전체글</button>
-      <button id="btn_overTen" @click="fnChangeLikes(10)">추천 10개 이상</button>
-      <button id="btn_overThirty" @click="fnChangeLikes(30)">추천 30개 이상</button>
-    </div>
-    <div class="searchArea">
-      <select id="searchCol">
-          <option value="title">제목</option>
-          <option value="member_name">작성자</option>
-      </select>
-      <input type="text" id="keyword">
-    </div>
-    <div class="postSection">
-      <table class="postTable">
-      <span v-if="category === '대나무숲'">
-        <tr v-for="(row, idx) in list" :key="idx">
-            <td>
-              익명 {{ row.datetime }} <button>추천 {{ row.likes }}</button>
-              <br>
-              {{ row.content }}
-            </td>
-            <hr>
+  <div class="postSection">
+    <table v-if="category === '대나무숲'">
+      <tr v-for="(row, idx) in list" :key="idx">
+        <td>
+          익명 {{ row.datetime }} <button>추천 {{ row.likes }}</button>
+          <br>
+          {{ row.content }}
+        </td>
+      </tr>
+    </table>
+    <table v-else>
+      <thead>
+        <tr>
+          <th>번호</th>
+          <th>제목</th>
+          <th>글쓴이</th>
+          <th>작성일</th>
+          <th>조회</th>
+          <th>추천</th>
         </tr>
-      </span>
-      <span v-else>
-        <thead>
-          <tr>
-            <th>번호</th>
-            <th>제목</th>
-            <th>글쓴이</th>
-            <th>작성일</th>
-            <th>조회</th>
-            <th>추천</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(row, idx) in list" :key="idx">
-            <td>{{ row.id }}</td>
-            <td><a v-on:click="fnRetrieve('${row.idx}')">{{ row.title }}</a></td>
-            <td>{{ row.memberName }}</td>
-            <td>{{ row.datetime }}</td>
-            <td>{{ row.views }}</td>
-            <td>{{ row.likes }}</td>
-          </tr>
-        </tbody>
-      </span>
-      </table>
-    </div>
+      </thead>
+      <tbody>
+        <tr v-for="(row, idx) in list" :key="idx">
+          <td>{{ row.id }}</td>
+          <td><a v-on:click="fnRetrieve('${row.id}')">{{ row.title }}</a></td>
+          <td>{{ row.memberName }}</td>
+          <td>{{ row.datetime }}</td>
+          <td>{{ row.views }}</td>
+          <td>{{ row.likes }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   name: 'PostList',
-  props: ['category'],
+  props: {
+    category: {
+      type: String,
+      default: '자유게시판'
+    }
+  },
   data () {
     return {
       requestBody: {
-        category: '자유게시판',
         likes: 0
       },
       list: {}
@@ -76,7 +61,7 @@ export default {
         likes: this.likes
       }
 
-      axios.get('/api/post/list', {
+      this.axios.get('/api/post/list', {
         params: this.requestBody
       })
       .then((res) => {
@@ -89,12 +74,6 @@ export default {
     fnChangeLikes (likes) {
       this.likes = likes
       this.fnGetList()
-    },
-    fnRetrieve (id) {
-      this.requestBody.id = id
-      this.$router.push({
-        path: '/post/retrieve'
-      })
     }
   },
   watch: {
