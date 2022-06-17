@@ -8,7 +8,7 @@
       </div>
       <div>
         <label for="password">비밀번호</label>
-        <input type="password" id="password" v-model="password" placeholder="PASSWORD" required="required" />
+        <input type="password" id="password" v-model="password" placeholder="PASSWORD" required>
       </div>
       <br>
       <button type="submit">확인</button>

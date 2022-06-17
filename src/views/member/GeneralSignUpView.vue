@@ -3,83 +3,40 @@
     <form @submit.prevent="generalSignUp">
       <div>
         <label for="email">아이디(이메일)</label>
-        <input
-          type="email"
-          id="email"
-          v-model="email"
-          placeholder="Email"
-          required="required"
-        />
+        <input type="email" id="email" v-model="email" placeholder="Email" required>
         <button type="button" @click="checkEmail">중복 체크</button>
-        <!-- <button type="button" @click="sendMail">인증메일보내기</button><br /> -->
+        <!-- <button type="button" @click="sendMail">인증메일보내기</button><br> -->
         <span id="emailCheckResult" style="color: blue">{{ emailCheckResult }}</span>
-        <br />
+        <br>
       </div>
       <!-- <div>
         <label for="com">인증확인</label>
-        <input
-          type="text"
-          id="com"
-          v-model="com"
-          placeholder="인증확인"
-          required="required"
-        />
-        <input type="button" id="compare" value="인증확인" /><br />
-        <span id="compare-text"></span><br />
+        <input type="text" id="com" v-model="com" placeholder="인증확인" required>
+        <input type="button" id="compare" value="인증확인"><br>
+        <span id="compare-text"></span><br>
       </div> -->
       <div>
         <label for="password">비밀번호</label>
-        <input
-          type="password"
-          id="password"
-          v-model="password"
-          placeholder="PASSWORD"
-          required="required"
-        /><br />
+        <input type="password" id="password" v-model="password" placeholder="PASSWORD" required><br>
         <label for="password2">비밀번호 확인</label>
-        <input
-          type="password"
-          id="password2"
-          v-model="password2"
-          @input="pwCheck"
-          placeholder="CONFIRM PASSWORD"
-          required="required"
-        /><br />
-        <span id="pwCheckResult" style="color: blue">{{ pwCheckResult }}</span><br />
+        <input type="password" id="password2" v-model="password2" @input="pwCheck" placeholder="CONFIRM PASSWORD" required><br>
+        <span id="pwCheckResult" style="color: blue">{{ pwCheckResult }}</span><br>
       </div>
       <div>
         <label for="name">닉네임</label>
-        <input
-          type="text"
-          id="name"
-          v-model="name"
-          placeholder="NICKNAME"
-          required="required"
-        />
+        <input type="text" id="name" v-model="name" placeholder="NICKNAME" required>
         <button type="button" @click="checkName">중복 체크</button>
-        <span id="nicknameCheckResult" style="color: blue">{{ nicknameCheckResult }}</span><br />
+        <span id="nicknameCheckResult" style="color: blue">{{ nicknameCheckResult }}</span><br>
       </div>
       <div>
         <label for="phone">휴대전화</label>
-        <input
-          type="text"
-          id="phone"
-          v-model="phone"
-          placeholder="-제외 번호"
-          required="required"
-        /><br />
+        <input type="text" id="phone" v-model="phone" placeholder="-제외 번호" required><br>
       </div>
       <div>
         <label for="region">지역</label>
-        <input
-          type="text"
-          id="region"
-          v-model="region"
-          placeholder="지역(시/군/구)"
-          required="required"
-        /><br />
+        <input type="text" id="region" v-model="region" placeholder="지역(시/군/구)" required><br>
       </div>
-      <br />
+      <br>
       <button type="submit">회원가입</button>
     </form>
   </div>

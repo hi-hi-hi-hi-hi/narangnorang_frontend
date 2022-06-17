@@ -3,27 +3,15 @@
     <form @submit.prevent="findPw">
       <div>
         <label for="email">아이디(이메일)</label>
-        <input
-          type="email"
-          id="email"
-          v-model="email"
-          placeholder="Email"
-          required="required"
-        />
-        <!-- <button type="button" @click="sendMail">인증메일보내기</button><br /> -->
-        <br />
+        <input type="email" id="email" v-model="email" placeholder="Email" required>
+        <!-- <button type="button" @click="sendMail">인증메일보내기</button><br> -->
+        <br>
       </div>
       <!-- <div>
         <label for="com">인증확인</label>
-        <input
-          type="text"
-          id="com"
-          v-model="com"
-          placeholder="인증확인"
-          required="required"
-        />
-        <input type="button" id="compare" value="인증하기" /><br />
-        <span id="compare-text"></span><br />
+        <input type="text" id="com" v-model="com" placeholder="인증확인" required>
+        <input type="button" id="compare" value="인증하기"><br />
+        <span id="compare-text"></span><br>
       </div> -->
       <br>
       <button type="submit">새 비번 설정하기</button>

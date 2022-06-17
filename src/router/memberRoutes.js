@@ -32,5 +32,10 @@ export default [{
     path: '/generalEdit',
     name: 'generalEdit',
     component: () => import('../views/member/GeneralEditView.vue')
+  },
+  {
+    path: '/counselorEdit',
+    name: 'counselorEdit',
+    component: () => import('../views/member/CounselorEditView.vue')
   }
 ]
