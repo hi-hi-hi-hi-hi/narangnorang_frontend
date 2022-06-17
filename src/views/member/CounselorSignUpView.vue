@@ -107,7 +107,6 @@
 <script>
 
 export default {
-  name: 'counselorSignUp',
   data () {
     return {
       email: '',

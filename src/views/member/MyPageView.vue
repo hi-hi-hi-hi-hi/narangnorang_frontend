@@ -3,7 +3,8 @@
     <form @submit.prevent="myPage">
       <p>정보를 안전하게 보호하기 위하여 비밀번호를 다시 확인 합니다.</p>
       <div>
-        이메일 {{ email }}
+        <p>이메일</p>
+        <p>{{ email }}</p>
       </div>
       <div>
         <label for="password">비밀번호</label>
@@ -18,7 +19,6 @@
 <script>
 
 export default {
-  name: 'myPage',
   data () {
     return {
       email: '',
@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     // submit
-    findPw (event) {
+    myPage (event) {
       if (this.password !== this.comparePw) {
         alert('비밀번호가 틀립니다.')
         event.preventDefault()

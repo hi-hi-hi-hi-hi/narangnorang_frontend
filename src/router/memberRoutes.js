@@ -27,5 +27,10 @@ export default [{
     path: '/myPage',
     name: 'myPage',
     component: () => import('../views/member/MyPageView.vue')
+  },
+  {
+    path: '/generalEdit',
+    name: 'generalEdit',
+    component: () => import('../views/member/GeneralEditView.vue')
   }
 ]

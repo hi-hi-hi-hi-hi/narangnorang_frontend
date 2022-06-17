@@ -76,7 +76,20 @@ export default {
         console.log(this.myRoomDTO)
       })
     }
-}
+  },
+  mounted () {
+    this.axios({
+        url: '/api/loginSession',
+        method: 'get',
+        responseType: 'json'
+      }).then((response) => {
+        this.email = response.data.email
+        this.name = response.data.name
+        this.originName = response.data.name
+        this.phone = response.data.phone
+        this.region = response.data.region
+      })
+  }
 }
 </script>
 

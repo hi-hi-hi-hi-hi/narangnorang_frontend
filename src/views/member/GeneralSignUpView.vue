@@ -88,7 +88,6 @@
 <script>
 
 export default {
-  name: 'generalSignUp',
   data () {
     return {
       email: '',
@@ -123,7 +122,8 @@ export default {
           this.axios({
           url: '/api/checkEmail',
           method: 'POST',
-          params: { email: this.email }
+          data: { email: this.email },
+          responseType: 'json'
         })
           .then((response) => {
             if (response.data !== 1) {
@@ -166,7 +166,7 @@ export default {
       this.axios({
         url: '/api/checkName',
         method: 'POST',
-        params: { name: this.name }
+        data: { name: this.name }
       })
       .then((response) => {
         if (response.data !== 1) {
