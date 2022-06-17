@@ -13,7 +13,6 @@ const routes = [
     component: () => import('../views/MainView.vue')
   }
 ]
-
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes: [
