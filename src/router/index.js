@@ -39,8 +39,8 @@ const routes = [
     name: 'myPage',
     component: () => import('../views/member/MyPageView.vue')
   },
-  
-  //post
+
+  // post
   {
     path: '/post',
     name: 'post',
@@ -56,8 +56,8 @@ const routes = [
     name: 'postWrite',
     component: () => import('../views/post/PostWrite.vue')
   },
-  
-  //test
+
+  // test
   {
     path: '/test',
     name: 'testList',
@@ -76,10 +76,10 @@ const routes = [
   {
     path: '/test/1',
     name: 'test1',
-    component: () => import('../views/test/Test1View.vue')
+    component: () => import('../views/test/TestView.vue')
   },
-  
-  //mynorang
+
+  // mynorang
   {
     path: '/mynorang',
     name: 'myNorang',
@@ -113,11 +113,16 @@ const routes = [
     component: () => import('../views/miniroom/HomeView.vue')
   },
 
-  // Counsel
+  // counsel
   {
     path: '/counsel',
     name: 'counsel',
     component: () => import('../views/counsel/CounselView.vue')
+   },
+   {
+    path: '/counsel/map',
+    name: 'counselMap',
+    component: () => import('../views/counsel/CenterMapView.vue')
    }
 ]
 

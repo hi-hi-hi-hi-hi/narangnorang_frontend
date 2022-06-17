@@ -8,7 +8,7 @@
 
 	<table v-for="(counselor, idx) in list" :key="idx" style="width: 600px; border: 1px solid gray; margin: 20px">
 		<tr align="center">
-			<td rowspan="6"><img :src="'../../assets/counsel/'+ counselor.id + '.jpg'"
+			<td rowspan="6"><img :src="require('@/assets/counsel/'+ counselor.id + '.jpg')"
 				width="150" height="200"></td>
 			<td><b style="font-size: 20px">{{ counselor.name }}</b></td>
 		</tr>
@@ -53,7 +53,7 @@ export default {
 
             })
             .then((res) => {
-                this.list = res.data.counselorDTO
+                this.list = res.data.counselorList
             })
             .catch((err) => {
                 console.log(err)
