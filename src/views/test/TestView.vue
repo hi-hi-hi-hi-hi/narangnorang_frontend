@@ -4,7 +4,7 @@
             <div style="height: 30px;">
                 <div class="progress-bar"></div>
             </div>
-            <img :src="require('@/assets/test/type' + this.$route.params.type + '.jpg')" style="width: 18rem;" />
+            <img :src="getImgSrc" style="width: 18rem;" />
             <div v-for="(qna, i) in qnaList" :key="i" v-show="i === idx">
                 <div class="question">
                     <h5>{{qna.question}}</h5>
@@ -19,7 +19,6 @@
     </div>
 </template>
 <script>
-import axios from 'axios'
 import qnaList1 from '@/components/test/qnaList1'
 import qnaList2 from '@/components/test/qnaList2'
 import qnaList3 from '@/components/test/qnaList3'
@@ -32,6 +31,19 @@ export default {
         }
     },
     methods: {
+        setQnaList () {
+            switch (this.$route.params.type) {
+            case '1':
+                this.qnaList = qnaList1
+                break
+            case '2':
+                this.qnaList = qnaList2
+                break
+            case '3':
+                this.qnaList = qnaList3
+                break
+            }
+        },
         select (idx, option) {
             this.selectList[idx] = option
             if (idx + 1 < this.qnaList.length) {
@@ -45,13 +57,12 @@ export default {
             for (let i = 0; i < this.qnaList.length; i++) {
                 result += this.selectList[i]
             }
-            axios({
+            this.axios({
                 url: '/api/test/' + this.$route.params.type + '/' + result,
                 method: 'post',
                 params: { type: this.$route.params.type, result: result },
                 responseType: 'json'
             }).then((response) => {
-                console.log(response)
                 if (response.data.flag === true) {
                     this.$router.push('/test/' + this.$route.params.type + '/' + result)
                 }
@@ -59,16 +70,11 @@ export default {
         }
     },
     mounted () {
-        switch (this.$route.params.type) {
-            case '1':
-                this.qnaList = qnaList1
-                break
-            case '2':
-                this.qnaList = qnaList2
-                break
-            case '3':
-                this.qnaList = qnaList3
-                break
+        this.setQnaList()
+    },
+    computed: {
+        getImgSrc () {
+            return require('@/assets/test/type' + this.$route.params.type + '.jpg')
         }
     }
 }
