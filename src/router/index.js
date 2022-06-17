@@ -7,7 +7,6 @@ const routes = [
     name: 'main',
     component: () => import('../views/MainView.vue')
   },
-
   // Member
   {
     path: '/login',
@@ -39,15 +38,14 @@ const routes = [
     name: 'myPage',
     component: () => import('../views/member/MyPageView.vue')
   },
-  
-  //post
+  // post
   {
     path: '/post',
     name: 'post',
     component: () => import('../views/post/PostView.vue')
   },
   {
-    path: '/post/retrieve',
+    path: '/post/:id',
     name: 'postRetrieve',
     component: () => import('../views/post/PostRetrieve.vue')
   },
@@ -56,8 +54,7 @@ const routes = [
     name: 'postWrite',
     component: () => import('../views/post/PostWrite.vue')
   },
-  
-  //test
+  // test
   {
     path: '/test',
     name: 'testList',
@@ -73,13 +70,7 @@ const routes = [
     name: 'testResult',
     component: () => import('../views/test/TestResultView.vue')
   },
-  {
-    path: '/test/1',
-    name: 'test1',
-    component: () => import('../views/test/Test1View.vue')
-  },
-  
-  //mynorang
+  // mynorang
   {
     path: '/mynorang',
     name: 'myNorang',
@@ -105,14 +96,12 @@ const routes = [
     name: 'myNorangChallenge',
     component: () => import('../views/mynorang/ChallengeView.vue')
   },
-
   // miniroom
   {
     path: '/home',
     name: 'home',
     component: () => import('../views/miniroom/HomeView.vue')
   },
-
   // Counsel
   {
     path: '/counsel',
@@ -120,7 +109,6 @@ const routes = [
     component: () => import('../views/counsel/CounselView.vue')
    }
 ]
-
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
