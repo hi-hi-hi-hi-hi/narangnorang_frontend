@@ -42,5 +42,10 @@ export default [{
     path: '/myPage/newPw',
     name: 'newPw',
     component: () => import('../views/member/NewPwView.vue')
+  },
+  {
+    path: '/photoUpdate',
+    name: 'photoUpdate',
+    component: () => import('../views/member/PhotoUpdateView.vue')
   }
 ]

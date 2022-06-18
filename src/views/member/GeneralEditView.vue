@@ -1,4 +1,5 @@
 <template>
+  <router-link to="/photoUpdate">프로필사진 변경</router-link>
   <form @submit.prevent="generalEdit">
     <div>
       <p>이메일</p>
