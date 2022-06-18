@@ -35,8 +35,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
     name: 'CounselorList',
     data () {
@@ -49,7 +47,7 @@ export default {
     },
     methods: {
         getList () {
-            axios.get('/api/counsel/list', {
+            this.axios.get('/api/counsel/list', {
 
             })
             .then((res) => {
