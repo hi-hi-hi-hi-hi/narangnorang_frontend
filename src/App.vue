@@ -1,5 +1,4 @@
 <template>
-  <h1 v-if="$route.name !== 'main' && $route.name !== 'login'">나랑노랑</h1>
   <nav v-if="$route.name !== 'main' && $route.name !== 'login'">
     <Header />
   </nav>

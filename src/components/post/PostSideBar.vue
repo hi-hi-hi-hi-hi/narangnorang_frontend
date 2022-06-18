@@ -1,10 +1,10 @@
 <template>
   <div class="postSideBar">
-    <ul>
-      <li><button id="btn_freeBoard" @click="updateCategory('자유게시판')">자유게시판</button></li>
-      <li><button id="btn_infoBoard" @click="updateCategory('정보게시판')">정보게시판</button></li>
-      <li><button id="btn_goodWordBoard" @click="updateCategory('예쁜말게시판')">예쁜말게시판</button></li>
-      <li><button id="btn_bambooBoard" @click="updateCategory('대나무숲')">대나무숲</button></li>
+    <ul class="list-group">
+      <a @click="fnUpdateCategory('자유게시판')"><li class="list-group-item">자유게시판</li></a>
+      <a @click="fnUpdateCategory('정보게시판')"><li class="list-group-item">정보게시판</li></a>
+      <a @click="fnUpdateCategory('예쁜말게시판')"><li class="list-group-item">예쁜말게시판</li></a>
+      <a @click="fnUpdateCategory('대나무숲')"><li class="list-group-item">대나무숲</li></a>
     </ul>
   </div>
 </template>
@@ -18,10 +18,19 @@ export default {
     }
   },
   methods: {
-    updateCategory (category) {
+    fnUpdateCategory (category) {
       this.category = category
       this.$emit('categoryFromSideBar', this.category)
     }
   }
 }
 </script>
+
+<style scoped>
+  .postSideBar{
+    grid-column: 1;
+    grid-row: 1;
+    margin-left: 20%;
+    margin-top: 10%
+  }
+</style>
