@@ -13,7 +13,7 @@
                 <option value="member_name">작성자</option>
             </select>
         </div>
-        <input type="text" class="form-control" v-model="keyword" />
+        <input type="text" class="form-control" v-model="keyword" @keyup="fnPostSearch" />
     </div>
       <!-- <select @change="fnChangeSearchCol()">
         <option value="title">제목</option>
@@ -56,13 +56,21 @@
     </div>
     <div class="postPageArea">
       <nav>
-        <ul class="pagination d-flex justify-content-center flex-wrap pagination-flat pagination-success">
+        <!-- <ul class="pagination d-flex justify-content-center flex-wrap pagination-flat pagination-success">
           <li class="page-item"><a class="page-link" href="#" data-abc="true">이전</a></li>
           <li class="page-item"><a class="page-link" href="#" data-abc="true">1</a></li>
           <li class="page-item"><a class="page-link" href="#" data-abc="true">2</a></li>
           <li class="page-item"><a class="page-link" href="#" data-abc="true">3</a></li>
           <li class="page-item"><a class="page-link" href="#" data-abc="true">4</a></li>
           <li class="page-item"><a class="page-link" href="#" data-abc="true">다음</a></li>
+        </ul> -->
+        <ul class="pagination d-flex justify-content-center flex-wrap pagination-flat pagination-success">
+          <li class="page-item" v-if="this.prev > 0" @click="fnChangePage(prev)"><a class="page-link">이전</a></li>
+          <span v-for="(n, idx) in pageNumbers" :key="idx">
+            <li class="page-item active" v-if="this.p === n"><a class="page-link">{{ n }}</a></li>
+            <li class="page-item" v-else @click="fnChangePage(n)"><a class="page-link">{{ n }}</a></li>
+          </span>
+          <li class="page-item" v-if="this.last < this.totalPage" @click="fnChangePage(next)"><a class="page-link">다음</a></li>
         </ul>
       </nav>
     </div>
@@ -83,7 +91,15 @@ export default {
       list: {},
       likes: 0,
       searchCol: 'title',
-      keyword: ''
+      keyword: '',
+      paging: {},
+      p: 1,
+      totalPage: 0,
+      first: 0,
+      last: 0,
+      prev: 0,
+      next: 0,
+      pageNumbers: []
     }
   },
   mounted () {
@@ -93,7 +109,8 @@ export default {
     fnGetList () {
       this.requestBody = {
         category: this.category,
-        likes: this.likes
+        likes: this.likes,
+        p: this.p
       }
 
       this.axios.get('/api/post/list', {
@@ -101,6 +118,7 @@ export default {
       })
       .then((res) => {
         this.list = res.data.postDto
+        this.fnPagingOp(res.data.pageDto.totalRows, res.data.pageDto.limit, res.data.pageDto.currentPage)
       })
       .catch((err) => {
         console.log(err)
@@ -122,6 +140,40 @@ export default {
       .catch((err) => {
         console.log(err)
       })
+    },
+    fnUpdateLikes (likes) {
+      this.keyword = ''
+      this.likes = likes
+    },
+    fnPagingOp (totalRows, limit, currentPage) {
+      const totalPage = Math.ceil(totalRows / limit) // 총 페이지 수
+      let pageCount = 5 // 한 그룹에 포함되는 페이지 수
+      if (totalPage < pageCount) {
+        pageCount = totalPage
+      }
+      const pageGroup = Math.ceil(currentPage / pageCount)
+      let last = pageGroup * pageCount
+      const first = last - (pageCount - 1)
+      if (last > totalPage) {
+        last = totalPage
+      }
+      const next = last + 1
+      const prev = first - 1
+      this.totalPage = totalPage
+      this.first = first
+      this.last = last
+      this.prev = prev
+      this.next = next
+
+      const pageNumbers = []
+      for (let i = this.first; i <= this.last; i++) {
+        pageNumbers.push(i)
+      }
+      this.pageNumbers = pageNumbers
+    },
+    fnChangePage (p) {
+      this.p = p
+      this.fnGetList()
     }
   },
   watch: {
@@ -131,12 +183,6 @@ export default {
       this.searchCol = 'title'
       this.keyword = ''
       this.fnGetList()
-    },
-    keyword: function () {
-      this.fnPostSearch()
-    },
-    searchCol: function () {
-      this.fnPostSearch()
     },
     likes: function () {
       this.fnGetList()
@@ -180,6 +226,6 @@ export default {
   }
   .pagination-success .page-item.active .page-link {
     background: #fff765;
-    border-color: #fff765;
+    border-color: lightgray;
   }
 </style>
