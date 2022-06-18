@@ -8,7 +8,7 @@
     <div class="postSearchArea">
       <div class="input-group mb-3">
         <div class="input-group-text p-0">
-            <select class="form-select form-select shadow-none bg-light border-0" v-model="searchCol">
+            <select class="form-select form-select shadow-none bg-light border-0" v-model="searchCol" @change="fnPostSearch">
                 <option value="title">제목</option>
                 <option value="member_name">작성자</option>
             </select>
@@ -31,15 +31,15 @@
           </td>
         </tr>
       </table>
-      <table v-else class="table table-hover">
+      <table v-else class="table table-hover" style="text-align:center;table-layout:fixed">
         <thead>
           <tr>
-            <th>번호</th>
-            <th>제목</th>
-            <th>글쓴이</th>
-            <th>작성일</th>
-            <th>조회</th>
-            <th>추천</th>
+            <th style="width:100px;">번호</th>
+            <th style="width:300px;">제목</th>
+            <th style="width:100px;">글쓴이</th>
+            <th style="width:200px;">작성일</th>
+            <th style="width:100px;">조회</th>
+            <th style="width:100px;">추천</th>
           </tr>
         </thead>
         <tbody>
@@ -128,7 +128,8 @@ export default {
       this.requestBody = {
         category: this.category,
         searchCol: this.searchCol,
-        keyword: this.keyword
+        keyword: this.keyword,
+        p: this.p
       }
 
       this.axios.get('/api/post/search', {
@@ -136,6 +137,7 @@ export default {
       })
       .then((res) => {
         this.list = res.data.PostDTO
+        this.fnPagingOp(res.data.PageDTO.totalRows, res.data.PageDTO.limit, res.data.PageDTO.currentPage)
       })
       .catch((err) => {
         console.log(err)
@@ -143,7 +145,9 @@ export default {
     },
     fnUpdateLikes (likes) {
       this.keyword = ''
+      this.p = 1
       this.likes = likes
+      this.fnGetList()
     },
     fnPagingOp (totalRows, limit, currentPage) {
       const totalPage = Math.ceil(totalRows / limit) // 총 페이지 수
@@ -173,7 +177,11 @@ export default {
     },
     fnChangePage (p) {
       this.p = p
-      this.fnGetList()
+      if (this.keyword === '') {
+        this.fnGetList()
+      } else {
+        this.fnPostSearch()
+      }
     }
   },
   watch: {
@@ -182,9 +190,6 @@ export default {
       this.likes = 0
       this.searchCol = 'title'
       this.keyword = ''
-      this.fnGetList()
-    },
-    likes: function () {
       this.fnGetList()
     }
   }
