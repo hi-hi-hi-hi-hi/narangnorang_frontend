@@ -37,5 +37,10 @@ export default [{
     path: '/counselorEdit',
     name: 'counselorEdit',
     component: () => import('../views/member/CounselorEditView.vue')
+  },
+  {
+    path: '/myPage/newPw',
+    name: 'newPw',
+    component: () => import('../views/member/NewPwView.vue')
   }
 ]

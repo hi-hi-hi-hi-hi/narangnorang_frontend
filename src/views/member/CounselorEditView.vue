@@ -29,7 +29,7 @@
       <textarea rows="20" cols="40" v-model="introduction" required />
     </div>
     <br>
-    <router-link to="/newPw">비밀번호 변경</router-link>
+    <router-link to="/myPage/newPw">비밀번호 변경</router-link>
     <br>
     <button type="submit">확인</button>
   </form>
@@ -115,20 +115,21 @@ export default {
   },
   mounted () {
     this.axios({
-        url: '/api/loginSession',
-        method: 'get',
-        responseType: 'json'
-      }).then((response) => {
-        this.email = response.data.email
-        this.name = response.data.name
-        this.phone = response.data.phone
-        this.zipcode = response.data.zipcode
-        this.address1 = response.data.address1
-        this.address2 = response.data.address2
-        this.address3 = response.data.address3
-        this.job = response.data.job
-        this.introduction = response.data.introduction
-      })
+      url: '/api/loginSession',
+      method: 'get',
+      responseType: 'json'
+    })
+    .then((response) => {
+      this.email = response.data.email
+      this.name = response.data.name
+      this.phone = response.data.phone
+      this.zipcode = response.data.zipcode
+      this.address1 = response.data.address1
+      this.address2 = response.data.address2
+      this.address3 = response.data.address3
+      this.job = response.data.job
+      this.introduction = response.data.introduction
+    })
   }
 }
 

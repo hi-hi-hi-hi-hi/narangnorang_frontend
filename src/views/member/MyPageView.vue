@@ -46,14 +46,15 @@ export default {
   },
   mounted () {
     this.axios({
-        url: '/api/loginSession',
-        method: 'get',
-        responseType: 'json'
-      }).then((response) => {
-        this.email = response.data.email
-        this.comparePw = response.data.password
-        this.privilege = response.data.privilege
-      })
+      url: '/api/loginSession',
+      method: 'get',
+      responseType: 'json'
+    })
+    .then((response) => {
+      this.email = response.data.email
+      this.comparePw = response.data.password
+      this.privilege = response.data.privilege
+    })
   }
 }
 

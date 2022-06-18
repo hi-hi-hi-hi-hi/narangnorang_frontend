@@ -19,7 +19,7 @@
       <input type="text" v-model="region" required>
     </div>
     <br>
-    <router-link to="/newPw">비밀번호 변경</router-link>
+    <router-link to="/myPage/newPw">비밀번호 변경</router-link>
     <br>
     <button type="submit">확인</button>
   </form>
@@ -103,16 +103,17 @@ export default {
   },
   mounted () {
     this.axios({
-        url: '/api/loginSession',
-        method: 'get',
-        responseType: 'json'
-      }).then((response) => {
-        this.email = response.data.email
-        this.name = response.data.name
-        this.originName = response.data.name
-        this.phone = response.data.phone
-        this.region = response.data.region
-      })
+      url: '/api/loginSession',
+      method: 'get',
+      responseType: 'json'
+    })
+    .then((response) => {
+      this.email = response.data.email
+      this.name = response.data.name
+      this.originName = response.data.name
+      this.phone = response.data.phone
+      this.region = response.data.region
+    })
   }
 }
 
