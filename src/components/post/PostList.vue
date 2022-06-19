@@ -74,6 +74,9 @@
         </ul>
       </nav>
     </div>
+    <div class="buttonArea">
+      <button class="btn btn-outline" @click="fnGoWritePage()">글쓰기</button>
+    </div>
   </div>
 </template>
 
@@ -182,6 +185,9 @@ export default {
       } else {
         this.fnPostSearch()
       }
+    },
+    fnGoWritePage () {
+      this.$router.push('/post/write?category=' + this.category)
     }
   },
   watch: {
@@ -190,6 +196,7 @@ export default {
       this.likes = 0
       this.searchCol = 'title'
       this.keyword = ''
+      this.p = 1
       this.fnGetList()
     }
   }
@@ -202,8 +209,8 @@ export default {
     grid-row: 1;
     margin-right:30%;
     display: grid;
-    grid-template-columns: 400px 400px;
-    grid-template-rows: 10px 600x 10px;
+    grid-template-columns: 400px 500px;
+    grid-template-rows: 40px 1fr 40px 40px;
     grid-gap: 5px;
   }
   .postLikeButtons{
@@ -232,5 +239,10 @@ export default {
   .pagination-success .page-item.active .page-link {
     background: #fff765;
     border-color: lightgray;
+  }
+  .buttonArea{
+    grid-column: 1/3;
+    grid-row:4;
+    text-align: center;
   }
 </style>

@@ -6,6 +6,11 @@ export default [{
   {
     path: '/post/retrieve',
     name: 'postRetrieve',
-    component: () => import('../views/post/PostRetrieve.vue')
+    component: () => import('../views/post/PostRetrieveView.vue')
+  },
+  {
+    path: '/post/write',
+    name: 'postWrite',
+    component: () => import('../views/post/PostWriteView.vue')
   }
 ]

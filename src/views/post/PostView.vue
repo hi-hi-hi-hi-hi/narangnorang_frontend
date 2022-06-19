@@ -2,7 +2,6 @@
   <div class="postSection">
     <PostSideBar :category="category" @categoryFromSideBar="fnUpdateCategory"/>
     <PostList :category="category"/>
-    <!-- <a @click="fnGoWritePage()">글쓰기</a> -->
   </div>
 </template>
 
@@ -33,6 +32,11 @@ export default {
     fnGoWritePage () {
       this.currentPage = 'PostWritePage'
     }
+  },
+  created () {
+    if (this.$route.query.category) {
+      this.category = this.$route.query.category
+    }
   }
 }
 </script>
@@ -42,5 +46,6 @@ export default {
     display: grid;
     grid-template-columns: 300px 500px;
     grid-gap: 30px;
+    position: absolute;
   }
 </style>
