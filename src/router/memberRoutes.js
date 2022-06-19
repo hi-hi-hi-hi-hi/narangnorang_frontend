@@ -39,9 +39,14 @@ export default [{
     component: () => import('../views/member/CounselorEditView.vue')
   },
   {
-    path: '/myPage/newPw',
+    path: '/newPw',
     name: 'newPw',
-    component: () => import('../views/member/NewPwView.vue')
+    component: () => import('../views/member/NewPwView1.vue')
+  },
+  {
+    path: '/myPage/newPw',
+    name: 'myPageNewPw',
+    component: () => import('../views/member/NewPwView2.vue')
   },
   {
     path: '/photoUpdate',

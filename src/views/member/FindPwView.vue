@@ -46,7 +46,23 @@ export default {
     //     })
     // }
     findPw () {
-
+      this.axios({
+        url: '/api/findPw',
+        method: 'POST',
+        data: {
+          email: this.email
+        }
+      })
+      .then((response) => {
+        if (response.data !== '') {
+          this.$router.push('/newPw')
+        } else {
+          alert('존재하지 않는 계정입니다.')
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     }
   }
 }
