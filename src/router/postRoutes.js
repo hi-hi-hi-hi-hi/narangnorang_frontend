@@ -4,7 +4,7 @@ export default [{
     component: () => import('../views/post/PostView.vue')
   },
   {
-    path: '/post/retrieve',
+    path: '/post/:id',
     name: 'postRetrieve',
     component: () => import('../views/post/PostRetrieveView.vue')
   },

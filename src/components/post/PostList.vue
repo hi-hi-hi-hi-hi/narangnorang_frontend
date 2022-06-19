@@ -45,7 +45,7 @@
         <tbody>
           <tr v-for="(row, idx) in list" :key="idx">
             <td>{{ row.id }}</td>
-            <td><a v-on:click="fnRetrieve('${row.id}')">{{ row.title }}</a></td>
+            <td><a @click="fnGoRetrievePage(row.id)">{{ row.title }}</a></td>
             <td>{{ row.memberName }}</td>
             <td>{{ row.datetime }}</td>
             <td>{{ row.views }}</td>
@@ -121,6 +121,9 @@ export default {
       })
       .then((res) => {
         this.list = res.data.postDto
+        console.log(this.requestBody)
+        console.log(res.data)
+        console.log(res.data.postDto)
         this.fnPagingOp(res.data.pageDto.totalRows, res.data.pageDto.limit, res.data.pageDto.currentPage)
       })
       .catch((err) => {
@@ -188,6 +191,9 @@ export default {
     },
     fnGoWritePage () {
       this.$router.push('/post/write?category=' + this.category)
+    },
+    fnGoRetrievePage (id) {
+      this.$router.push('/post/' + id)
     }
   },
   watch: {

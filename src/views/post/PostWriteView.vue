@@ -1,9 +1,13 @@
 <template>
   <div class="postWriteSection">
     <PostSideBar :category="category" @categoryFromSideBar="fnUpdateCategory"/>
-    <div class="postWriteArea">
-      <input class="writeTitle form-control" type="text" v-model="title" placeholder="제목을 입력하세요."><br>
-      <textarea class="writeContent form-control" v-model="content" placeholder="내용을 입력하세요."></textarea><br>
+    <div v-if="category === '대나무숲'" class="postWrtieArea">
+      <textarea class="writeContent form-control" v-model="content" placeholder="내용을 입력하세요."/><br>
+      <button class="btn" style="text-align:right;" @click="fnWritePost()">등록</button>
+    </div>
+    <div v-else class="postWriteArea">
+      <input class="writeTitle form-control" type="text" v-model="title" placeholder="제목을 입력하세요."/><br>
+      <textarea class="writeContent form-control" v-model="content" placeholder="내용을 입력하세요."/><br>
       <button class="btn" style="text-align:right;" @click="fnWritePost()">등록</button>
     </div>
   </div>
