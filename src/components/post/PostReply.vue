@@ -1,6 +1,6 @@
 <template>
-  <button class="btn" style="background-color:lightgray" @click="fnReplyVisibleToggle()">댓글 {{ replies }}</button>
   <div class="postReplyArea">
+    <button class="btn" @click="fnReplyVisibleToggle()">댓글 {{ replies }}</button>
     <ul v-if="replyVisible" class="list_comment list-group list-group-flush">
       <li v-for="(row, idx) in list" :key="idx" class="list-group-item">
         <div class="commentSection">
@@ -10,11 +10,14 @@
             <div class="replyContentArea">{{ row.content }}</div>
         </div>
       </li>
+      <PostWriteReply :postId="id"/>
     </ul>
   </div>
 </template>
 
 <script>
+import PostWriteReply from '@/components/post/PostWriteReply'
+
 export default {
   name: 'postReply',
   props: {
@@ -24,6 +27,9 @@ export default {
     replies: {
       default: 0
     }
+  },
+  components: {
+    PostWriteReply
   },
   data () {
     return {
@@ -57,7 +63,7 @@ export default {
 <style>
 .postReplyArea{
   margin-top: 10px;
-  width: 50%
+  width: 600px;
 }
 .replyContentArea{
   margin-top: 10px;

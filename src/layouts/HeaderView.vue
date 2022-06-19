@@ -1,5 +1,5 @@
 <template>
-    <img :src="require('@/assets/header/logo.png')" style="max-width:20%;heigth:auto;">
+    <img :src="require('@/assets/header/logo.png')" style="max-width:200px;heigth:auto;">
     <div class="top" v-if="headerVisible">
         <router-link class="nav_link" to="/home">나랑노랑</router-link> |
         <router-link class="nav_link" to="/">쪽지</router-link> |

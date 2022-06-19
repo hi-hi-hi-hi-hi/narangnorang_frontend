@@ -5,7 +5,7 @@
       <button class="btn btn-default btn" @click="fnUpdateLikes(10)">추천 10개 이상</button>
       <button class="btn btn-default btn" @click="fnUpdateLikes(30)">추천 30개 이상</button>
     </div>
-    <div class="postSearchArea">
+    <div v-if="category !== '대나무숲'" class="postSearchArea">
       <div class="input-group mb-3">
         <div class="input-group-text p-0">
             <select class="form-select form-select shadow-none bg-light border-0" v-model="searchCol" @change="fnPostSearch">
@@ -28,6 +28,7 @@
             익명 {{ row.datetime }} <button class="btn btn-default"> 추천 {{ row.likes }}</button>
             <br>
             {{ row.content }}
+            <!-- <PostReply :replyVisible="replyVisible" /> -->
           </td>
         </tr>
       </table>
@@ -46,8 +47,8 @@
           <tr v-for="(row, idx) in list" :key="idx">
             <td>{{ row.id }}</td>
             <td><a @click="fnGoRetrievePage(row.id)">
-            <strong v-if="category === '정보게시판' && row.memberPrivilege === 1">{{ row.title }}</strong>
-            <span v-else>{{ row.title }}</span>
+            <strong v-if="category === '정보게시판' && row.memberPrivilege === 1" style="cursor:pointer;">{{ row.title }}</strong>
+            <span v-else style="cursor:pointer;">{{ row.title }}</span>
             </a><span style="color:red;margin:5px">[{{ row.replies }}]</span></td>
             <td>{{ row.memberName }}</td>
             <td>{{ row.datetime }}</td>
@@ -76,6 +77,8 @@
 </template>
 
 <script>
+// import PostReply from '@/components/post/PostReply'
+
 export default {
   name: 'PostList',
   props: {
@@ -98,7 +101,11 @@ export default {
       prev: 0,
       next: 0,
       pageNumbers: []
+      // replyVisible: false
     }
+  },
+  components: {
+    // PostReply
   },
   mounted () {
     this.fnGetList()

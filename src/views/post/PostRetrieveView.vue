@@ -2,6 +2,8 @@
   <div class="postRetrieveSection">
     <PostSideBar :category="category" @categoryFromSideBar="fnUpdateCategory"/>
     <div class="postRetrieveArea">
+      <div style="margin-bottom:20px;"><button class="btn">수정</button>
+      <button class="btn" @click="fnPostDelete()">삭제</button></div>
       {{ category }} <br>
       <strong style="font-size:30px;">{{ title }}</strong>
       <div class="postInfoArea">
@@ -14,14 +16,12 @@
         {{ content }}
       </div>
       <PostReply :id="id" :replies="replies"/>
-      <PostWriteReply :postId="id"/>
     </div>
   </div>
 </template>
 <script>
 import PostSideBar from '@/components/post/PostSideBar'
 import PostReply from '@/components/post/PostReply'
-import PostWriteReply from '@/components/post/PostWriteReply'
 
 export default {
   data () {
@@ -39,8 +39,7 @@ export default {
   },
   components: {
     PostSideBar,
-    PostReply,
-    PostWriteReply
+    PostReply
   },
   created () {
     this.id = this.$route.params.id
@@ -75,6 +74,18 @@ export default {
       .catch((err) => {
         console.log(err)
       })
+    },
+    fnPostDelete () {
+      if (confirm('게시글을 삭제하시겠습니까?')) {
+        this.axios.delete('/api/post/' + this.id)
+        .then((res) => {
+          alert('게시물을 삭제하였습니다.')
+          this.$router.push('/post?category=' + this.category)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+      }
     }
   }
 }
