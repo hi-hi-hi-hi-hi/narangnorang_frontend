@@ -47,5 +47,15 @@ export default [{
     path: '/photoUpdate',
     name: 'photoUpdate',
     component: () => import('../views/member/PhotoUpdateView.vue')
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: () => import('../views/member/AdminView.vue')
+  },
+  {
+    path: '/memberManagement',
+    name: 'memberManagement',
+    component: () => import('../views/member/MemberManagementView.vue')
   }
 ]

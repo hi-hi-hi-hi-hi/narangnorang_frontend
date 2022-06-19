@@ -34,9 +34,7 @@ export default {
         alert('비밀번호가 틀립니다.')
         event.preventDefault()
       } else {
-        if (this.privilege === 0) {
-          this.$router.push('/admin')
-        } else if (this.privilege === 3) {
+        if (this.privilege === 3) {
           this.$router.push('/generalEdit')
         } else {
           this.$router.push('/counselorEdit')
