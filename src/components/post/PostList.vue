@@ -45,7 +45,10 @@
         <tbody>
           <tr v-for="(row, idx) in list" :key="idx">
             <td>{{ row.id }}</td>
-            <td><a @click="fnGoRetrievePage(row.id)">{{ row.title }}</a></td>
+            <td><a @click="fnGoRetrievePage(row.id)">
+            <strong v-if="category === '정보게시판' && row.memberPrivilege === 1">{{ row.title }}</strong>
+            <span v-else>{{ row.title }}</span>
+            </a><span style="color:red;margin:5px">[{{ row.replies }}]</span></td>
             <td>{{ row.memberName }}</td>
             <td>{{ row.datetime }}</td>
             <td>{{ row.views }}</td>
@@ -56,14 +59,6 @@
     </div>
     <div class="postPageArea">
       <nav>
-        <!-- <ul class="pagination d-flex justify-content-center flex-wrap pagination-flat pagination-success">
-          <li class="page-item"><a class="page-link" href="#" data-abc="true">이전</a></li>
-          <li class="page-item"><a class="page-link" href="#" data-abc="true">1</a></li>
-          <li class="page-item"><a class="page-link" href="#" data-abc="true">2</a></li>
-          <li class="page-item"><a class="page-link" href="#" data-abc="true">3</a></li>
-          <li class="page-item"><a class="page-link" href="#" data-abc="true">4</a></li>
-          <li class="page-item"><a class="page-link" href="#" data-abc="true">다음</a></li>
-        </ul> -->
         <ul class="pagination d-flex justify-content-center flex-wrap pagination-flat pagination-success">
           <li class="page-item" v-if="this.prev > 0" @click="fnChangePage(prev)"><a class="page-link">이전</a></li>
           <span v-for="(n, idx) in pageNumbers" :key="idx">
@@ -121,9 +116,6 @@ export default {
       })
       .then((res) => {
         this.list = res.data.postDto
-        console.log(this.requestBody)
-        console.log(res.data)
-        console.log(res.data.postDto)
         this.fnPagingOp(res.data.pageDto.totalRows, res.data.pageDto.limit, res.data.pageDto.currentPage)
       })
       .catch((err) => {
@@ -193,7 +185,7 @@ export default {
       this.$router.push('/post/write?category=' + this.category)
     },
     fnGoRetrievePage (id) {
-      this.$router.push('/post/' + id)
+      this.$router.push('/post/' + id + '?category=' + this.category)
     }
   },
   watch: {

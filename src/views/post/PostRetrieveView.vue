@@ -2,7 +2,7 @@
   <div class="postRetrieveSection">
     <PostSideBar :category="category" @categoryFromSideBar="fnUpdateCategory"/>
     <div class="postRetrieveArea">
-      자유게시판 <br>
+      {{ category }} <br>
       <strong style="font-size:30px;">{{ title }}</strong>
       <div class="postInfoArea">
         {{ memberName }}
@@ -13,11 +13,15 @@
       <div class="postContentArea">
         {{ content }}
       </div>
+      <PostReply :id="id" :replies="replies"/>
+      <PostWriteReply :postId="id"/>
     </div>
   </div>
 </template>
 <script>
 import PostSideBar from '@/components/post/PostSideBar'
+import PostReply from '@/components/post/PostReply'
+import PostWriteReply from '@/components/post/PostWriteReply'
 
 export default {
   data () {
@@ -29,11 +33,14 @@ export default {
       memberName: '',
       views: 0,
       likes: 0,
-      replies: 0
+      replies: 0,
+      category: this.$route.query.category
     }
   },
   components: {
-    PostSideBar
+    PostSideBar,
+    PostReply,
+    PostWriteReply
   },
   created () {
     this.id = this.$route.params.id
@@ -49,6 +56,7 @@ export default {
         this.memberName = res.data.memberName
         this.views = res.data.views
         this.likes = res.data.likes
+        this.replies = res.data.replies
       })
       .catch((err) => {
         console.log(err)
