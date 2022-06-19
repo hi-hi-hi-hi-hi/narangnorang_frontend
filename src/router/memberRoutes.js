@@ -57,5 +57,10 @@ export default [{
     path: '/memberManagement',
     name: 'memberManagement',
     component: () => import('../views/member/MemberManagementView.vue')
+  },
+  {
+    path: '/counselorPrivilege',
+    name: 'counselorPrivilege',
+    component: () => import('../views/member/CounselorPrivilegeView.vue')
   }
 ]

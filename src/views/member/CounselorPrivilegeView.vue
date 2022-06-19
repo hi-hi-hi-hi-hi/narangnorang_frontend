@@ -1,5 +1,5 @@
 <template>
-  <h2>계정관리</h2>
+  <h2>상담사 승인 관리</h2>
   <table border="1">
     <thead>
       <tr>
@@ -43,7 +43,7 @@
     </tbody>
   </table>
   <br>
-  <button type="button" @click="delSelected">선택 계정 삭제</button>
+  <button type="button" @click="privilegeUP">선택 상담사 승인</button>
   <br>
 </template>
 
@@ -60,7 +60,7 @@ export default {
     // list 호출
     getList () {
       this.axios({
-      url: '/api/memberManagement',
+      url: '/api/counselorPrivilege',
       method: 'GET'
     })
     .then((response) => {
@@ -70,20 +70,20 @@ export default {
       console.log(error)
     })
     },
-    // 선택 계정 삭제
-    delSelected (event) {
+    // 선택 상담사 승인
+    privilegeUP (event) {
       if (this.checked === []) {
         alert('선택된 항목이 없습니다.')
         event.prevendDefault()
       } else {
-        if (confirm('선택된 계정들을 삭제하시겠습니까?')) {
+        if (confirm('선택된 계정들을 승인하시겠습니까?')) {
           this.axios({
-            url: '/api/delMember',
-            method: 'DELETE',
+            url: '/api/privilegeUp',
+            method: 'PUT',
             params: this.checked
           })
           .then((response) => {
-            alert(response.data + '개의 계정이 삭제되었습니다.')
+            alert(response.data + '개의 계정이 승인되었습니다.')
             this.$router.push('/admin')
           })
           .catch((error) => {

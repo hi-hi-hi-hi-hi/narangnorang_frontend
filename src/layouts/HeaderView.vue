@@ -12,7 +12,7 @@
     </div>
     <div class="navBar" v-if="privilege === 0">
         <router-link class="nav_link" to="/memberManagement">계정관리</router-link> |
-        <router-link class="nav_link" to="/test">상담사 회원 등급관리</router-link>
+        <router-link class="nav_link" to="/counselorPrivilege">상담사 승인 관리</router-link>
     </div>
     <div class="navBar" v-else-if="headerVisible">
         <router-link class="nav_link" to="/post">커뮤니티</router-link> |
