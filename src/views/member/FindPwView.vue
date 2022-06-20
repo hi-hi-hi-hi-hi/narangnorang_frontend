@@ -1,22 +1,24 @@
 <template>
-  <div class="signUp">
-    <form @submit.prevent="findPw">
-      <div>
-        <label for="email">아이디(이메일)</label>
-        <input type="email" id="email" v-model="email" placeholder="Email" required>
-        <button type="button" @click="sendMail">인증메일보내기</button><br>
+  <body class="text-center">
+    <main class="form-signin w-100 m-auto">
+      <form @submit.prevent="findPw">
+        <h1 class="h3 mb-3 fw-normal">비밀번호 찾기</h1>
+        <div class="form-floating">
+          <input type="email" class="form-control" id="email" v-model="email" placeholder="Email" required>
+          <label for="email" class="">Email address</label>
+        </div>
         <br>
-      </div>
-      <div>
-        <label for="com">인증확인</label>
-        <input type="text" id="com" v-model="com" placeholder="인증확인" required>
-        <button type="button" @click="compare">인증확인</button><br>
-        <span id="compare-text" style="color: blue">{{ compareText }}</span><br>
-      </div>
-      <br>
-      <button type="submit">새 비번 설정하기</button>
-    </form>
-  </div>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="com" v-model="com" placeholder="인증확인" required>
+          <label for="com" class="">인증확인</label>
+          <span id="compare-text" style="color: blue">{{ compareText }}</span><br>
+        </div>
+        <button type="button" class="btn btn-secondary" @click="sendMail">인증메일보내기</button>
+        <button type="button" class="btn btn-secondary" @click="compare">인증확인</button>
+        <button type="submit" class="w-100 mt-3 btn btn-lg btn-primary">새 비번 설정하기</button>
+      </form>
+    </main>
+  </body>
 </template>
 
 <script>
@@ -89,33 +91,30 @@ export default {
         this.$router.push('/newPw')
       }
     }
-    // findPw (event) {
-    //   if (this.isCertification === false) {
-    //     alert('인증번호가 일치하지 않습니다.')
-    //     event.preventDefault()
-    //   } else {
-    //     this.axios({
-    //     url: '/api/findPw',
-    //     method: 'POST',
-    //     data: {
-    //       email: this.email
-    //     }
-    //   })
-    //   .then((response) => {
-    //     if (response.data !== '') {
-    //       this.isExist = true
-    //       this.$router.push('/newPw')
-    //     } else {
-    //       alert('존재하지 않는 계정입니다.')
-    //       this.isExist = false
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log(error)
-    //   })
-    //   }
-    // }
   }
 }
 
 </script>
+
+<style scoped>
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #f5f5f5;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+</style>

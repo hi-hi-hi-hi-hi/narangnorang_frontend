@@ -1,5 +1,62 @@
 <template>
-  <div class="signUp">
+  <body class="text-center">
+    <main class="form-signin w-100 m-auto">
+      <form @submit.prevent="generalSignUp">
+        <h1 class="h3 mb-3 fw-normal">일반회원가입</h1>
+        <div class="form-floating">
+          <input type="email" class="form-control" id="email" v-model="email" placeholder="Email" required>
+          <label for="email" class="">Email address</label>
+          <span id="emailCheckResult" style="color: blue">{{ emailCheckResult }}</span>
+        </div>
+        <br>
+        <button type="button" class="btn btn-secondary" @click="checkEmail">중복 체크</button>
+        <button type="button" class="btn btn-secondary" @click="sendMail">인증메일보내기</button><br>
+        <br>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="com" v-model="com" placeholder="인증확인" required>
+          <label for="com" class="">인증확인</label>
+          <span id="compare-text" style="color: blue">{{ compareText }}</span>
+        </div>
+        <br>
+        <button type="button" class="btn btn-secondary" @click="compare">인증확인</button>
+        <br>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="password" v-model="password" placeholder="Password" required>
+          <label for="password" class="">Password</label>
+        </div>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="password2" @input="pwCheck" v-model="password2" placeholder="Password Check" required>
+          <label for="password2" class="">Password Check</label>
+          <span id="pwCheckResult" style="color: blue">{{ pwCheckResult }}</span>
+        </div>
+        <br>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="name" v-model="name" placeholder="NICKNAME" required>
+          <label for="name">NICKNAME</label>
+          <span id="nicknameCheckResult" style="color: blue">{{ nicknameCheckResult }}</span>
+        </div>
+        <br>
+        <button type="button" class="btn btn-secondary" @click="checkName">중복 체크</button>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="name" v-model="name" placeholder="NICKNAME" required>
+          <label for="name">닉네임</label>
+        </div>
+        <br>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="phone" v-model="phone" placeholder="-제외 번호" required>
+          <label for="phone">휴대전화</label>
+        </div>
+        <br>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="region" v-model="region" placeholder="지역(시/군/구)" required>
+          <label for="region">지역</label>
+        </div>
+        <br>
+        <button type="submit" class="w-100 mt-3 btn btn-lg btn-primary">회원가입</button>
+      </form>
+    </main>
+  </body>
+  <!-- <div class="signUp">
     <form @submit.prevent="generalSignUp">
       <div>
         <label for="email">아이디(이메일)</label>
@@ -39,7 +96,7 @@
       <br>
       <button type="submit">회원가입</button>
     </form>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -219,3 +276,26 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #f5f5f5;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+</style>
