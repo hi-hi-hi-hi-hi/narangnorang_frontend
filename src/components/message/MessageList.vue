@@ -1,6 +1,6 @@
 <template>
   <!-- 대화 List -->
-  <div class="col-md-5 list-outer">
+  <div class="list-outer list-section">
     <div v-for="(message, idx) in list" :key="idx" class="friend-drawer friend-drawer list-inner">
       <img class="col-3 profile-image"
         src="@/assets/counsel/norang.png">
@@ -8,7 +8,7 @@
         :src="require('@/assets/counsel/' + message.recieverId + '.jpg')">
       <img v-else class="col-3 profile-image" :src="require('@/assets/counsel/' + message.senderId + '.jpg')"> -->
       <!-- 대화 상대 -->
-      <div class="col-6 text">
+      <div class="col-5 text">
         <h6 v-if="message.senderName === null || message.recieverName === null">
           <b style="font-size: 11px; color: grey">탈퇴한 사용자</b>
         </h6>
@@ -34,11 +34,11 @@
         </p>
       </div>
       <!-- 최근 시간 -->
-      <div v-if="message.datetime.substring(0, 10) === todayDate" class="col-3 time text-muted small">
+      <div v-if="message.datetime.substring(0, 10) === todayDate" class="col-4 time text-muted small">
         {{ message.datetime.substring(10, 19) }}
       </div>
-      <div v-else class="col-3 time text-muted small">
-        {{ message.datetime.substring(0, 10) }}
+      <div v-else class="col-4 time text-muted small">
+        {{ message.datetime.substring(2, 10) }}
       </div>
     </div>
   </div>
@@ -124,8 +124,17 @@ a:hover {
 }
 
 .list-outer {
+  height: 700px;
   padding: 12px;
-  background-color: rgba(225, 251, 119, 0.5);
+  background-color:rgb(255, 247, 101, 0.5);
+  border-radius: 8px;
+}
+
+.list-section{
+  grid-column: 1;
+  grid-row: 1;
+  margin-left: 20%;
+  margin-top: 10%
 }
 
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<div v-if="showHistory === true" class="col-md-7">
+	<div v-if="showHistory === true" class="history-section">
 		<div class="ms-body">
             <div class="action-header clearfix">
                 <div class="visible-xs" id="ms-menu-trigger">
@@ -30,12 +30,12 @@
 				</div>
 
 			<!-- 내가 보냄 -->
-				<div class="message-feed right">
+				<div v-else class="message-feed right">
 					<div class="media-body">
 						<div class="mf-content">
 							{{ message.content }}
 						</div>
-						<small class="mf-date">{{ message.datetime }}0</small>
+						<small class="mf-date">{{ message.datetime }}</small>
 					</div>
 				</div>
 			</div>
@@ -297,6 +297,13 @@ body {
 .send-button {
     color: black;
     font-size: 10px;
+}
+
+.history-section{
+    grid-column: 2;
+    grid-row: 1;
+    margin-right:30%;
+    margin-top: 10%;
 }
 
 </style>
