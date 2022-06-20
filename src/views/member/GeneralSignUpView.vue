@@ -5,16 +5,16 @@
         <label for="email">아이디(이메일)</label>
         <input type="email" id="email" v-model="email" placeholder="Email" required>
         <button type="button" @click="checkEmail">중복 체크</button>
-        <!-- <button type="button" @click="sendMail">인증메일보내기</button><br> -->
+        <button type="button" @click="sendMail">인증메일보내기</button><br>
         <span id="emailCheckResult" style="color: blue">{{ emailCheckResult }}</span>
         <br>
       </div>
-      <!-- <div>
+      <div>
         <label for="com">인증확인</label>
         <input type="text" id="com" v-model="com" placeholder="인증확인" required>
-        <input type="button" id="compare" value="인증확인"><br>
-        <span id="compare-text"></span><br>
-      </div> -->
+        <button type="button" @click="compare">인증확인</button><br>
+        <span id="compare-text" style="color: blue">{{ compareText }}</span><br>
+      </div>
       <div>
         <label for="password">비밀번호</label>
         <input type="password" id="password" v-model="password" placeholder="PASSWORD" required><br>
@@ -48,7 +48,7 @@ export default {
   data () {
     return {
       email: '',
-      // com: '',
+      com: '',
       password: '',
       password2: '',
       name: '',
@@ -59,7 +59,10 @@ export default {
       nicknameCheckResult: '',
       idDuplication: false,
       pwCompare: false,
-      nicknameDuplication: false
+      nicknameDuplication: false,
+      compareText: '',
+      key: '',
+      isCertification: false
     }
   },
   methods: {
@@ -101,6 +104,19 @@ export default {
             console.log(error)
           })
       }
+    },
+    // 인증번호 확인
+    compare () {
+      let mesg = '불일치'
+      if (this.com === this.key) {
+        mesg = '일치'
+        document.getElementById('compare-text').setAttribute('style', 'color: blue')
+        this.isCertification = true
+      } else {
+        document.getElementById('compare-text').setAttribute('style', 'color: red')
+        this.isCertification = false
+      }
+      this.compareText = mesg
     },
     // 비번 재확인
     pwCheck () {
@@ -148,6 +164,9 @@ export default {
       } else if (this.idDuplication === false) {
         alert('아이디 중복검사를 해주세요')
         event.preventDefault()
+      } else if (this.isCertification === false) {
+        alert('인증 확인이 필요합니다')
+        event.preventDefault()
       } else if (this.pwCompare === false) {
         alert('비밀번호가 일치하지 않습니다')
         event.preventDefault()
@@ -174,23 +193,29 @@ export default {
           console.log(error)
         })
       }
-    }
+    },
     // 인증 메일 전송
-    // sendMail () {
-    //   const url = '/api/sendMail'
-    //   const data = {
-    //     email: this.email
-    //   }
-    //   axios
-    //     .post(url, data)
-    //     .then((response) => {
-    //       alert('인증메일이 전송되었습니다.')
-    //       console.log(response.data)
-    //     })
-    //     .catch((error) => {
-    //       console.log(error)
-    //     })
-    // }
+    sendMail (event) {
+      const url = '/api/sendMail'
+      const data = {
+        email: this.email
+      }
+      if (this.idDuplication === false) {
+        alert('아이디 중복검사를 해주세요.')
+        event.preventDefault()
+      } else {
+        this.axios
+        .post(url, data)
+        .then((response) => {
+          alert('인증메일이 전송되었습니다.')
+          this.key = response.data
+          console.log(response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+      }
+    }
   }
 }
 </script>
