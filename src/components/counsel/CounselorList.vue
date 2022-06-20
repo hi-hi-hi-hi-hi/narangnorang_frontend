@@ -92,7 +92,6 @@ export default {
 </script>
 
 <style scoped>
-
 .black-bg {
   width: 100%;
   height: 100%;

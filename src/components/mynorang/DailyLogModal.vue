@@ -1,7 +1,6 @@
 <template>
-    <div class="black-bg">
+    <div class="black-bg" @click="close">
         <div class="white-bg">
-            <button type="button" @click="close">닫기</button>
             <div>{{datetime}}</div>
             <div>
                 잠 : <input type="number" v-model="sleep" min="0" max="24" required="required">
@@ -23,24 +22,26 @@
     </div>
 </template>
 
-<style scope>
-    body {
-        margin : 0;
-    }
-    div {
-        box-sizing: border-box;
-    }
+<style scoped>
     .black-bg {
-        width: 100%; height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        padding: 20px;
         position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.05);
+        z-index: 3;
     }
     .white-bg {
-        width: 100%;
-        background: white;
+        position: fixed;
+        top: 50%; left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        width: 25%; height: 25%;
         padding: 20px;
-        border-radius: 8px;
+        border-radius: 10px;
+        background: white;
     }
 </style>
 
@@ -57,8 +58,11 @@ export default {
         dailyLog: Object
     },
     methods: {
-        close () {
-            this.$emit('close')
+        close (event) {
+            console.log(event.target)
+            if (event.target.className === 'black-bg') {
+                this.$emit('close')
+			}
         },
         putDailyLog () {
             this.axios({

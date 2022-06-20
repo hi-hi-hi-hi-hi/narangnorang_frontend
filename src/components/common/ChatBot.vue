@@ -1,8 +1,9 @@
 <template>
-	<button type="button" v-if="!showChatBot" @click="open">열기</button>
-	<div v-if="showChatBot" class="black-bg">
+	<button type="button" v-if="!modal" @click="open" style="position: fixed; right: 5%; bottom: 5%; border-radius: 40%; z-index: 3;">
+		<img src="@/assets/common/norang.png" width="70">
+	</button>
+	<div v-if="modal" class="black-bg" @click="close">
 		<div class="white-bg">
-			<button type="button" @click="close">닫기</button>
 			<div>{{challenge}}</div>
 			<hr>
 			<div v-if="challengeSend">
@@ -11,7 +12,7 @@
 				<button type="button" @click="postChallenge(multipartFile, title)">업로드</button>
 			</div>
 			<hr>
-			<div style="width: 400px; height: 400px; overflow: auto;">
+			<div style="height: 60%; overflow: auto;">
 				<ChatMessage v-for="(message, i) in messageList" :key="i" :from="message.from" :content="message.content" />
 			</div>
 			<div v-if="dailyLogSend">
@@ -33,26 +34,23 @@
 	</div>
 </template>
 
-<style scope>
-	body {
-		margin : 0;
-	}
-	div {
-		box-sizing: border-box;
-	}
-	.black-bg {
-		width: 100%; height: 100%;
-		background: rgba(0, 0, 0, 0.5);
-		padding: 20px;
-		position: fixed;
-		z-index: 100;
-	}
-	.white-bg {
-		width: 100%;
-		background: white;
-		padding: 20px;
-		border-radius: 8px;
-	}
+<style scoped>
+    .black-bg {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.05);
+        z-index: 3;
+    }
+    .white-bg {
+        position: fixed;
+        right: 10%; bottom: 10%;
+        width: 30%; height: 80%;
+        padding: 20px;
+        border-radius: 10px;
+        background: white;
+    }
+
 </style>
 
 <script>
@@ -63,7 +61,7 @@ export default {
 	},
 	data () {
 		return {
-			showChatBot: false,
+			modal: false,
 			challenge: '',
 			challengeSend: false,
 			messageList: [],
@@ -79,13 +77,15 @@ export default {
 	},
 	methods: {
 		open () {
-			this.showChatBot = true
+			this.modal = true
 			this.messageList = []
 			this.getChallenge()
 			this.getDailyLog()
 		},
-		close () {
-			this.showChatBot = false
+		close (event) {
+			if (event.target.className === 'black-bg') {
+				this.modal = false
+			}
 		},
 		getChallenge () {
 			this.axios({
@@ -210,6 +210,13 @@ export default {
 			const message = { from: from, content: content }
 			this.messageList.push(message)
 			this.messageSend = true
+			for (let j = 0; j < 3; j++) {
+				const from = '나'
+				const content = '싫어!'
+				const message = { from: from, content: content }
+				this.messageList.push(message)
+				this.messageSend = true
+			}
 		}
 	}
 }

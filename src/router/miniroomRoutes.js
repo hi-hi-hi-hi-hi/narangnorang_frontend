@@ -17,10 +17,5 @@ export default [{
     path: '/home/wish',
     name: 'HomeWish',
     component: () => import('../views/miniroom/HomeWishView.vue')
-  },
-  {
-    path: '/home/css',
-    name: 'HomeCSS',
-    component: () => import('../views/miniroom/HomeCSSView.vue')
   }
 ]
