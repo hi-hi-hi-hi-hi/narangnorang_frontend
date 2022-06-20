@@ -24,7 +24,7 @@ export default {
         content: '',
         title: ''
       },
-      category: this.$route.query.category
+      category: this.$route.params.category
     }
   },
   components: {
@@ -37,12 +37,9 @@ export default {
         title: this.title,
         content: this.content
       }
-
-      this.axios({
-        method: 'post',
-        url: '/api/post/write',
-        data: this.requestBody
-      }).then((res) => {
+      console.log(this.requestBody)
+      this.axios.post('/api/post/write', this.requestBody)
+      .then((res) => {
         alert('게시글이 등록되었습니다.')
         this.$router.push({ name: 'post', params: { category: this.category } })
       })

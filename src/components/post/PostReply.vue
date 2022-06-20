@@ -2,7 +2,7 @@
   <div class="postReplyArea">
     <ul class="list_comment list-group">
       <a v-for="(row, idx) in list" :key="idx">
-        <li v-if="replyVisible && row.postId === id" class="list-group-item border-0">
+        <li v-if="replyVisible" class="list-group-item border-0">
           <div class="commentSection">
               {{ row.memberName }}
               <span style="font-size:12px">{{ row.datetime }}</span>
