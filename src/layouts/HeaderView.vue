@@ -11,7 +11,7 @@
         <router-link class="nav_link" to="/post">커뮤니티</router-link> |
         <router-link class="nav_link" to="/test">테스트</router-link> |
         <router-link class="nav_link" to="/counsel">상담하기</router-link> |
-        <router-link class="nav_link" to="/mynorang">나의노랑</router-link>
+        <router-link class="nav_link" to="/mynorang/challenge">나의노랑</router-link>
     </div>
 </template>
 <script>
