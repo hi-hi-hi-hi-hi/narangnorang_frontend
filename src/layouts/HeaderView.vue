@@ -1,7 +1,7 @@
 <template>
     <div class="top" v-if="headerVisible">
         <router-link class="nav_link" to="/home">나랑노랑</router-link> |
-        <router-link class="nav_link" to="/">쪽지</router-link> |
+        <router-link class="nav_link" to="/message">쪽지</router-link> |
         <router-link class="nav_link" to="/">알림</router-link> |
         <router-link class="nav_link" to="/myPage">내 정보</router-link> |
         <router-link class="nav_link" to="/">고객문의</router-link> |

@@ -7,11 +7,10 @@
 </template>
 
 <script>
-import CounselSideBar from '@/components/counsel/CounselSideBar.vue'
-import CenterMap from '@/components/counsel/CenterMap.vue'
+import CounselSideBar from '@/components/counsel/CounselSideBar'
+import CenterMap from '@/components/counsel/CenterMap'
 
 export default {
-  name: 'CenterMapView',
   components: {
     CenterMap,
     CounselSideBar

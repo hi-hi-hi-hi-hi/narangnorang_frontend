@@ -10,7 +10,7 @@
       <div> 연락처: {{ centerInfo.phone }} </div>
       <div> 지번주소: {{ centerInfo.address_name }}</div>
       <div> 도로명주소: {{ centerInfo.road_address_name }} </div>
-      <div> <a :href=centerInfo.place_url> 자세히 </a> </div>
+      <div> <a target="_blank" :href=centerInfo.place_url> 자세히 </a> </div>
       <button @click="overlay = false">닫기</button>
     </div>
   </div>
@@ -119,28 +119,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-body{
-  margin: 0
-}
-
-div {
-  box-sizing: border-box;
-}
-
-.black-bg {
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  padding: 20px;
-}
-
-.white-bg {
-  width: 100%;
-  background: white;
-  border-radius: 8px;
-  padding: 20px;
-}
-</style>
