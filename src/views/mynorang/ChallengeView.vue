@@ -1,26 +1,34 @@
 <template>
-    <SideBar />
-    <div class="container">
-	    <div class="row">
-            <div v-for="(challenge, i) in challengeList" :key="i" class="col-auto m-2" >
-				<div class="card">
-					<img :src="getImgSrc(challenge.memberId, challenge.datetime)" class="card-img-top">
-					<div class="card-body">
-						<h5 class="card-title">{{challenge.title}}</h5>
-						<p class="card-text">{{challenge.datetime}}</p>
-					</div>
-				</div>
-			</div>
+    <div class="view">
+        <SideBar />
+        <div class="container">
+            <div class="row">
+                <div v-for="(challenge, i) in challengeList" :key="i" class="col-auto m-2" >
+                    <div class="card">
+                        <img :src="getImgSrc(challenge.memberId, challenge.datetime)" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">{{challenge.title}}</h5>
+                            <p class="card-text">{{challenge.datetime}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <style scoped>
+    .view {
+        display: grid;
+        grid-template-columns: 300px 1200px;
+        grid-gap: 30px;
+        position: absolute;
+    }
     .card {
-        width: 18rem;
+        width: 15rem;
     }
     .card-img-top {
-        height: 200px;
+        height: 10rem;
     }
 </style>
 

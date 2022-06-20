@@ -1,9 +1,17 @@
 <template>
-    <SideBar />
-    <svg></svg>
+    <div class="view">
+        <SideBar />
+        <svg></svg>
+    </div>
 </template>
 
 <style scoped>
+    .view {
+        display: grid;
+        grid-template-columns: 300px 1200px;
+        grid-gap: 30px;
+        position: absolute;
+    }
     svg {
         width: 800px;
         height: 400px;
@@ -15,10 +23,6 @@ import SideBar from '@/components/mynorang/SideBar'
 export default {
     components: {
         SideBar
-    },
-    data () {
-        return {
-        }
     },
     methods: {
         draw (moodStateList) {
