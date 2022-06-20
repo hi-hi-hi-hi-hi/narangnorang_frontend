@@ -15,24 +15,19 @@
         </div>
         <input type="text" class="form-control" v-model="keyword" @keyup="fnPostSearch" />
     </div>
-      <!-- <select @change="fnChangeSearchCol()">
-        <option value="title">제목</option>
-        <option value="member_name">작성자</option>
-      </select>
-      <input type="text" @keyup="fnChangeKeyword()"> -->
     </div>
     <div class="postTableArea">
       <table v-if="category === '대나무숲'" class="table table-bordered">
         <tr v-for="(row, idx) in list" :key="idx">
           <td style="padding:20px;">
             <img :src="require('@/assets/post/profile.png')" style="max-width:50px;heigth:auto;">
-            익명 {{ row.datetime }} <button class="btn btn-default" @click="fnLikePost()"> 추천 {{ row.likes }}</button>
+            익명 {{ row.datetime }} <button class="btn btn-default" @click="fnLikePost(row.id)"> 추천 {{ row.likes }}</button>
             <br>
             <div style="margin:20px;">
               {{ row.content }}
             </div>
             <button class="btn" @click="fnReplyVisibleToggle()">댓글 {{ row.replies }}</button>
-            <PostReply :id="id" :replies="replies" :replyVisible="replyVisible"/>
+            <PostReply :id="row.id" :replyVisible="replyVisible"/>
           </td>
         </tr>
       </table>
@@ -206,15 +201,15 @@ export default {
         this.replyVisible = true
       }
     },
-    fnLikePost () {
-      this.axios.post('/api/post/like/' + this.id)
+    fnLikePost (id) {
+      this.axios.post('/api/post/like/' + id)
       .then((res) => {
         if (res.data === 1) {
           alert('게시글을 추천했습니다.')
         } else if (res.data === -1) {
           alert('추천을 취소하였습니다.')
         }
-        this.fnGetPostRetrieve()
+        this.fnGetList()
       })
       .catch((err) => {
         console.log(err)
