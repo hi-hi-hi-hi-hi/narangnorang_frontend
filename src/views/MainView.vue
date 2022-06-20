@@ -2,7 +2,7 @@
   <div class="main">
     <h1>메인</h1>
     <router-link to="/login">로그인</router-link>
-    <img class="img-fluid" src="@/assets/bg1.jpg"/>
+    <img class="img-fluid" src="@/assets/NarangNorangMain.png"/>
     <div class="accordion" id="accordionExample">
       <div class="accordion-item">
         <h2 class="accordion-header" id="headingOne">
