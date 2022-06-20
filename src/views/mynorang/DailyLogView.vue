@@ -1,49 +1,59 @@
 <template>
-    <SideBar />
-    <DailyLogModal v-if="showModal" v-on:close="close" :datetime="modalDatetime" :dailyLog="modalDailyLog" />
-    <div>
-        <router-link :to="{query: {year: year - 1, month: month}}">▼</router-link>
-        {{year}}년
-        <router-link :to="{query: {year: year + 1, month: month}}">▲</router-link>
-    </div>
-    <div>
-        <router-link v-if="month === 1" :to="{query: {year: year - 1, month: 12}}">▼</router-link>
-        <router-link v-else :to="{query: {year: year, month: month - 1}}">▼</router-link>
-        {{month}}월
-        <router-link v-if="month === 12" :to="{query: {year: year + 1, month: 1}}" >▲</router-link>
-        <router-link v-else :to="{query: {year: year, month: month + 1}}">▲</router-link>
-    </div>
-    <table class="table-bordered border">
-        <tr>
-            <th width="100">일</th>
-            <th width="100">월</th>
-            <th width="100">화</th>
-            <th width="100">수</th>
-            <th width="100">목</th>
-            <th width="100">금</th>
-            <th width="100">토</th>
-        </tr>
-        <tr v-for="i in Math.ceil((start + end - 1) / 7)" :key="i">
-            <td v-for="j in 7" :key="j" @click="open(getDate(i, j))" height="80" class="align-top">
-                <div v-if="getDate(i, j) >= 1 && getDate(i, j) <= end">
-                    <div>{{getDate(i, j)}}</div>
-                    <div v-if="dailyLogCalendar[getIdx(i, j)] != null">
-                        <div>
-                            <img src="@/assets/mynorang/sleep.png" width="20">
-                            <span>{{dailyLogCalendar[getIdx(i, j)].sleep}}</span>
+    <div class="view">
+        <SideBar />
+        <div>
+            <DailyLogModal v-if="modal" v-on:close="close" :datetime="datetime" :dailyLog="dailyLog" />
+            <div>
+                <router-link :to="{query: {year: year - 1, month: month}}">▼</router-link>
+                {{year}}년
+                <router-link :to="{query: {year: year + 1, month: month}}">▲</router-link>
+            </div>
+            <div>
+                <router-link v-if="month === 1" :to="{query: {year: year - 1, month: 12}}">▼</router-link>
+                <router-link v-else :to="{query: {year: year, month: month - 1}}">▼</router-link>
+                {{month}}월
+                <router-link v-if="month === 12" :to="{query: {year: year + 1, month: 1}}" >▲</router-link>
+                <router-link v-else :to="{query: {year: year, month: month + 1}}">▲</router-link>
+            </div>
+            <table class="table-bordered border">
+                <tr>
+                    <th width="100">일</th>
+                    <th width="100">월</th>
+                    <th width="100">화</th>
+                    <th width="100">수</th>
+                    <th width="100">목</th>
+                    <th width="100">금</th>
+                    <th width="100">토</th>
+                </tr>
+                <tr v-for="i in Math.ceil((start + end - 1) / 7)" :key="i">
+                    <td v-for="j in 7" :key="j" @click="open(getDate(i, j))" height="80" class="align-top">
+                        <div v-if="getDate(i, j) >= 1 && getDate(i, j) <= end">
+                            <div>{{getDate(i, j)}}</div>
+                            <div v-if="dailyLogCalendar[getIdx(i, j)] != null">
+                                <div>
+                                    <img src="@/assets/mynorang/sleep.png" width="20">
+                                    <span>{{dailyLogCalendar[getIdx(i, j)].sleep}}</span>
+                                </div>
+                                <div v-if="dailyLogCalendar[getIdx(i, j)].medicine != null">
+                                    <img v-if="dailyLogCalendar[getIdx(i, j)].medicine === 1" src="@/assets/mynorang/medicine.png" width="20">
+                                    <span v-else-if="dailyLogCalendar[getIdx(i, j)].medicine === 0">X</span>
+                                </div>
+                            </div>
                         </div>
-                        <div v-if="dailyLogCalendar[getIdx(i, j)].medicine != null">
-                            <img v-if="dailyLogCalendar[getIdx(i, j)].medicine === 1" src="@/assets/mynorang/medicine.png" width="20">
-                            <span v-else-if="dailyLogCalendar[getIdx(i, j)].medicine === 0">X</span>
-                        </div>
-                    </div>
-                </div>
-            </td>
-        </tr>
-    </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </template>
 
 <style scoped>
+    .view {
+        display: grid;
+        grid-template-columns: 300px 1200px;
+        grid-gap: 30px;
+        position: absolute;
+    }
     a {
         text-decoration: none;
     }
@@ -64,9 +74,9 @@ export default {
             start: 0,
             end: 0,
             dailyLogCalendar: [],
-            showModal: false,
-            modalDatetime: '',
-            modalDailyLog: {}
+            modal: false,
+            datetime: '',
+            dailyLog: {}
         }
     },
     computed: {
@@ -107,12 +117,12 @@ export default {
             if (date.length === 1) {
                 date = '0' + date
             }
-            this.modalDatetime = String(this.year) + '-' + month + '-' + date
-            this.modalDailyLog = this.dailyLogCalendar[date - 1]
-            this.showModal = true
+            this.datetime = String(this.year) + '-' + month + '-' + date
+            this.dailyLog = this.dailyLogCalendar[date - 1]
+            this.modal = true
         },
         close () {
-            this.showModal = false
+            this.modal = false
             this.getDailyLogCalendar()
         }
     },

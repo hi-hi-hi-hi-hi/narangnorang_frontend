@@ -4,15 +4,9 @@
       <HomeImage />
     </div>
     <h1>아이템 구매</h1>
-    <div>
-
-    <span>
-        <button class="btn btn-warning"><router-link to="/home/buy">아이템구매</router-link></button><br>
-        <button class="btn btn-warning"><router-link to="/home/style">아이템적용</router-link></button><br>
-        <button class="btn btn-warning"><router-link to="/home/wish">위시리스트</router-link></button><br>
-
-      </span>
-      </div>
+    <div class="postSection">
+    <MiniroomSideBar />
+    </div>
 <div class="table-responsive">
 
   <table class="table">
@@ -32,7 +26,7 @@
       <tr v-for="(dto, idx) in itemList" :key="idx">
         <td>아이템 번호: {{dto.id}}</td>
         <td>아이템 이름: {{dto.name}}</td>
-        <td><img :srcset="require(`../../assets/items/items/${dto.id}.png`)"></td>
+        <td><img class="img-fluid" :srcset="require(`../../assets/items/items/${dto.id}.png`)"></td>
         <td>가격:<span class="red">{{dto.price}}pt</span></td>
         <td><button class="btn btn-warning" @click="buy(dto.id,dto.price,dto.name,dto.category)">구매</button></td>
         <td><button class="btn btn-warning" @click="wish(dto.id,dto.category)">위시리스트</button></td>
@@ -45,6 +39,7 @@
 
 <script>
 import HomeImage from '@/components/miniroom/HomeImage.vue'
+import MiniroomSideBar from '@/components/miniroom/MiniroomSideBar'
 import axios from 'axios'
 export default {
   name: 'HomeBuy',
@@ -111,7 +106,8 @@ export default {
     }
   },
   components: {
-    HomeImage
+    HomeImage,
+    MiniroomSideBar
   }
 
 }
@@ -130,7 +126,15 @@ table{
   color: red;
 }
 .align{
-  margin: 50px 50px 50px 250px;
-}
+  margin-left: 400px;
+  margin-top: 40px;
+  margin-bottom: 50px;
 
+}
+.postSection{
+    display: grid;
+    grid-template-columns: 300px 500px;
+    grid-gap: 30px;
+    position: absolute;
+  }
 </style>

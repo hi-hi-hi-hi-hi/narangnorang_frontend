@@ -2,7 +2,7 @@
 <div>
 <div class="Miniroom">
       <div v-if="myRoomDTO.floor !== 0">
-        <img class="zIndex0" :srcset="require(`@/assets/items/${myRoomDTO.floor}.png`)">
+        <img  class="zIndex0" :srcset="require(`@/assets/items/${myRoomDTO.floor}.png`)">
       </div>
       <div v-if="myRoomDTO.bed !== 0">
         <img class="zIndex2" :srcset="require(`@/assets/items/${myRoomDTO.bed}.png`)">
@@ -56,7 +56,7 @@ export default {
         method: 'get',
         responseType: 'json'
       }).then((response) => {
-        this.myRoomDTO = response.data
+        this.myRoomDTO = response.data.myRoomDTO
       })
     }
 }

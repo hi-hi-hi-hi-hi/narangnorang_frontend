@@ -1,16 +1,21 @@
 <template>
-  <form @submit.prevent="newPw">
-    <div>
-      <p>새 비밀번호</p>
-      <input type="password" v-model="password" placeholder="새 비밀번호" required>
-    </div>
-    <div>
-      <p>새 비밀번호 확인</p>
-      <input type="password" v-model="password2" @input="pwCheck" placeholder="새 비밀번호 확인" required>
-    </div>
-    <span id="pwCheckResult" style="color: blue">{{ pwCheckResult }}</span><br>
-    <button type="submit">변경하기</button>
-  </form>
+  <body class="text-center">
+    <main class="form-signin w-100 m-auto">
+      <form @submit.prevent="newPw">
+        <h1 class="h3 mb-3 fw-normal">새 비밀번호 설정</h1>
+        <div class="form-floating">
+          <input type="password" class="form-control" id="password" v-model="password" required="required" placeholder="New Password">
+          <label for="password">New Password</label>
+        </div>
+        <div class="form-floating">
+          <input type="password" class="form-control" id="password2" v-model="password2" @input="pwCheck" required="required" placeholder="New Password Check">
+          <label for="password2">New Password Check</label>
+        </div>
+        <span id="pwCheckResult" style="color: blue">{{ pwCheckResult }}</span><br>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">완료</button>
+      </form>
+    </main>
+  </body>
 </template>
 
 <script>
@@ -65,3 +70,26 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #f5f5f5;
+}
+
+.form-signin {
+  max-width: 400px;
+  padding: 15px;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+</style>

@@ -4,51 +4,23 @@
         <div class="white-bg">
 	    <h3><b>상담신청</b></h3>
 		받는사람: <b> {{ messageInfo.recieverName }} </b> 상담사
-		<textarea ref="content" v-model="messageInfo.content" rows="20" cols="60" placeholder="이 곳에 고민을 작성해주세요."></textarea>
+		<textarea ref="content" v-model="messageInfo.content" rows="20" cols="50" placeholder="이 곳에 고민을 작성해주세요."></textarea>
         <br>
 	    <button type="submit" @click="requestCounsel">보내기</button>
         <button @click="modal = false">닫기</button>
         </div>
     </div>
     <!-- 상담사 리스트 -->
-    <div class="container counselorListArea">
-        <select id="searchCol">
-            <option value="name">이름</option>
-            <option value="location">위치</option>
-        </select>
-        <input type="text" id="keyword">
-
-	<table v-for="(counselor, idx) in list" :key="idx" style="width: 600px; border: 1px solid gray; margin: 20px">
-        <tbody>
-            <tr>
-                <td rowspan="6"><img :src="require('@/assets/counsel/'+ counselor.id + '.jpg')"
-                    width="150" height="200"></td>
-                <td><b style="font-size: 20px">{{ counselor.name }}</b></td>
-            </tr>
-            <tr>
-                <td>{{ counselor.job }}</td>
-            </tr>
-            <tr>
-                <td><b>병원정보:</b> {{ counselor.address2 }} {{ counselor.address3 }}
-                    [{{ counselor.address1 }}]</td>
-            </tr>
-            <tr>
-                <td><b>연락처:</b> {{ counselor.phone }}</td>
-            </tr>
-            <tr>
-                <td>{{ counselor.introduction }}</td>
-            </tr>
-            <tr>
-                <td>
-                    <button @click="viewModal(counselor.id, counselor.name, counselor.privilege)">쪽지 보내기</button>
-                </td>
-            </tr>
-        </tbody>
-	</table>
+    <div class="listSection">
+        <div>
+            <TempComp v-for="(counselor, idx) in list" :key="idx" :counselor="counselor"></TempComp>
+        </div>
     </div>
 </template>
 
 <script>
+import TempComp from '@/components/counsel/TempComp'
+
 export default {
     name: 'CounselorList',
     data () {
@@ -62,6 +34,9 @@ export default {
                 content: ''
             }
         }
+    },
+    components: {
+        TempComp
     },
     mounted () {
         this.getList()
@@ -117,15 +92,6 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  margin: 50px auto;
-  padding: 0;
-}
-
-div {
-  box-sizing: border-box;
-}
-
 .black-bg {
   width: 100%;
   height: 100%;
@@ -134,6 +100,7 @@ div {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 3;
 }
 
 .white-bg {
@@ -149,5 +116,8 @@ div {
   width: 500px;
   height: 650px;
 }
-
+.listSection{
+    grid-column: 2;
+    grid-row: 1;
+}
 </style>

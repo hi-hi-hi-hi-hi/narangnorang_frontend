@@ -4,13 +4,9 @@
       <HomeImage />
     </div>
     <h1>위시리스트</h1>
-    <div>
-    <span>
-        <button class="btn btn-warning"><router-link to="/home/buy">아이템구매</router-link></button><br>
-        <button class="btn btn-warning"><router-link to="/home/style">아이템적용</router-link></button><br>
-        <button class="btn btn-warning"><router-link to="/home/wish">위시리스트</router-link></button><br>
-      </span>
-      </div>
+    <div class="postSection">
+    <MiniroomSideBar />
+    </div>
 <div class="table-responsive">
   <table class="table">
 
@@ -37,6 +33,7 @@
 
 <script>
 import HomeImage from '@/components/miniroom/HomeImage.vue'
+import MiniroomSideBar from '@/components/miniroom/MiniroomSideBar'
 import axios from 'axios'
 export default {
   name: 'HomeBuy',
@@ -105,7 +102,8 @@ export default {
     }
   },
   components: {
-    HomeImage
+    HomeImage,
+    MiniroomSideBar
   }
 
 }
@@ -123,6 +121,12 @@ img {
   color: red;
 }
 .align{
-  margin: 50px 50px 50px 250px;
+  margin: 30px 50px 30px 400px;
 }
+.postSection{
+    display: grid;
+    grid-template-columns: 300px 500px;
+    grid-gap: 30px;
+    position: absolute;
+  }
 </style>

@@ -1,30 +1,59 @@
 <template>
-  <div class="home">
-    <div class="align">
-      <HomeImage />
+
+    <div v-if="privilege ===3" class="home">
+      <div class="postSection">
+    <MiniroomSideBar />
     </div>
-    <div>
-    <span>
-        <button class="btn btn-warning"><router-link to="/home/buy">아이템구매</router-link></button><br>
-        <button class="btn btn-warning"><router-link to="/home/style">아이템적용</router-link></button><br>
-        <button class="btn btn-warning"><router-link to="/home/wish">위시리스트</router-link></button><br>
-      </span>
+      <div class="align">
+        <HomeImage />
       </div>
+
    </div>
 </template>
 
 <script>
 import HomeImage from '@/components/miniroom/HomeImage.vue'
+import MiniroomSideBar from '@/components/miniroom/MiniroomSideBar'
+import axios from 'axios'
 export default {
   name: 'HomeView',
   components: {
-    HomeImage
-  }
+    HomeImage,
+    MiniroomSideBar
+  },
+  created () {
+    this.getImage()
+  },
+  data () {
+    return {
+      privilege: '',
+      point: ''
+    }
+  },
+  methods: {
+    getImage () {
+      axios({
+        url: '/api/home',
+        method: 'get',
+        responseType: 'json'
+      }).then((response) => {
+        this.privilege = response.data.privilege
+        this.point = response.data.point
+        console.log(this.privilege)
+      })
+    }
+}
 }
 </script>
 
 <style scoped>
 .align{
-  margin: 50px 50px 50px 250px;
+  margin: 30px 50px 30px 400px;
 }
+.postSection{
+    display: grid;
+    grid-template-columns: 300px 500px;
+    grid-gap: 30px;
+    position: absolute;
+  }
 </style>
