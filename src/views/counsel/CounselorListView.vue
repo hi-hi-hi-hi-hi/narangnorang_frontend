@@ -4,11 +4,10 @@
 </template>
 
 <script>
-import CounselSideBar from '@/components/counsel/CounselSideBar.vue'
-import CounselorList from '@/components/counsel/CounselorList.vue'
+import CounselSideBar from '@/components/counsel/CounselSideBar'
+import CounselorList from '@/components/counsel/CounselorList'
 
 export default {
-  name: 'CounselorView',
   data () {
     return {
 
