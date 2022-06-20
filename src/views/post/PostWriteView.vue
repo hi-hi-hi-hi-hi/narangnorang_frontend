@@ -44,8 +44,12 @@ export default {
         data: this.requestBody
       }).then((res) => {
         alert('게시글이 등록되었습니다.')
-        this.$router.push('/post?category=' + this.category)
+        this.$router.push({ name: 'post', params: { category: this.category } })
       })
+    },
+    fnUpdateCategory (category) {
+      this.category = category
+      this.$router.push({ name: 'post', params: { category: this.category } })
     }
   }
 }

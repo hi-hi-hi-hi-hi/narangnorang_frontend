@@ -33,4 +33,7 @@ export default {
     margin-left: 20%;
     margin-top: 10%
   }
+  .list-group-item{
+    cursor: pointer;
+  }
 </style>

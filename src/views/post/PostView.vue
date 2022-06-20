@@ -34,8 +34,8 @@ export default {
     }
   },
   created () {
-    if (this.$route.query.category) {
-      this.category = this.$route.query.category
+    if (this.$route.params.category) {
+      this.category = this.$route.params.category
     }
   }
 }

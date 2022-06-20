@@ -15,7 +15,8 @@
       <div class="postContentArea">
         {{ content }}
       </div>
-      <PostReply :id="id" :replies="replies"/>
+      <button class="btn" @click="fnReplyVisibleToggle()">댓글 {{ replies }}</button>
+      <PostReply :id="id" :replies="replies" :replyVisible="replyVisible"/>
     </div>
   </div>
 </template>
@@ -34,7 +35,8 @@ export default {
       views: 0,
       likes: 0,
       replies: 0,
-      category: this.$route.query.category
+      category: this.$route.query.category,
+      replyVisible: true
     }
   },
   components: {
@@ -80,12 +82,23 @@ export default {
         this.axios.delete('/api/post/' + this.id)
         .then((res) => {
           alert('게시물을 삭제하였습니다.')
-          this.$router.push('/post?category=' + this.category)
+          this.$router.push({ name: 'post', params: { category: this.category } })
         })
         .catch((err) => {
           console.log(err)
         })
       }
+    },
+    fnReplyVisibleToggle () {
+      if (this.replyVisible === true) {
+        this.replyVisible = false
+      } else {
+        this.replyVisible = true
+      }
+    },
+    fnUpdateCategory (category) {
+      this.category = category
+      this.$router.push({ name: 'post', params: { category: this.category } })
     }
   }
 }

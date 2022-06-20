@@ -1,15 +1,16 @@
 <template>
   <div class="postReplyArea">
-    <button class="btn" @click="fnReplyVisibleToggle()">댓글 {{ replies }}</button>
-    <ul v-if="replyVisible" class="list_comment list-group list-group-flush">
-      <li v-for="(row, idx) in list" :key="idx" class="list-group-item">
-        <div class="commentSection">
-            {{ row.memberName }}
-            <span style="font-size:12px">{{ row.datetime }}</span>
-            <!-- <button class="btn btn-sm">추천 {{ row.likes }}</button> -->
-            <div class="replyContentArea">{{ row.content }}</div>
-        </div>
-      </li>
+    <ul class="list_comment list-group">
+      <a v-for="(row, idx) in list" :key="idx">
+        <li v-if="replyVisible && row.postId === id" class="list-group-item border-0">
+          <div class="commentSection">
+              {{ row.memberName }}
+              <span style="font-size:12px">{{ row.datetime }}</span>
+              <!-- <button class="btn btn-sm">추천 {{ row.likes }}</button> -->
+              <div class="replyContentArea" style="padding:10px">{{ row.content }}</div>
+          </div>
+        </li>
+      </a>
       <PostWriteReply :postId="id"/>
     </ul>
   </div>
@@ -26,6 +27,9 @@ export default {
     },
     replies: {
       default: 0
+    },
+    replyVisible: {
+      dafault: true
     }
   },
   components: {
@@ -33,8 +37,7 @@ export default {
   },
   data () {
     return {
-      list: {},
-      replyVisible: true
+      list: {}
     }
   },
   methods: {
@@ -46,13 +49,6 @@ export default {
       .catch((err) => {
         console.log(err)
       })
-    },
-    fnReplyVisibleToggle () {
-      if (this.replyVisible === true) {
-        this.replyVisible = false
-      } else {
-        this.replyVisible = true
-      }
     }
   },
   mounted () {
