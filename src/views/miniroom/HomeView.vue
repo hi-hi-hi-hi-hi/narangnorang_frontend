@@ -17,7 +17,6 @@
 import HomeImage from '@/components/miniroom/HomeImage.vue'
 export default {
   name: 'HomeView',
-
   components: {
     HomeImage
   }

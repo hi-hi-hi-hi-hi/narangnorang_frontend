@@ -1,0 +1,121 @@
+<template>
+  <div class="postRetrieveSection">
+    <PostSideBar :category="category" @categoryFromSideBar="fnUpdateCategory"/>
+    <div class="postRetrieveArea">
+      <div style="margin-bottom:20px;"><button class="btn">수정</button>
+      <button class="btn" @click="fnPostDelete()">삭제</button></div>
+      {{ category }} <br>
+      <strong style="font-size:30px;">{{ title }}</strong>
+      <div class="postInfoArea">
+        {{ memberName }}
+        조회 {{ views }}
+        {{ datetime }}
+        <button class="btn btn-sm" @click="fnLikePost()">추천 {{ likes }}</button>
+      </div>
+      <div class="postContentArea">
+        {{ content }}
+      </div>
+      <button class="btn" @click="fnReplyVisibleToggle()">댓글 {{ replies }}</button>
+      <PostReply :id="id" :replies="replies" :replyVisible="replyVisible"/>
+    </div>
+  </div>
+</template>
+<script>
+import PostSideBar from '@/components/post/PostSideBar'
+import PostReply from '@/components/post/PostReply'
+
+export default {
+  data () {
+    return {
+      id: 0,
+      title: '',
+      content: '',
+      datetime: '',
+      memberName: '',
+      views: 0,
+      likes: 0,
+      replies: 0,
+      category: this.$route.query.category,
+      replyVisible: true
+    }
+  },
+  components: {
+    PostSideBar,
+    PostReply
+  },
+  created () {
+    this.id = this.$route.params.id
+    this.fnGetPostRetrieve()
+  },
+  methods: {
+    fnGetPostRetrieve () {
+      this.axios.get('/api/post/' + this.id)
+      .then((res) => {
+        this.title = res.data.title
+        this.content = res.data.content
+        this.datetime = res.data.datetime
+        this.memberName = res.data.memberName
+        this.views = res.data.views
+        this.likes = res.data.likes
+        this.replies = res.data.replies
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },
+    fnLikePost () {
+      this.axios.post('/api/post/like/' + this.id)
+      .then((res) => {
+        if (res.data === 1) {
+          alert('게시글을 추천했습니다.')
+        } else if (res.data === -1) {
+          alert('추천을 취소하였습니다.')
+        }
+        this.fnGetPostRetrieve()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },
+    fnPostDelete () {
+      if (confirm('게시글을 삭제하시겠습니까?')) {
+        this.axios.delete('/api/post/' + this.id)
+        .then((res) => {
+          alert('게시물을 삭제하였습니다.')
+          this.$router.push({ name: 'post', params: { category: this.category } })
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+      }
+    },
+    fnReplyVisibleToggle () {
+      if (this.replyVisible === true) {
+        this.replyVisible = false
+      } else {
+        this.replyVisible = true
+      }
+    },
+    fnUpdateCategory (category) {
+      this.category = category
+      this.$router.push({ name: 'post', params: { category: this.category } })
+    }
+  }
+}
+</script>
+
+<style scoped>
+.postRetrieveSection{
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-gap: 30px;
+}
+.postRetrieveArea{
+  grid-column: 2;
+  grid-row: 1;
+}
+.postContentArea{
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+</style>

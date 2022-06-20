@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import counselRoutes from './counselRoutes'
 import memberRoutes from './memberRoutes'
+import messageRoutes from './messageRoutes'
 import miniroomRoutes from './miniroomRoutes'
 import myNorangRoutes from './myNorangRoutes'
 import postRoutes from './postRoutes'
@@ -19,6 +20,7 @@ const router = createRouter({
     ...routes,
     ...counselRoutes,
     ...memberRoutes,
+    ...messageRoutes,
     ...miniroomRoutes,
     ...myNorangRoutes,
     ...postRoutes,
