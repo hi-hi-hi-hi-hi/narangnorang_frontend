@@ -1,4 +1,5 @@
 <template>
+    <img :src="require('@/assets/header/logo.png')" style="max-width:200px;heigth:auto;">
     <div class="top" v-if="privilege === 0">
       <button type="button" @click="logout">로그아웃</button>
     </div>

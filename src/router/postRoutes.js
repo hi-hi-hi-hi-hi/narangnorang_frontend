@@ -4,13 +4,13 @@ export default [{
     component: () => import('../views/post/PostView.vue')
   },
   {
-    path: '/post/retrieve',
+    path: '/post/:id',
     name: 'postRetrieve',
-    component: () => import('../views/post/PostRetrieve.vue')
+    component: () => import('../views/post/PostRetrieveView.vue')
   },
   {
     path: '/post/write',
     name: 'postWrite',
-    component: () => import('../views/post/PostWrite.vue')
+    component: () => import('../views/post/PostWriteView.vue')
   }
 ]
