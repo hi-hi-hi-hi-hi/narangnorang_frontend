@@ -1,20 +1,77 @@
 <template>
-  <div class="signUp">
+  <body class="text-center">
+    <main class="form-signin w-100 m-auto">
+      <form @submit.prevent="generalSignUp">
+        <h1 class="h3 mb-3 fw-normal">일반회원가입</h1>
+        <div class="form-floating">
+          <input type="email" class="form-control" id="email" v-model="email" placeholder="Email" required>
+          <label for="email" class="">Email address</label>
+          <span id="emailCheckResult" style="color: blue">{{ emailCheckResult }}</span>
+        </div>
+        <br>
+        <button type="button" class="btn btn-secondary" @click="checkEmail">중복 체크</button>
+        <button type="button" class="btn btn-secondary" @click="sendMail">인증메일보내기</button><br>
+        <br>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="com" v-model="com" placeholder="인증확인" required>
+          <label for="com" class="">인증확인</label>
+          <span id="compare-text" style="color: blue">{{ compareText }}</span>
+        </div>
+        <br>
+        <button type="button" class="btn btn-secondary" @click="compare">인증확인</button>
+        <br>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="password" v-model="password" placeholder="Password" required>
+          <label for="password" class="">Password</label>
+        </div>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="password2" @input="pwCheck" v-model="password2" placeholder="Password Check" required>
+          <label for="password2" class="">Password Check</label>
+          <span id="pwCheckResult" style="color: blue">{{ pwCheckResult }}</span>
+        </div>
+        <br>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="name" v-model="name" placeholder="NICKNAME" required>
+          <label for="name">NICKNAME</label>
+          <span id="nicknameCheckResult" style="color: blue">{{ nicknameCheckResult }}</span>
+        </div>
+        <br>
+        <button type="button" class="btn btn-secondary" @click="checkName">중복 체크</button>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="name" v-model="name" placeholder="NICKNAME" required>
+          <label for="name">닉네임</label>
+        </div>
+        <br>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="phone" v-model="phone" placeholder="-제외 번호" required>
+          <label for="phone">휴대전화</label>
+        </div>
+        <br>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="region" v-model="region" placeholder="지역(시/군/구)" required>
+          <label for="region">지역</label>
+        </div>
+        <br>
+        <button type="submit" class="w-100 mt-3 btn btn-lg btn-primary">회원가입</button>
+      </form>
+    </main>
+  </body>
+  <!-- <div class="signUp">
     <form @submit.prevent="generalSignUp">
       <div>
         <label for="email">아이디(이메일)</label>
         <input type="email" id="email" v-model="email" placeholder="Email" required>
         <button type="button" @click="checkEmail">중복 체크</button>
-        <!-- <button type="button" @click="sendMail">인증메일보내기</button><br> -->
+        <button type="button" @click="sendMail">인증메일보내기</button><br>
         <span id="emailCheckResult" style="color: blue">{{ emailCheckResult }}</span>
         <br>
       </div>
-      <!-- <div>
+      <div>
         <label for="com">인증확인</label>
         <input type="text" id="com" v-model="com" placeholder="인증확인" required>
-        <input type="button" id="compare" value="인증확인"><br>
-        <span id="compare-text"></span><br>
-      </div> -->
+        <button type="button" @click="compare">인증확인</button><br>
+        <span id="compare-text" style="color: blue">{{ compareText }}</span><br>
+      </div>
       <div>
         <label for="password">비밀번호</label>
         <input type="password" id="password" v-model="password" placeholder="PASSWORD" required><br>
@@ -39,7 +96,7 @@
       <br>
       <button type="submit">회원가입</button>
     </form>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -48,7 +105,7 @@ export default {
   data () {
     return {
       email: '',
-      // com: '',
+      com: '',
       password: '',
       password2: '',
       name: '',
@@ -59,7 +116,10 @@ export default {
       nicknameCheckResult: '',
       idDuplication: false,
       pwCompare: false,
-      nicknameDuplication: false
+      nicknameDuplication: false,
+      compareText: '',
+      key: '',
+      isCertification: false
     }
   },
   methods: {
@@ -101,6 +161,19 @@ export default {
             console.log(error)
           })
       }
+    },
+    // 인증번호 확인
+    compare () {
+      let mesg = '불일치'
+      if (this.com === this.key) {
+        mesg = '일치'
+        document.getElementById('compare-text').setAttribute('style', 'color: blue')
+        this.isCertification = true
+      } else {
+        document.getElementById('compare-text').setAttribute('style', 'color: red')
+        this.isCertification = false
+      }
+      this.compareText = mesg
     },
     // 비번 재확인
     pwCheck () {
@@ -148,6 +221,9 @@ export default {
       } else if (this.idDuplication === false) {
         alert('아이디 중복검사를 해주세요')
         event.preventDefault()
+      } else if (this.isCertification === false) {
+        alert('인증 확인이 필요합니다')
+        event.preventDefault()
       } else if (this.pwCompare === false) {
         alert('비밀번호가 일치하지 않습니다')
         event.preventDefault()
@@ -174,23 +250,52 @@ export default {
           console.log(error)
         })
       }
-    }
+    },
     // 인증 메일 전송
-    // sendMail () {
-    //   const url = '/api/sendMail'
-    //   const data = {
-    //     email: this.email
-    //   }
-    //   axios
-    //     .post(url, data)
-    //     .then((response) => {
-    //       alert('인증메일이 전송되었습니다.')
-    //       console.log(response.data)
-    //     })
-    //     .catch((error) => {
-    //       console.log(error)
-    //     })
-    // }
+    sendMail (event) {
+      const url = '/api/sendMail'
+      const data = {
+        email: this.email
+      }
+      if (this.idDuplication === false) {
+        alert('아이디 중복검사를 해주세요.')
+        event.preventDefault()
+      } else {
+        this.axios
+        .post(url, data)
+        .then((response) => {
+          alert('인증메일이 전송되었습니다.')
+          this.key = response.data
+          console.log(response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+      }
+    }
   }
 }
 </script>
+
+<style scoped>
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #f5f5f5;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+</style>

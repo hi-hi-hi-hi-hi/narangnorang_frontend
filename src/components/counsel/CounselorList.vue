@@ -116,38 +116,38 @@ export default {
 }
 </script>
 
-<style>
-.container {
-  margin: 50px auto;
-  padding: 0;
-}
+<style scoped>
+    .container {
+    margin: 50px auto;
+    padding: 0;
+    }
 
-div {
-  box-sizing: border-box;
-}
+    div {
+    box-sizing: border-box;
+    }
 
-.black-bg {
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.246);
-  padding: 20px;
-  position: fixed;
-  top: 0;
-  left: 0;
-}
+    .black-bg {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.246);
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    }
 
-.white-bg {
-  background: white;
-  border-radius: 8px;
-  padding: 20px;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  width: 500px;
-  height: 650px;
-}
+    .white-bg {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 500px;
+    height: 650px;
+    }
 
 </style>
