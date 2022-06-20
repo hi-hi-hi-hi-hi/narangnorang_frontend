@@ -31,7 +31,11 @@ export default {
         responseType: 'json'
       }).then((response) => {
         if (response.data !== '') {
-          this.$router.push('/home')
+          if (response.data.privilege === 0) {
+            this.$router.push('/admin')
+          } else {
+            this.$router.push('/home')
+          }
         } else {
           alert('이메일 및 비밀번호를 확인해주세요')
         }
