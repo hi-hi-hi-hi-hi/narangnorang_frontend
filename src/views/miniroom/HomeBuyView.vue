@@ -5,6 +5,7 @@
     </div>
     <h1>아이템 구매</h1>
     <div>
+
     <span>
         <button class="btn btn-warning"><router-link to="/home/buy">아이템구매</router-link></button><br>
         <button class="btn btn-warning"><router-link to="/home/style">아이템적용</router-link></button><br>
