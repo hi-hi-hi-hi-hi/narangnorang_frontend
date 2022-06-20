@@ -1,6 +1,6 @@
 <template>
     <div class="top" v-if="privilege === 0">
-      <router-link class="nav_link" to="/">로그아웃</router-link>
+      <button type="button" @click="logout">로그아웃</button>
     </div>
     <div class="top" v-else-if="headerVisible">
         <router-link class="nav_link" to="/home">나랑노랑</router-link> |
@@ -8,7 +8,7 @@
         <router-link class="nav_link" to="/">알림</router-link> |
         <router-link class="nav_link" to="/myPage">내 정보</router-link> |
         <router-link class="nav_link" to="/">고객문의</router-link> |
-        <router-link class="nav_link" to="/">로그아웃</router-link>
+        <button type="button" @click="logout">로그아웃</button>
     </div>
     <div class="navBar" v-if="privilege === 0">
         <router-link class="nav_link" to="/memberManagement">계정관리</router-link> |
@@ -34,6 +34,20 @@ export default {
     return {
       headerVisible: headerVisible,
       privilege: 0
+    }
+  },
+  methods: {
+    // 로그아웃
+    logout () {
+      this.axios({
+        url: '/api/logout',
+        method: 'GET'
+      })
+      .then((response) => {
+        if (response.data === true) {
+          this.$router.push('/')
+        }
+      })
     }
   },
   mounted () {
