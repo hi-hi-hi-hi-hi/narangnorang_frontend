@@ -19,3 +19,14 @@ export default {
   }
 }
 </script>
+
+<style>
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+html, body {
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+#app {
+  font-family: 'Noto Sans KR', sans-serif;
+}
+</style>

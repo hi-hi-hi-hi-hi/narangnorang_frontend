@@ -1,11 +1,15 @@
 <template>
+  <!-- 검색창 -->
   <div class="searchBox">
-    <div>
-      <input type="text" ref="keyword" @keyup.enter="searchCenter">
+    <div class="searchArea">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" ref="keyword" @keyup="searchCenter" placeholder="지역을 입력하세요." />
+      </div>
     </div>
+    <!-- 카카오 지도 -->
     <div ref="kakaomap" style="width:700px;height:600px;float:left"></div>
+    <!-- 마커 클릭시 세부정보 -->
     <div v-if="overlay == true" style="float:left">
-      <img src='@/assets/counsel/pointer.png' style="height:100px"><br>
       <h3> {{ centerInfo.place_name }} </h3>
       <div> 연락처: {{ centerInfo.phone }} </div>
       <div> 지번주소: {{ centerInfo.address_name }}</div>
@@ -119,3 +123,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .searchArea{
+    grid-column: 2;
+    grid-row: 1;
+  }
+</style>

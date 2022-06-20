@@ -1,6 +1,8 @@
 <template>
-  <CounselSideBar></CounselSideBar>
-  <CounselorList></CounselorList>
+  <div class="section">
+      <CounselSideBar></CounselSideBar>
+      <CounselorList></CounselorList>
+  </div>
 </template>
 
 <script>
@@ -21,3 +23,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .section{
+    display: grid;
+    grid-template-columns: 300px 900px;
+    grid-gap: 30px;
+    position: absolute;
+  }
+</style>
