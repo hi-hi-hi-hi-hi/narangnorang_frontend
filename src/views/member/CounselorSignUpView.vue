@@ -3,101 +3,50 @@
     <form @submit.prevent="counselorSignUp">
       <div>
         <label for="email">아이디(이메일)</label>
-        <input
-          type="email"
-          id="email"
-          v-model="email"
-          placeholder="Email"
-          required="required"
-        />
+        <input type="email" id="email" v-model="email" placeholder="Email" required>
         <button type="button" @click="checkEmail">중복 체크</button>
         <!-- <button type="button" @click="sendMail">인증메일보내기</button><br /> -->
         <span id="emailCheckResult" style="color: blue">{{ emailCheckResult }}</span>
-        <br />
+        <br>
       </div>
       <!-- <div>
         <label for="com">인증확인</label>
-        <input
-          type="text"
-          id="com"
-          v-model="com"
-          placeholder="인증확인"
-          required="required"
-        />
+        <input type="text" id="com" v-model="com" placeholder="인증확인" required>
         <input type="button" id="compare" value="인증확인" /><br />
         <span id="compare-text"></span><br />
       </div> -->
       <div>
         <label for="password">비밀번호</label>
-        <input
-          type="password"
-          id="password"
-          v-model="password"
-          placeholder="PASSWORD"
-          required="required"
-        /><br />
+        <input type="password" id="password" v-model="password" placeholder="PASSWORD" required><br>
         <label for="password2">비밀번호 확인</label>
-        <input
-          type="password"
-          id="password2"
-          v-model="password2"
-          @input="pwCheck"
-          placeholder="CONFIRM PASSWORD"
-          required="required"
-        /><br />
-        <span id="pwCheckResult" style="color: blue">{{ pwCheckResult }}</span><br />
+        <input type="password" id="password2" v-model="password2" @input="pwCheck" placeholder="CONFIRM PASSWORD" required><br>
+        <span id="pwCheckResult" style="color: blue">{{ pwCheckResult }}</span><br>
       </div>
       <div>
         <label for="name">이름</label>
-        <input
-          type="text"
-          id="name"
-          v-model="name"
-          placeholder="NAME"
-          required="required"
-        />
+        <input type="text" id="name" v-model="name" placeholder="NAME" required>
       </div>
       <div>
         <label for="phone">휴대전화</label>
-        <input
-          type="text"
-          id="phone"
-          v-model="phone"
-          placeholder="-제외 번호"
-          required="required"
-        /><br />
+        <input type="text" id="phone" v-model="phone" placeholder="-제외 번호" required><br>
       </div>
       <div>
         <label for="address">근무지 주소</label>
         <div id="address">
-          <input type="text" id="postcode" v-model="postcode" placeholder="우편번호" required="required">
+          <input type="text" v-model="zipcode" placeholder="우편번호" required>
 		      <button type="button" @click="execDaumPostcode">우편번호 찾기</button><br>
-		      <input type="text" id="address1" v-model="address1" placeholder="도로명주소" required="required">
-		      <input type="text" id="address2" v-model="address2" placeholder="지번주소" required="required"><br>
-		      <input type="text" id="address3" v-model="address3" placeholder="상세주소" required="required"><br>
-		      <input type="hidden" id="guide" style="color:#999"><br>
+		      <input type="text" v-model="address1" placeholder="도로명주소" required>
+		      <input type="text" v-model="address2" placeholder="지번주소" required><br>
+		      <input type="text" v-model="address3" placeholder="상세주소" required><br>
         </div>
       </div>
       <div>
         <label for="job">직업</label>
-        <input
-          type="text"
-          id="job"
-          v-model="job"
-          placeholder="job"
-          required="required"
-        /><br />
+        <input type="text" id="job" v-model="job" placeholder="job" required><br>
       </div>
       <div>
         <label for="introduction">소개</label><br>
-        <textarea
-          rows="20"
-          cols="40"
-          id="introduction"
-          v-model="introduction"
-          placeholder="introduction"
-          required="required"
-        /><br />
+        <textarea rows="20" cols="40" id="introduction" v-model="introduction" placeholder="introduction" required /><br>
       </div>
       <button type="submit">회원가입</button>
     </form>
@@ -107,7 +56,6 @@
 <script>
 
 export default {
-  name: 'counselorSignUp',
   data () {
     return {
       email: '',
@@ -116,7 +64,7 @@ export default {
       password2: '',
       name: '',
       phone: '',
-      postcode: '',
+      zipcode: '',
       address1: '',
       address2: '',
       address3: '',
@@ -202,7 +150,7 @@ export default {
           password: this.password,
           name: this.name,
           phone: this.phone,
-          postcode: this.postcode,
+          zipcode: this.zipcode,
           address1: this.address1,
           address2: this.address2,
           address3: this.address3,
@@ -244,10 +192,7 @@ export default {
           }
 
           // 우편번호와 주소 정보를 해당 필드에 넣는다.
-          // document.getElementById('postcode').value = data.zonecode
-          // document.getElementById('address1').value = roadAddr
-          // document.getElementById('address2').value = data.jibunAddress
-          this.postcode = data.zonecode
+          this.zipcode = data.zonecode
           this.address1 = roadAddr
           this.address2 = data.jibunAddress
         }

@@ -45,7 +45,6 @@ export default {
     },
     changeCategory (nCategory) {
       this.category = nCategory
-
     }
   }
 }
