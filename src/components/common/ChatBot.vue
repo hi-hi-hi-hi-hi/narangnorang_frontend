@@ -3,13 +3,16 @@
 	<div v-if="showChatBot" class="black-bg">
 		<div class="white-bg">
 			<button type="button" @click="close">닫기</button>
-			<div style="width: 400px; height: 400px; overflow: auto;">
-				<ChatMessage v-for="(message, i) in messageList" :key="i" :from="message.from" :content="message.content" />
-			</div>
+			<div>{{challenge}}</div>
+			<hr>
 			<div v-if="challengeSend">
 				<input type="file" @change="multipartFile = $event.target.files[0]">
 				<input type="text" v-model="title">
 				<button type="button" @click="postChallenge(multipartFile, title)">업로드</button>
+			</div>
+			<hr>
+			<div style="width: 400px; height: 400px; overflow: auto;">
+				<ChatMessage v-for="(message, i) in messageList" :key="i" :from="message.from" :content="message.content" />
 			</div>
 			<div v-if="dailyLogSend">
 				<input type="number" v-model="sleep" min="0" max="24" required="required">
@@ -33,8 +36,6 @@
 <style scope>
 	body {
 		margin : 0;
-		width: 100%;
-		height: 100%;
 	}
 	div {
 		box-sizing: border-box;
@@ -63,8 +64,9 @@ export default {
 	data () {
 		return {
 			showChatBot: false,
-			messageList: [],
+			challenge: '',
 			challengeSend: false,
+			messageList: [],
 			multipartFile: null,
 			title: '',
 			dailyLogSend: false,
@@ -92,16 +94,10 @@ export default {
 				responseType: 'json'
 			}).then((response) => {
 				if (response.data.flag) {
-					const from = '노랑이'
-					const content = '오늘의 챌린지 완료!'
-					const message = { from: from, content: content }
-					this.messageList.push(message)
+					this.challenge = '오늘의 챌린지 완료!'
 					this.challengeSend = false
 				} else {
-					const from = '노랑이'
-					const content = '오늘의 챌린지 ' + response.data.challenge + '찍기!'
-					const message = { from: from, content: content }
-					this.messageList.push(message)
+					this.challenge = '오늘의 챌린지 ' + response.data.challenge + '찍기!'
 					this.challengeSend = true
 				}
 			})
