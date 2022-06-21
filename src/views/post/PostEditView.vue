@@ -1,14 +1,10 @@
 <template>
   <div class="postWriteSection">
     <PostSideBar :category="category" @categoryFromSideBar="fnUpdateCategory"/>
-    <div v-if="category === '대나무숲'" class="postWrtieArea">
-      <textarea class="writeContent form-control" v-model="content" placeholder="내용을 입력하세요."/><br>
-      <button class="btn" style="text-align:right;" @click="fnWritePost()">등록</button>
-    </div>
-    <div v-else class="postWriteArea">
+    <div class="postWriteArea">
       <input class="writeTitle form-control" type="text" v-model="title" placeholder="제목을 입력하세요."/><br>
       <textarea class="writeContent form-control" v-model="content" placeholder="내용을 입력하세요."/><br>
-      <button class="btn" style="text-align:right;" @click="fnWritePost()">등록</button>
+      <button class="btn" style="text-align:right;" @click="fnEditPost()">수정</button>
     </div>
   </div>
 </template>
@@ -17,30 +13,35 @@
 import PostSideBar from '@/components/post/PostSideBar'
 
 export default {
-  name: 'PostWrite',
+  name: 'PostEdit',
   data () {
     return {
-      requestBody: {
-        content: '',
-        title: ''
-      },
-      category: this.$route.params.category
+      requestBody: {},
+      content: this.$route.params.content,
+      title: this.$route.params.title,
+      category: this.$route.params.category,
+      postId: this.$route.params.postId
     }
   },
   components: {
     PostSideBar
   },
   methods: {
-    fnWritePost () {
+    fnEditPost () {
       this.requestBody = {
-        category: this.category,
         title: this.title,
-        content: this.content
+        content: this.content,
+        id: this.postId
       }
-      this.axios.post('/api/post/write', this.requestBody)
+
+      this.axios({
+        method: 'put',
+        url: '/api/post/' + this.postId,
+        data: this.requestBody
+      })
       .then((res) => {
-        alert('게시글이 등록되었습니다.')
-        this.$router.push({ name: 'post', params: { category: this.category } })
+        alert('게시글이 수정되었습니다.')
+        this.$router.push('/post')
       })
     },
     fnUpdateCategory (category) {
