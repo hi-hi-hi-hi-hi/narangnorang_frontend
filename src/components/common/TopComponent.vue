@@ -27,7 +27,6 @@
 		color: red;
 		font-size: 20px;
 	}
-
 	.top-link {
 		text-decoration: none;
 		color: black;
@@ -53,9 +52,7 @@ export default {
 				method: 'GET'
 			})
 			.then((res) => {
-				console.log(res.data.unreadCounts)
 				this.unreads = res.data.unreadCounts
-				console.log(this.unreads)
 			})
 			.catch((err) => {
 				console.log(err)
@@ -65,6 +62,9 @@ export default {
 	created () {
 		this.getUnreads()
 		this.timer = setInterval(this.getUnreads, 3000)
+	},
+	beforeUnmount () {
+		clearInterval(this.timer)
 	}
 }
 </script>

@@ -1,7 +1,10 @@
 <template>
     <div class="view">
         <SideBar />
-        <svg></svg>
+        <div>
+            <h3>지난 일주일 간 기분 상태</h3>
+            <svg></svg>
+        </div>
     </div>
 </template>
 

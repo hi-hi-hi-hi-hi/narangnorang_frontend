@@ -1,21 +1,21 @@
 <template>
     <div class="view">
         <SideBar />
-        <div>
-            <DailyLogModal v-if="modal" v-on:close="close" :datetime="datetime" :dailyLog="dailyLog" />
+        <div class="text-center">
+            <DailyLogModal v-if="modal" @close="close" :datetime="datetime" :dailyLog="dailyLog" />
             <div>
-                <router-link :to="{query: {year: year - 1, month: month}}">▼</router-link>
-                {{year}}년
-                <router-link :to="{query: {year: year + 1, month: month}}">▲</router-link>
+                <router-link :to="{query: {year: year - 1, month: month}}" class="btn">▽</router-link>
+                <b class="fs-4">{{year}}년</b>
+                <router-link :to="{query: {year: year + 1, month: month}}" class="btn">△</router-link>
             </div>
             <div>
-                <router-link v-if="month === 1" :to="{query: {year: year - 1, month: 12}}">▼</router-link>
-                <router-link v-else :to="{query: {year: year, month: month - 1}}">▼</router-link>
-                {{month}}월
-                <router-link v-if="month === 12" :to="{query: {year: year + 1, month: 1}}" >▲</router-link>
-                <router-link v-else :to="{query: {year: year, month: month + 1}}">▲</router-link>
+                <router-link v-if="month === 1" :to="{query: {year: year - 1, month: 12}}" class="btn">▽</router-link>
+                <router-link v-else :to="{query: {year: year, month: month - 1}}" class="btn">▽</router-link>
+                <b class="fs-4">{{month}}월</b>
+                <router-link v-if="month === 12" :to="{query: {year: year + 1, month: 1}}" class="btn">△</router-link>
+                <router-link v-else :to="{query: {year: year, month: month + 1}}" class="btn">△</router-link>
             </div>
-            <table class="table-bordered border">
+            <table class="table table-bordered border mt-3">
                 <tr>
                     <th width="100">일</th>
                     <th width="100">월</th>
@@ -48,6 +48,9 @@
 </template>
 
 <style scoped>
+    .text-center {
+        width: 80%;
+    }
     .view {
         display: grid;
         grid-template-columns: 300px 1200px;

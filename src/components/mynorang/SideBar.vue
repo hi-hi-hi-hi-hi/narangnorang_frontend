@@ -1,10 +1,12 @@
 <template>
     <div class="side-bar">
+        <h5><b>나의노랑</b></h5>
+        <hr>
         <ul class="list-group">
-            <router-link to="/mynorang/challenge"><li class="list-group-item">챌린지</li></router-link>
-            <router-link to="/mynorang/dailylog"><li class="list-group-item">일일데이터</li></router-link>
-            <router-link to="/mynorang/moodstate"><li class="list-group-item">기분상태</li></router-link>
-            <router-link to="/mynorang/testresult"><li class="list-group-item">테스트결과</li></router-link>
+            <li class="list-group-item"><router-link to="/mynorang/challenge"> - 챌린지</router-link></li>
+            <li class="list-group-item"><router-link to="/mynorang/dailylog"> - 일일데이터</router-link></li>
+            <li class="list-group-item"><router-link to="/mynorang/moodstate"> - 기분상태</router-link></li>
+            <li class="list-group-item"><router-link to="/mynorang/testresult"> - 테스트결과</router-link></li>
         </ul>
     </div>
 </template>
@@ -18,9 +20,11 @@
     }
     .list-group-item {
         cursor: pointer;
+        border: none;
     }
     a {
         text-decoration: none;
+        color: black;
     }
 </style>
 

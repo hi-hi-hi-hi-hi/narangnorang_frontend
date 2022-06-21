@@ -1,13 +1,22 @@
 <template>
 	<div>
-		<router-link v-if="member" class="nav_link" to="/home">
-			<img :src="require('@/assets/common/logo.png')" style="width:200px;">
+		<!-- Start Header -->
+		<router-link v-if="getPrivilege" to="/home">
+			<img :src="require('@/assets/header/logo.png')" style="max-width: 200px;">
 		</router-link>
-		<TopComponent v-if="member" :privilege="privilege"/>
-		<button v-if="member" type="button" @click="logout">로그아웃</button>
-		<NavBarComponent v-if="member" :privilege="privilege" />
-		<ChatBot v-if="member" :privilege="privilege" />
+		<TopComponent v-if="getPrivilege" :privilege="member.privilege" />
+		<button type="button" v-if="getPrivilege" @click="logout">로그아웃</button>
+		<NavBarComponent v-if="getPrivilege" :privilege="member.privilege" />
+		<!-- End Header -->
+
+		<!-- Start Main -->
 		<router-view :member="member" />
+		<!-- End Main -->
+
+		<ChatBot v-if="getPrivilege" :privilege="member.privilege" @challengeComplete="getSession" />
+
+		<!-- Start Footer -->
+		<!-- End Footer -->
 	</div>
 </template>
 
@@ -23,21 +32,37 @@ export default {
 	},
 	data () {
 		return {
-			member: null,
-			privilege: 4
+			pathsNotLoggedIn: [
+				'main',
+				'notFound',
+				'login',
+				'signUp',
+				'generalSignUp',
+				'counselorSignUp',
+				'findPw'
+			],
+			member: null
 		}
 	},
+	computed: {
+		getPrivilege () {
+            return this.member != null && !this.pathsNotLoggedIn.includes(this.$route.name)
+        }
+	},
 	methods: {
-		login () {
+		// 세션 얻어오기
+		getSession () {
 			this.axios({
 				url: '/api/loginSession',
 				method: 'get',
 				responseType: 'json'
 			}).then((response) => {
-				if (response.data) {
-					console.log(response.data)
+				if (response.data === '') {
+					alert('로그인을 해주세요')
+					this.member = null
+					this.$router.push('/')
+				} else {
 					this.member = response.data
-					this.privilege = response.data.privilege
 				}
 			})
 		},
@@ -47,41 +72,19 @@ export default {
 				url: '/api/logout',
 				method: 'GET'
 			}).then((response) => {
-				if (response.data) {
-					this.member = null
-					this.privilege = 4
-					this.$router.push('/')
-				}
+				this.member = null
+				this.$router.push('/')
 			})
 		}
 	},
 	watch: {
         '$route' (to, from) {
-            this.login()
+			if (!this.pathsNotLoggedIn.includes(this.$route.name)) {
+            	this.getSession()
+			} else if (this.member != null) {
+				this.logout()
+			}
         }
     }
 }
 </script>
-
-<style>
-	@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
-
-	html, body {
-		font-family: 'Noto Sans KR', sans-serif;
-	}
-
-	#app {
-		font-family: 'Noto Sans KR', sans-serif;
-	}
-
-	.header {
-	text-decoration: none;
-	color: black;
-	}
-
-	button {
-		padding: 0;
-		border: none;
-		background: none;
-	}
-</style>
