@@ -1,25 +1,25 @@
 <template>
     <!-- 모달창 -->
     <div class="black-bg" v-if="modal == true">
-        <div class="white-bg">
+        <div class="white-bg form-group">
 	    <h3><b>상담신청</b></h3>
 		받는사람: <b> {{ messageInfo.recieverName }} </b> 상담사
-		<textarea ref="content" v-model="messageInfo.content" rows="20" cols="50" placeholder="이 곳에 고민을 작성해주세요."></textarea>
+		<textarea class="form-control" ref="content" v-model="messageInfo.content" rows="20" cols="50" placeholder="이 곳에 고민을 작성해주세요."></textarea>
         <br>
-	    <button type="submit" @click="requestCounsel">보내기</button>
-        <button @click="modal = false">닫기</button>
+        <button type="submit" class="btn btn-outline-dark" @click="requestCounsel">보내기</button>
+        <button type="button" class="btn btn-outline-dark" @click="modal = false">닫기</button>
         </div>
     </div>
     <!-- 상담사 리스트 -->
     <div class="listSection">
         <div>
-            <TempComp v-for="(counselor, idx) in list" :key="idx" :counselor="counselor"></TempComp>
+            <CounselorCard v-for="(counselor, idx) in list" :key="idx" :counselor="counselor"></CounselorCard>
         </div>
     </div>
 </template>
 
 <script>
-import TempComp from '@/components/counsel/TempComp'
+import CounselorCard from '@/components/counsel/CounselorCard'
 
 export default {
     name: 'CounselorList',
@@ -36,7 +36,7 @@ export default {
         }
     },
     components: {
-        TempComp
+        CounselorCard
     },
     mounted () {
         this.getList()
@@ -119,5 +119,12 @@ export default {
 .listSection{
     grid-column: 2;
     grid-row: 1;
+}
+.btn {
+padding: .2rem;
+border: 1px solid rgb(137, 137, 137);
+font-weight: bold;
+margin-right: 5px;
+float: right;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav v-if="$route.name !== 'main' && $route.name !== 'login'">
-      <Header />
+      <Header class="header"/>
       <ChatBot />
     </nav>
     <router-view/>
@@ -28,5 +28,10 @@ html, body {
 
 #app {
   font-family: 'Noto Sans KR', sans-serif;
+}
+
+.header {
+  text-decoration: none;
+  color: black;
 }
 </style>

@@ -4,9 +4,9 @@
       <button type="button" @click="logout">로그아웃</button>
     </div>
     <div class="top" v-else-if="headerVisible">
-        <router-link class="nav_link" to="/home">나랑노랑</router-link> |
-        <router-link class="nav_link" to="/message">쪽지</router-link> |
-        <router-link class="nav_link" to="/">알림</router-link> |
+        <router-link class="nav_link" to="/home"><i class="fa-solid fa-house"></i></router-link> |
+        <router-link class="nav_link" to="/message"><i class="fa-solid fa-envelope"></i><b>{{ unreads }}</b></router-link> |
+        <router-link class="nav_link" to="/"><i class="fa-solid fa-bell"></i></router-link> |
         <router-link class="nav_link" to="/myPage">내 정보</router-link> |
         <router-link class="nav_link" to="/">고객문의</router-link> |
         <button type="button" @click="logout">로그아웃</button>
@@ -34,7 +34,9 @@ export default {
   data () {
     return {
       headerVisible: headerVisible,
-      privilege: 0
+      privilege: 0,
+      unreads: 0,
+      timer: ''
     }
   },
   methods: {
@@ -49,6 +51,22 @@ export default {
           this.$router.push('/')
         }
       })
+      .catch((err) => {
+        console.log(err)
+      })
+    },
+    // 쪽지 알람
+    getUnreads () {
+      this.axios({
+        url: '/api/message/unread',
+        method: 'GET'
+      })
+      .then((res) => {
+        this.unreads = res.data.unreadCounts
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     }
   },
   mounted () {
@@ -60,6 +78,28 @@ export default {
     .then((response) => {
       this.privilege = response.data.privilege
     })
+  },
+  created () {
+    this.getUnreads()
+    this.timer = setInterval(this.getUnreads, 3000)
   }
 }
 </script>
+
+<style scoped>
+b{
+  color: red;
+  font-size: 20px;
+}
+
+.nav_link {
+  text-decoration: none;
+  color: black;
+}
+
+button {
+  padding: 0;
+  border: none;
+  background: none;
+}
+</style>
