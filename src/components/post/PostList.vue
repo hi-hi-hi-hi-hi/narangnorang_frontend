@@ -1,4 +1,5 @@
 <template>
+  <PostUserProfilePopup v-if="popupVal" @close-popup="popupClose"/>
   <div class="postListSection">
     <!-- 추천 필터링 버튼 -->
     <div class="postLikeButtons">
@@ -24,6 +25,7 @@
           <td style="padding:20px;">
             <img :src="require('@/assets/post/profile.png')" style="max-width:50px;heigth:auto;">
             익명
+            <!-- 시간 표시 설정 -->
             <span v-if="row.datetime.substring(0, 10) === todayDate" class="col-4 time text-muted small">
               {{ row.datetime.substring(10, 19) }}
             </span>
@@ -59,8 +61,9 @@
             <strong v-if="category === '정보게시판' && row.memberPrivilege === 1" style="cursor:pointer;">{{ row.title }}</strong>
             <span v-else style="cursor:pointer;">{{ row.title }}</span>
             </a><span style="color:red;margin:5px">[{{ row.replies }}]</span></td>
-            <td>{{ row.memberName }}</td>
+            <td><a @click="popupOpen()" style="cursor:pointer;">{{ row.memberName }}</a></td>
             <td>
+              <!-- 시간 표시 설정 -->
               <span v-if="row.datetime.substring(0, 10) === todayDate" class="col-4 time text-muted small">
                 {{ row.datetime.substring(10, 16) }}
               </span>
@@ -99,6 +102,7 @@
 
 <script>
 import PostReply from '@/components/post/PostReply'
+import PostUserProfilePopup from '@/components/post/PostUserProfilePopup'
 
 export default {
   name: 'PostList',
@@ -123,14 +127,17 @@ export default {
       next: 0,
       pageNumbers: [],
       replyVisible: false,
-      todayDate: ''
+      todayDate: '',
+      popupVal: false
     }
   },
   components: {
-    PostReply
+    PostReply,
+    PostUserProfilePopup
   },
   mounted () {
     this.fnGetList()
+    console.log(this.login)
   },
   methods: {
     fnGetList () {
@@ -237,6 +244,12 @@ export default {
       .catch((err) => {
         console.log(err)
       })
+    },
+    popupOpen () {
+      this.popupVal = true
+    },
+    popupClose () {
+      this.popupVal = false
     }
   },
   watch: {

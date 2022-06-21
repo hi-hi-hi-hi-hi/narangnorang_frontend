@@ -35,7 +35,6 @@ export default {
 				responseType: 'json'
 			}).then((response) => {
 				if (response.data) {
-					console.log(response.data)
 					this.member = response.data
 					this.privilege = response.data.privilege
 				}
