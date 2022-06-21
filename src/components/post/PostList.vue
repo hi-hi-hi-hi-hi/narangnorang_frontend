@@ -42,7 +42,7 @@
             <th style="width:100px;">추천</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody v-if="list.length >= 1">
           <tr v-for="(row, idx) in list" :key="idx">
             <td>{{ row.id }}</td>
             <td><a @click="fnGoRetrievePage(row.id)">
@@ -53,6 +53,11 @@
             <td>{{ row.datetime }}</td>
             <td>{{ row.views }}</td>
             <td>{{ row.likes }}</td>
+          </tr>
+        </tbody>
+        <tbody v-else>
+          <tr>
+            <td colspan="6">게시글이 없습니다.</td>
           </tr>
         </tbody>
       </table>
@@ -191,7 +196,6 @@ export default {
       this.$router.push({ name: 'postWrite', params: { category: this.category } })
     },
     fnGoRetrievePage (id) {
-      console.log(this.category)
       this.$router.push('/post/' + id + '?category=' + this.category)
     },
     fnReplyVisibleToggle () {
