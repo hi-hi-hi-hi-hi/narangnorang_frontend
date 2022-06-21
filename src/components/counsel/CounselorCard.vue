@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="infos">
-      <img class="img-area" :src="require('@/assets/counsel/' + counselor.id + '.jpg')">
+      <img class="img-area" :src="require('@/assets/member/' + counselor.id + '.jpg')">
       <div class="name-area">
         <h2>{{ counselor.name }}</h2>
         <h4>{{ counselor.job }}</h4>

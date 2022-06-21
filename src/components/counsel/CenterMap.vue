@@ -57,7 +57,7 @@ export default {
     },
     // 마커 표시
     displayMarker (place) {
-      const imageSrc = require('@/assets/counsel/norang.png') // 마커이미지의 주소입니다
+      const imageSrc = require('@/assets/common/norang.png') // 마커이미지의 주소입니다
       const imageSize = new window.kakao.maps.Size(50, 50) // 마커이미지의 크기입니다
       const imageOption = { offset: new window.kakao.maps.Point(27, 69) }
 
