@@ -1,7 +1,6 @@
 <template>
   <body class="text-center">
     <main class="form-signin w-100 m-auto">
-      <router-link to="/photoUpdate">프로필사진 변경</router-link>
       <form @submit.prevent="generalEdit">
         <h1 class="h3 mb-3 fw-normal">내 정보 수정</h1>
         <div class="form-floating">
@@ -28,38 +27,10 @@
           <label for="region">지역</label>
         </div>
         <br>
-        <router-link to="/myPage/newPw">비밀번호 변경</router-link>
-        <br>
         <button type="submit" class="w-100 mt-3 btn btn-lg btn-primary">확인</button>
       </form>
     </main>
   </body>
-
-  <router-link to="/photoUpdate">프로필사진 변경</router-link>
-  <form @submit.prevent="generalEdit">
-    <div>
-      <p>이메일</p>
-      <p>{{ email }}</p>
-    </div>
-    <div>
-      <p>닉네임</p>
-      <input type="text" v-model="name" required>
-      <button type="button" @click="checkName">중복 체크</button><br>
-      <span id="nicknameCheckResult" style="color:blue">{{ nicknameCheckResult }}</span><br>
-    </div>
-    <div>
-      <p>휴대전화</p>
-      <input type="text" v-model="phone" required>
-    </div>
-    <div>
-      <p>지역</p>
-      <input type="text" v-model="region" required>
-    </div>
-    <br>
-    <router-link to="/myPage/newPw">비밀번호 변경</router-link>
-    <br>
-    <button type="submit">확인</button>
-  </form>
 </template>
 
 <script>
@@ -155,3 +126,26 @@ export default {
 }
 
 </script>
+
+<style scoped>
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: white;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+</style>

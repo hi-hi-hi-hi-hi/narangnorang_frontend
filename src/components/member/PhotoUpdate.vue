@@ -1,23 +1,31 @@
 <template>
-  <p>변경 전</p>
-  <div v-if="photo === null">
-    <img :src="require('@/assets/member/noImage.jpg')" width="100" height="100">
-  </div>
-  <div v-else>
-    <img :src="require('@/assets/member/' + id + '.png')" width="100" height="100">
-  </div>
-  <form @submit.prevent="photoUpdate">
-    <p>변경 후</p>
-    <div v-if="!image">
-      <img :src="require('@/assets/member/noImage.jpg')" width="100" height="100">
-      <input type="file" @change="photoUpload" name="mfile">
+  <body class="text-center">
+    <h3>변경 전</h3>
+    <br>
+    <div v-if="photo === null">
+    <img :src="require('@/assets/member/noImage.jpg')" width="250" height="250">
     </div>
     <div v-else>
-      <img :src="image" width="100" height="100">
-      <button @click="remove">Remove</button>
+      <img :src="'/webapp/resources/images/member/' + id + '.png'" width="250" height="250">
     </div>
-    <button type="submit">수정</button>
-  </form>
+    <p>----------------------------------------</p>
+    <h3>변경 후</h3>
+    <br>
+    <form @submit.prevent="photoUpdate">
+      <div v-if="!image">
+        <img :src="require('@/assets/member/noImage.jpg')" width="250" height="250">
+        <br>
+        <input type="file" @change="photoUpload" name="mfile">
+      </div>
+      <div v-else>
+        <img :src="image" width="250" height="250">
+        <br>
+        <button class="btn btn-danger" @click="remove">지우기</button>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-lg btn-primary">수정</button>
+    </form>
+  </body>
 </template>
 
 <script>

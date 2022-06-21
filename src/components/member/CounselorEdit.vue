@@ -1,38 +1,56 @@
 <template>
-  <form @submit.prevent="counselorEdit">
-    <div>
-      <p>이메일</p>
-      <p>{{ email }}</p>
-    </div>
-    <div>
-      <p>이름</p>
-      <p>{{ name }}</p>
-    </div>
-    <div>
-      <p>휴대전화</p>
-      <input type="text" v-model="phone" required>
-    </div>
-    <div>
-      <p>근무지 주소</p>
-      <input type="text" v-model="zipcode" placeholder="우편번호" required>
-		  <button type="button" @click="execDaumPostcode">우편번호 찾기</button><br>
-		  <input type="text" v-model="address1" placeholder="도로명주소" required>
-		  <input type="text" v-model="address2" placeholder="지번주소" required><br>
-		  <input type="text" v-model="address3" placeholder="상세주소" required><br>
-    </div>
-    <div>
-      <p>직업</p>
-      <input type="text" v-model="job" required>
-    </div>
-    <div>
-      <p>소개</p>
-      <textarea rows="20" cols="40" v-model="introduction" required />
-    </div>
-    <br>
-    <router-link to="/myPage/newPw">비밀번호 변경</router-link>
-    <br>
-    <button type="submit">확인</button>
-  </form>
+  <body class="text-center">
+    <main class="form-signin w-100 m-auto">
+      <form @submit.prevent="counselorEdit">
+        <h1 class="h3 mb-3 fw-normal">내 정보 수정</h1>
+        <div class="form-floating">
+          <input type="email" class="form-control" id="email" v-model="email" placeholder="Email" readonly>
+          <label for="email" class="">Email address</label>
+        </div>
+        <br>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="name" v-model="name" placeholder="NAME" readonly>
+          <label for="name">NAME</label>
+        </div>
+        <br>
+        <div class="form-floating">
+          <br>
+          <input type="text" class="form-control" id="phone" v-model="phone" placeholder="-제외 번호" required>
+          <label for="phone" class="mt-4">휴대전화</label>
+        </div>
+        <br>
+        <button type="button" class="btn btn-secondary" @click="execDaumPostcode">우편번호 찾기</button>
+         <div class="form-floating">
+          <input type="text" class="form-control" id="zipcode" v-model="zipcode" placeholder="zipcode" required>
+          <label for="zipcode" class="">우편번호</label>
+        </div>
+         <div class="form-floating">
+          <input type="text" class="form-control" id="address1" v-model="address1" placeholder="address1" required>
+          <label for="address1" class="">도로명주소</label>
+        </div>
+         <div class="form-floating">
+          <input type="text" class="form-control" id="address2" v-model="address2" placeholder="address2" required>
+          <label for="address2" class="">지번주소</label>
+        </div>
+         <div class="form-floating">
+          <input type="text" class="form-control" id="address3" v-model="address3" placeholder="address3" required>
+          <label for="address3" class="">상세주소</label>
+        </div>
+        <br>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="job" v-model="job" placeholder="job" required>
+          <label for="job" class="">직업</label>
+        </div>
+        <br>
+        <div class="form-floating">
+          <textarea rows="20" cols="40" class="form-control" id="introduction" v-model="introduction" placeholder="introduction" required />
+          <label for="introduction" class="">소개</label>
+        </div>
+        <br>
+        <button type="submit" class="w-100 mt-3 btn btn-lg btn-primary">확인</button>
+      </form>
+    </main>
+  </body>
 </template>
 
 <script>
@@ -134,3 +152,26 @@ export default {
 }
 
 </script>
+
+<style scoped>
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: white;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+</style>

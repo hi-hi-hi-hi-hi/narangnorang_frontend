@@ -1,13 +1,13 @@
 <template>
   <div class="section">
     <MyPageSideBar :member="member"></MyPageSideBar>
-    <GeneralEdit></GeneralEdit>
+    <NewPw2></NewPw2>
   </div>
 </template>
 
 <script>
 import MyPageSideBar from '@/components/member/MyPageSideBar'
-import GeneralEdit from '@/components/member/GeneralEdit'
+import NewPw2 from '@/components/member/NewPw2'
 
 export default {
   data () {
@@ -19,7 +19,7 @@ export default {
   },
   components: {
     MyPageSideBar,
-    GeneralEdit
+    NewPw2
   },
   methods: {
   }

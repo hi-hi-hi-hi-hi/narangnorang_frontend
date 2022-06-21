@@ -7,7 +7,7 @@
 		<button v-if="member" type="button" @click="logout">로그아웃</button>
 		<NavBarComponent v-if="member" :privilege="privilege" />
 		<ChatBot v-if="member" :privilege="privilege" />
-		<router-view v-on:login="login" />
+		<router-view :member="member" />
 	</div>
 </template>
 
