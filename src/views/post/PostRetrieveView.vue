@@ -2,7 +2,7 @@
   <div class="postRetrieveSection">
     <PostSideBar :category="category" @categoryFromSideBar="fnUpdateCategory"/>
     <div class="postRetrieveArea">
-      <div style="margin-bottom:20px;"><button class="btn">수정</button>
+      <div style="margin-bottom:20px;"><button class="btn" @click="fnGoEditPage()">수정</button>
       <button class="btn" @click="fnPostDelete()">삭제</button></div>
       {{ category }} <br>
       <strong style="font-size:30px;">{{ title }}</strong>
@@ -99,6 +99,9 @@ export default {
     fnUpdateCategory (category) {
       this.category = category
       this.$router.push({ name: 'post', params: { category: this.category } })
+    },
+    fnGoEditPage () {
+      this.$router.push({ name: 'postEdit', params: { title: this.title, content: this.content, postId: this.id } })
     }
   }
 }

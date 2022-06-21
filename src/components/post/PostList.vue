@@ -1,10 +1,12 @@
 <template>
   <div class="postListSection">
+    <!-- 추천 필터링 버튼 -->
     <div class="postLikeButtons">
       <button class="btn btn-default btn" @click="fnUpdateLikes(0)">전체글</button>
       <button class="btn btn-default btn" @click="fnUpdateLikes(10)">추천 10개 이상</button>
       <button class="btn btn-default btn" @click="fnUpdateLikes(30)">추천 30개 이상</button>
     </div>
+    <!-- category가 대나무숲일 때 -->
     <div v-if="category !== '대나무숲'" class="postSearchArea">
       <div class="input-group mb-3">
         <div class="input-group-text p-0">
@@ -21,7 +23,14 @@
         <tr v-for="(row, idx) in list" :key="idx">
           <td style="padding:20px;">
             <img :src="require('@/assets/post/profile.png')" style="max-width:50px;heigth:auto;">
-            익명 {{ row.datetime }} <button class="btn btn-default" @click="fnLikePost(row.id)"> 추천 {{ row.likes }}</button>
+            익명
+            <span v-if="row.datetime.substring(0, 10) === todayDate" class="col-4 time text-muted small">
+              {{ row.datetime.substring(10, 19) }}
+            </span>
+            <span v-else class="col-4 time text-muted small">
+              {{ row.datetime.substring(2, 10) }}
+            </span>
+            <button class="btn btn-default" @click="fnLikePost(row.id)"> 추천 {{ row.likes }}</button>
             <br>
             <div style="margin:20px;">
               {{ row.content }}
@@ -31,6 +40,7 @@
           </td>
         </tr>
       </table>
+      <!-- 대나무숲 외 category -->
       <table v-else class="table table-hover" style="text-align:center;table-layout:fixed">
         <thead>
           <tr>
@@ -42,7 +52,7 @@
             <th style="width:100px;">추천</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody v-if="list.length >= 1">
           <tr v-for="(row, idx) in list" :key="idx">
             <td>{{ row.id }}</td>
             <td><a @click="fnGoRetrievePage(row.id)">
@@ -50,9 +60,21 @@
             <span v-else style="cursor:pointer;">{{ row.title }}</span>
             </a><span style="color:red;margin:5px">[{{ row.replies }}]</span></td>
             <td>{{ row.memberName }}</td>
-            <td>{{ row.datetime }}</td>
+            <td>
+              <span v-if="row.datetime.substring(0, 10) === todayDate" class="col-4 time text-muted small">
+                {{ row.datetime.substring(10, 16) }}
+              </span>
+              <span v-else class="col-4 time text-muted small">
+                {{ row.datetime.substring(2, 10) }}
+            </span>
+            </td>
             <td>{{ row.views }}</td>
             <td>{{ row.likes }}</td>
+          </tr>
+        </tbody>
+        <tbody v-else>
+          <tr>
+            <td colspan="6">게시글이 없습니다.</td>
           </tr>
         </tbody>
       </table>
@@ -100,7 +122,8 @@ export default {
       prev: 0,
       next: 0,
       pageNumbers: [],
-      replyVisible: false
+      replyVisible: false,
+      todayDate: ''
     }
   },
   components: {
@@ -122,8 +145,9 @@ export default {
       })
       .then((res) => {
         this.list = res.data.postDto
+        this.todayDate = res.data.todayDate
         this.fnPagingOp(res.data.pageDto.totalRows, res.data.pageDto.limit, res.data.pageDto.currentPage)
-      })
+        })
       .catch((err) => {
         console.log(err)
       })
@@ -191,7 +215,6 @@ export default {
       this.$router.push({ name: 'postWrite', params: { category: this.category } })
     },
     fnGoRetrievePage (id) {
-      console.log(this.category)
       this.$router.push('/post/' + id + '?category=' + this.category)
     },
     fnReplyVisibleToggle () {
