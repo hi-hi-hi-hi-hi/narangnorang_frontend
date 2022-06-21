@@ -15,7 +15,6 @@
       <div> 지번주소: {{ centerInfo.address_name }}</div>
       <div> 도로명주소: {{ centerInfo.road_address_name }} </div>
       <div> <a target="_blank" :href=centerInfo.place_url> 자세히 </a> </div>
-      <button @click="overlay = false">닫기</button>
     </div>
   </div>
 </template>

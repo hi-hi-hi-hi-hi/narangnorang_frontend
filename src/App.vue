@@ -72,4 +72,9 @@ html, body {
 #app {
 	font-family: 'Noto Sans KR', sans-serif;
 }
+
+.header {
+  text-decoration: none;
+  color: black;
+}
 </style>

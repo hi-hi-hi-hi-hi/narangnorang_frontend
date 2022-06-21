@@ -20,9 +20,7 @@
         <h4>{{ counselor.address2 }}, <br>{{ counselor.address3 }}</h4>
       </li>
     </ul>
-    <div class="links">
-      <button @click="this.$parent.viewModal(counselor.id, counselor.name, counselor.privilege)" class="view">상담신청</button>
-    </div>
+    <button @click="this.$parent.viewModal(counselor.id, counselor.name, counselor.privilege)" type="button" class="btn btn-outline-dark">상담하기</button>
     </div>
   </div>
   </div>
@@ -61,6 +59,7 @@ justify-content: center;
 background-color: #c4e5f1;
 min-height: 100vh;
 }
+
 img {
 max-width: 100%;
 display: block;
@@ -124,14 +123,6 @@ box-shadow: 0 0 0 5px #FFF;
 margin-left: 1.5rem;
 }
 
-.name h2 {
-font-size: 1.3rem;
-}
-.name h4 {
-font-size: .8rem;
-color: #333
-}
-
 .text {
 font-size: 1rem;
 margin-bottom: 1rem;
@@ -156,25 +147,10 @@ font-size: .99rem;
 font-size: .75rem;
 }
 
-.links button {
-min-width: 100px;
+.btn {
 padding: .2rem;
 border: 1px solid rgb(137, 137, 137);
-color: rgb(137, 137, 137);
-border-radius: 5px;
 font-weight: bold;
-cursor: pointer;
-transition: all .25s linear;
-}
-.links .follow,
-.links .view:hover {
-background-color: #222;
-color: #FFF;
-}
-.links .view,
-.links .follow:hover{
-background-color: transparent;
-color: #222;
 }
 
 @media screen and (max-width: 450px) {
@@ -185,9 +161,7 @@ color: #222;
   margin-left: 0;
   margin-top: 1.5rem;
 }
-.links button {
-  min-width: 100px;
-}
+
 }
 
 .img-area {

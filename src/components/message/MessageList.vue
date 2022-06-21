@@ -13,7 +13,7 @@
           <b style="font-size: 11px; color: grey">탈퇴한 사용자</b>
         </h6>
         <h6 v-else-if="message.senderId === userId">
-          {{ message.recieverName }}
+        {{ message.recieverName }}
           <b style="font-size: 11px; color: green"
             v-if="message.recieverPrivilege == 1 && message.recieverName !== null">
             상담사
@@ -51,11 +51,13 @@ export default {
     return {
       list: {},
       userId: null,
-      todayDate: ''
+      todayDate: '',
+      timer: ''
     }
   },
-  mounted () {
+  created () {
     this.getList()
+    this.timer = setInterval(this.getList, 3000)
   },
   methods: {
     getList () {
