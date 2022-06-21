@@ -11,6 +11,11 @@ import PostList from '@/components/post/PostList'
 
 export default {
   name: 'PostView',
+  props: {
+    login: {
+      default: {}
+    }
+  },
   data () {
     return {
       category: '자유게시판',
@@ -37,6 +42,7 @@ export default {
     if (this.$route.params.category) {
       this.category = this.$route.params.category
     }
+    console.log(this.login)
   }
 }
 </script>

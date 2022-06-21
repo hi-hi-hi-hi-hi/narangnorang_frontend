@@ -21,8 +21,9 @@
         <button type="button" class="btn btn-secondary" @click="compare">인증확인</button>
         <br>
         <div class="form-floating">
+          <br>
           <input type="text" class="form-control" id="password" v-model="password" placeholder="Password" required>
-          <label for="password" class="">Password</label>
+          <label for="password" class="mt-4">Password</label>
         </div>
         <div class="form-floating">
           <input type="text" class="form-control" id="password2" @input="pwCheck" v-model="password2" placeholder="Password Check" required>
@@ -37,14 +38,11 @@
         </div>
         <br>
         <button type="button" class="btn btn-secondary" @click="checkName">중복 체크</button>
-        <div class="form-floating">
-          <input type="text" class="form-control" id="name" v-model="name" placeholder="NICKNAME" required>
-          <label for="name">닉네임</label>
-        </div>
         <br>
         <div class="form-floating">
+          <br>
           <input type="text" class="form-control" id="phone" v-model="phone" placeholder="-제외 번호" required>
-          <label for="phone">휴대전화</label>
+          <label for="phone" class="mt-4">휴대전화</label>
         </div>
         <br>
         <div class="form-floating">
@@ -56,47 +54,6 @@
       </form>
     </main>
   </body>
-  <!-- <div class="signUp">
-    <form @submit.prevent="generalSignUp">
-      <div>
-        <label for="email">아이디(이메일)</label>
-        <input type="email" id="email" v-model="email" placeholder="Email" required>
-        <button type="button" @click="checkEmail">중복 체크</button>
-        <button type="button" @click="sendMail">인증메일보내기</button><br>
-        <span id="emailCheckResult" style="color: blue">{{ emailCheckResult }}</span>
-        <br>
-      </div>
-      <div>
-        <label for="com">인증확인</label>
-        <input type="text" id="com" v-model="com" placeholder="인증확인" required>
-        <button type="button" @click="compare">인증확인</button><br>
-        <span id="compare-text" style="color: blue">{{ compareText }}</span><br>
-      </div>
-      <div>
-        <label for="password">비밀번호</label>
-        <input type="password" id="password" v-model="password" placeholder="PASSWORD" required><br>
-        <label for="password2">비밀번호 확인</label>
-        <input type="password" id="password2" v-model="password2" @input="pwCheck" placeholder="CONFIRM PASSWORD" required><br>
-        <span id="pwCheckResult" style="color: blue">{{ pwCheckResult }}</span><br>
-      </div>
-      <div>
-        <label for="name">닉네임</label>
-        <input type="text" id="name" v-model="name" placeholder="NICKNAME" required>
-        <button type="button" @click="checkName">중복 체크</button>
-        <span id="nicknameCheckResult" style="color: blue">{{ nicknameCheckResult }}</span><br>
-      </div>
-      <div>
-        <label for="phone">휴대전화</label>
-        <input type="text" id="phone" v-model="phone" placeholder="-제외 번호" required><br>
-      </div>
-      <div>
-        <label for="region">지역</label>
-        <input type="text" id="region" v-model="region" placeholder="지역(시/군/구)" required><br>
-      </div>
-      <br>
-      <button type="submit">회원가입</button>
-    </form>
-  </div> -->
 </template>
 
 <script>
@@ -287,7 +244,7 @@ body {
   align-items: center;
   padding-top: 40px;
   padding-bottom: 40px;
-  background-color: #f5f5f5;
+  background-color: white;
 }
 
 .form-signin {

@@ -7,7 +7,7 @@
 		<button v-if="member" type="button" @click="logout">로그아웃</button>
 		<NavBarComponent v-if="member" :privilege="privilege" />
 		<ChatBot v-if="member" :privilege="privilege" />
-		<router-view v-on:login="login" :member="member"/>
+		<router-view :member="member" />
 	</div>
 </template>
 
@@ -35,7 +35,6 @@ export default {
 				responseType: 'json'
 			}).then((response) => {
 				if (response.data) {
-					console.log(response.data)
 					this.member = response.data
 					this.privilege = response.data.privilege
 				}

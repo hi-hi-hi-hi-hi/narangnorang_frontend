@@ -1,10 +1,12 @@
 <template>
   <div class="postSideBar">
+    <h5><b>커뮤니티</b></h5>
+    <hr>
     <ul class="list-group">
-      <a @click="fnUpdateCategory('자유게시판')"><li class="list-group-item">자유게시판</li></a>
-      <a @click="fnUpdateCategory('정보게시판')"><li class="list-group-item">정보게시판</li></a>
-      <a @click="fnUpdateCategory('예쁜말게시판')"><li class="list-group-item">예쁜말게시판</li></a>
-      <a @click="fnUpdateCategory('대나무숲')"><li class="list-group-item">대나무숲</li></a>
+      <a @click="fnUpdateCategory('자유게시판')"><li class="list-group-item">- 자유게시판</li></a>
+      <a @click="fnUpdateCategory('정보게시판')"><li class="list-group-item">- 정보게시판</li></a>
+      <a @click="fnUpdateCategory('예쁜말게시판')"><li class="list-group-item">- 예쁜말게시판</li></a>
+      <a @click="fnUpdateCategory('대나무숲')"><li class="list-group-item">- 대나무숲</li></a>
     </ul>
   </div>
 </template>
@@ -35,5 +37,6 @@ export default {
   }
   .list-group-item{
     cursor: pointer;
+    border: none;
   }
 </style>
