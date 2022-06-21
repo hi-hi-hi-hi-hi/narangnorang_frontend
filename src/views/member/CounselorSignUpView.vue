@@ -1,56 +1,78 @@
 <template>
-  <div class="signUp">
-    <form @submit.prevent="counselorSignUp">
-      <div>
-        <label for="email">아이디(이메일)</label>
-        <input type="email" id="email" v-model="email" placeholder="Email" required>
-        <button type="button" @click="checkEmail">중복 체크</button>
-        <button type="button" @click="sendMail">인증메일보내기</button><br>
-        <span id="emailCheckResult" style="color: blue">{{ emailCheckResult }}</span>
-        <br>
-      </div>
-      <div>
-        <label for="com">인증확인</label>
-        <input type="text" id="com" v-model="com" placeholder="인증확인" required>
-        <button type="button" @click="compare">인증확인</button><br>
-        <span id="compare-text" style="color: blue">{{ compareText }}</span><br>
-      </div>
-      <div>
-        <label for="password">비밀번호</label>
-        <input type="password" id="password" v-model="password" placeholder="PASSWORD" required><br>
-        <label for="password2">비밀번호 확인</label>
-        <input type="password" id="password2" v-model="password2" @input="pwCheck" placeholder="CONFIRM PASSWORD" required><br>
-        <span id="pwCheckResult" style="color: blue">{{ pwCheckResult }}</span><br>
-      </div>
-      <div>
-        <label for="name">이름</label>
-        <input type="text" id="name" v-model="name" placeholder="NAME" required>
-      </div>
-      <div>
-        <label for="phone">휴대전화</label>
-        <input type="text" id="phone" v-model="phone" placeholder="-제외 번호" required><br>
-      </div>
-      <div>
-        <label for="address">근무지 주소</label>
-        <div id="address">
-          <input type="text" v-model="zipcode" placeholder="우편번호" required>
-		      <button type="button" @click="execDaumPostcode">우편번호 찾기</button><br>
-		      <input type="text" v-model="address1" placeholder="도로명주소" required>
-		      <input type="text" v-model="address2" placeholder="지번주소" required><br>
-		      <input type="text" v-model="address3" placeholder="상세주소" required><br>
+  <body class="text-center">
+    <main class="form-signin w-100 m-auto">
+      <form @submit.prevent="counselorSignUp">
+        <h1 class="h3 mb-3 fw-normal">상담사 회원가입</h1>
+        <div class="form-floating">
+          <input type="email" class="form-control" id="email" v-model="email" placeholder="Email" required>
+          <label for="email" class="">Email address</label>
+          <span id="emailCheckResult" style="color: blue">{{ emailCheckResult }}</span>
         </div>
-      </div>
-      <div>
-        <label for="job">직업</label>
-        <input type="text" id="job" v-model="job" placeholder="job" required><br>
-      </div>
-      <div>
-        <label for="introduction">소개</label><br>
-        <textarea rows="20" cols="40" id="introduction" v-model="introduction" placeholder="introduction" required /><br>
-      </div>
-      <button type="submit">회원가입</button>
-    </form>
-  </div>
+        <br>
+        <button type="button" class="btn btn-secondary" @click="checkEmail">중복 체크</button>
+        <button type="button" class="btn btn-secondary" @click="sendMail">인증메일보내기</button><br>
+        <br>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="com" v-model="com" placeholder="인증확인" required>
+          <label for="com" class="">인증확인</label>
+          <span id="compare-text" style="color: blue">{{ compareText }}</span>
+        </div>
+        <br>
+        <button type="button" class="btn btn-secondary" @click="compare">인증확인</button>
+        <br>
+        <div class="form-floating">
+          <br>
+          <input type="text" class="form-control" id="password" v-model="password" placeholder="Password" required>
+          <label for="password" class="mt-4">Password</label>
+        </div>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="password2" @input="pwCheck" v-model="password2" placeholder="Password Check" required>
+          <label for="password2" class="">Password Check</label>
+          <span id="pwCheckResult" style="color: blue">{{ pwCheckResult }}</span>
+        </div>
+        <br>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="name" v-model="name" placeholder="NAME" required>
+          <label for="name" class="">이름</label>
+        </div>
+        <br>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="phone" v-model="phone" placeholder="휴대전화" required>
+          <label for="phone" class="">휴대전화</label>
+        </div>
+        <br>
+        <button type="button" class="btn btn-secondary" @click="execDaumPostcode">우편번호 찾기</button>
+         <div class="form-floating">
+          <input type="text" class="form-control" id="zipcode" v-model="zipcode" placeholder="zipcode" required>
+          <label for="zipcode" class="">우편번호</label>
+        </div>
+         <div class="form-floating">
+          <input type="text" class="form-control" id="address1" v-model="address1" placeholder="address1" required>
+          <label for="address1" class="">도로명주소</label>
+        </div>
+         <div class="form-floating">
+          <input type="text" class="form-control" id="address2" v-model="address2" placeholder="address2" required>
+          <label for="address2" class="">지번주소</label>
+        </div>
+         <div class="form-floating">
+          <input type="text" class="form-control" id="address3" v-model="address3" placeholder="address3" required>
+          <label for="address3" class="">상세주소</label>
+        </div>
+        <br>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="job" v-model="job" placeholder="job" required>
+          <label for="job" class="">직업</label>
+        </div>
+        <br>
+        <div class="form-floating">
+          <textarea rows="20" cols="40" class="form-control" id="introduction" v-model="introduction" placeholder="introduction" required />
+          <label for="introduction" class="">소개</label>
+        </div>
+        <br>
+        <button type="submit" class="w-100 mt-3 btn btn-lg btn-primary">회원가입</button>
+      </form>
+    </main>
+  </body>
 </template>
 
 <script>
@@ -244,3 +266,26 @@ export default {
 }
 
 </script>
+
+<style scoped>
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: white;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+</style>
