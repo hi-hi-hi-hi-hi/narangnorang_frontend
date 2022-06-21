@@ -62,8 +62,6 @@ export default {
       })
       .then((res) => {
         this.itemList = res.data.myItemList
-        console.log(res.data.itemList)
-        console.log(this.itemList)
       })
       .catch((err) => {
         console.log(err)
@@ -88,17 +86,29 @@ export default {
           this.mesg = '적용완료'
         }
         alert(this.mesg)
-        console.log(res.data)
         this.$router.go()
       })
       .catch((err) => {
         console.log(err)
+      })
+    },
+    getImage () {
+      axios({
+        url: '/api/home',
+        method: 'get',
+        responseType: 'json'
+      }).then((response) => {
+        this.privilege = response.data.privilege
+        this.point = response.data.point
       })
     }
   },
   components: {
     HomeImage,
     MiniroomSideBar
+  },
+  updated () {
+    this.getImage()
   }
 
 }
