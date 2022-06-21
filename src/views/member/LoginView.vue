@@ -41,6 +41,7 @@ export default {
           if (response.data.privilege === 0) {
             this.$router.push('/admin')
           } else {
+            this.$emit('login', response.data)
             this.$router.push('/home')
           }
         } else {
