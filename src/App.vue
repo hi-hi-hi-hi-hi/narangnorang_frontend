@@ -7,7 +7,7 @@
 		<button v-if="member" type="button" @click="logout">로그아웃</button>
 		<NavBarComponent v-if="member" :privilege="privilege" />
 		<ChatBot v-if="member" :privilege="privilege" />
-		<router-view v-on:login="login" />
+		<router-view :member="member" />
 	</div>
 </template>
 
@@ -64,17 +64,24 @@ export default {
 </script>
 
 <style>
-@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
-html, body {
-	font-family: 'Noto Sans KR', sans-serif;
-}
+	@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 
-#app {
-	font-family: 'Noto Sans KR', sans-serif;
-}
+	html, body {
+		font-family: 'Noto Sans KR', sans-serif;
+	}
 
-.header {
-  text-decoration: none;
-  color: black;
-}
+	#app {
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+
+	.header {
+	text-decoration: none;
+	color: black;
+	}
+
+	button {
+		padding: 0;
+		border: none;
+		background: none;
+	}
 </style>
