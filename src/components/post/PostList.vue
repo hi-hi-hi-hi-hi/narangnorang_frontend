@@ -1,5 +1,5 @@
 <template>
-  <PostUserProfilePopup v-if="popupVal" @close-popup="popupClose"/>
+  <PostUserProfilePopup v-if="popupVal" :memberName="popupMemberName" @popupClose="popupClose"/>
   <div class="postListSection">
     <!-- 추천 필터링 버튼 -->
     <div class="postLikeButtons">
@@ -61,7 +61,7 @@
             <strong v-if="category === '정보게시판' && row.memberPrivilege === 1" style="cursor:pointer;">{{ row.title }}</strong>
             <span v-else style="cursor:pointer;">{{ row.title }}</span>
             </a><span style="color:red;margin:5px">[{{ row.replies }}]</span></td>
-            <td><a @click="popupOpen()" style="cursor:pointer;">{{ row.memberName }}</a></td>
+            <td><a @click="popupOpen(row.memberName)" style="cursor:pointer;">{{ row.memberName }}</a></td>
             <td>
               <!-- 시간 표시 설정 -->
               <span v-if="row.datetime.substring(0, 10) === todayDate" class="col-4 time text-muted small">
@@ -106,11 +106,7 @@ import PostUserProfilePopup from '@/components/post/PostUserProfilePopup'
 
 export default {
   name: 'PostList',
-  props: {
-    category: {
-      default: '자유게시판'
-    }
-  },
+  props: ['category'],
   data () {
     return {
       requestBody: {},
@@ -128,7 +124,8 @@ export default {
       pageNumbers: [],
       replyVisible: false,
       todayDate: '',
-      popupVal: false
+      popupVal: false,
+      popupMemberName: ''
     }
   },
   components: {
@@ -222,7 +219,7 @@ export default {
       this.$router.push({ name: 'postWrite', params: { category: this.category } })
     },
     fnGoRetrievePage (id) {
-      this.$router.push('/post/' + id + '?category=' + this.category)
+      this.$router.push({ path: '/post/' + id, query: { category: this.category } })
     },
     fnReplyVisibleToggle () {
       if (this.replyVisible === true) {
@@ -245,8 +242,9 @@ export default {
         console.log(err)
       })
     },
-    popupOpen () {
+    popupOpen (memberName) {
       this.popupVal = true
+      this.popupMemberName = memberName
     },
     popupClose () {
       this.popupVal = false

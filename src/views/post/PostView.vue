@@ -1,7 +1,7 @@
 <template>
   <div class="postSection">
     <PostSideBar :category="category" @categoryFromSideBar="fnUpdateCategory"/>
-    <PostList :category="category"/>
+    <PostList :category="category" :member="member"/>
   </div>
 </template>
 
@@ -12,9 +12,7 @@ import PostList from '@/components/post/PostList'
 export default {
   name: 'PostView',
   props: {
-    login: {
-      default: {}
-    }
+    member: Object
   },
   data () {
     return {
@@ -42,7 +40,6 @@ export default {
     if (this.$route.params.category) {
       this.category = this.$route.params.category
     }
-    console.log(this.login)
   }
 }
 </script>

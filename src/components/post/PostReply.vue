@@ -11,7 +11,7 @@
           </div>
         </li>
       </a>
-      <PostWriteReply :postId="id"/>
+      <PostWriteReply :postId="id" @fnGetReplyList="fnGetReplyList"/>
     </ul>
   </div>
 </template>
@@ -21,17 +21,7 @@ import PostWriteReply from '@/components/post/PostWriteReply'
 
 export default {
   name: 'postReply',
-  props: {
-    id: {
-      default: 0
-    },
-    replies: {
-      default: 0
-    },
-    replyVisible: {
-      dafault: true
-    }
-  },
+  props: ['id', 'replies', 'replyVisible'],
   components: {
     PostWriteReply
   },
