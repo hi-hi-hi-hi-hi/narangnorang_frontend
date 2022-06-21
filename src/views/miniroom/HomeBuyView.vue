@@ -3,6 +3,7 @@
     <div class="align">
       <HomeImage />
     </div>
+    <br><br><br>
     <h1>아이템 구매</h1>
     <div class="postSection">
     <MiniroomSideBar />
@@ -84,6 +85,7 @@ export default {
       .then((res) => {
         this.mesg = res.data
         alert(this.mesg)
+        this.$router.go()
       })
       .catch((err) => {
         console.log(err)
@@ -126,9 +128,7 @@ table{
   color: red;
 }
 .align{
-  margin-left: 400px;
-  margin-top: 40px;
-  margin-bottom: 50px;
+  margin: 30px 50px 30px 400px;
 
 }
 .postSection{

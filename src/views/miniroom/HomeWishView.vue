@@ -56,8 +56,6 @@ export default {
       })
       .then((res) => {
         this.itemList = res.data.wishItemList
-        console.log(res.data.wishItemList)
-        console.log(this.itemList)
       })
       .catch((err) => {
         console.log(err)

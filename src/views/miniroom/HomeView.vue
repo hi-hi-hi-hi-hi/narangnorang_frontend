@@ -39,7 +39,6 @@ export default {
       }).then((response) => {
         this.privilege = response.data.privilege
         this.point = response.data.point
-        console.log(this.privilege)
       })
     }
 }
