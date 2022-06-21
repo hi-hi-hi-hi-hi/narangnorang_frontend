@@ -1,5 +1,5 @@
 <template>
-  <p>관리자 계정입니다.</p>
+  <h1>관리자 계정</h1>
 </template>
 
 <script>

@@ -1,19 +1,22 @@
 <template>
-  <div class="findPw">
-    <form @submit.prevent="myPage">
-      <p>정보를 안전하게 보호하기 위하여 비밀번호를 다시 확인 합니다.</p>
-      <div>
-        <p>이메일</p>
-        <p>{{ email }}</p>
-      </div>
-      <div>
-        <label for="password">비밀번호</label>
-        <input type="password" id="password" v-model="password" placeholder="PASSWORD" required>
-      </div>
-      <br>
-      <button type="submit">확인</button>
-    </form>
-  </div>
+  <body class="text-center">
+    <main class="form-signin w-100 m-auto">
+      <form @submit.prevent="myPage">
+        <p>정보를 안전하게 보호하기 위하여 비밀번호를 다시 확인 합니다.</p>
+        <div class="form-floating">
+          <input type="email" class="form-control" id="email" v-model="email" placeholder="Email" readonly>
+          <label for="email" class="">Email address</label>
+        </div>
+        <br>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="password" v-model="password" placeholder="Password" required>
+          <label for="password">Password</label>
+        </div>
+        <br>
+        <button type="submit" class="w-100 mt-3 btn btn-lg btn-primary">확인</button>
+      </form>
+    </main>
+  </body>
 </template>
 
 <script>
@@ -57,3 +60,26 @@ export default {
 }
 
 </script>
+
+<style scoped>
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: white;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+</style>

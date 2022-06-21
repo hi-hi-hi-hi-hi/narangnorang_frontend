@@ -52,7 +52,7 @@ export default {
         event.preventDefault()
       } else {
         this.axios({
-        url: '/api/newPw',
+        url: '/api/myPage/newPw',
         method: 'PUT',
         data: {
           password: this.password
@@ -62,7 +62,7 @@ export default {
         .then((response) => {
           if (response.data === 1) {
             alert('비밀번호가 변경되었습니다.')
-            this.$router.push('/login')
+            this.$router.push('/home')
           }
         })
       }
