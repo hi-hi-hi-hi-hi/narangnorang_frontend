@@ -21,7 +21,7 @@ export default {
   .section{
     display: grid;
     grid-template-columns: 600px 700px;
-    grid-gap: 30px;
+    grid-gap: 0px;
     position: absolute;
   }
 </style>

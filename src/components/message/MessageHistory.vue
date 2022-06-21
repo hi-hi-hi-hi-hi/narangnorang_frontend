@@ -1,10 +1,10 @@
 <template>
-    <div v-if="showHistory === true" class="history-section">
+    <div v-if="showHistory === true" class="history-section list-outer">
         <div class="ms-body">
             <!-- 대화상대 -->
             <div class="action-header clearfix">
                 <div class="pull-left hidden-xs">
-                    <img src="@/assets/counsel/norang.png" alt="" class="img-avatar m-r-10">
+                    <img src="@/assets/common/norang.png" class="img-avatar m-r-10">
                     <div class="lv-avatar pull-left">
                     </div>
                     <h3><b>{{ messageInfo.recieverName }}</b></h3>
@@ -16,7 +16,7 @@
                     <!-- 상대가 보냄 -->
                     <div v-if="message.senderId === otherId" class="message-feed media">
                         <div class="pull-left">
-                            <img src="@/assets/counsel/norang.png" alt="" class="img-avatar">
+                            <img :src="require('@/assets/member/' + messageInfo.recieverId + '.jpg')" alt="" class="img-avatar">
                         </div>
                         <div class="media-body">
                             <div class="mf-content">
@@ -96,10 +96,6 @@ export default {
 			this.emitter.on('otherId', otherId => {
 				this.otherId = otherId
 				this.getHistory()
-				this.$nextTick(() => {
-                    const messages = this.$refs.history
-                    console.log(messages.scrollHeight)
-				})
 			}
 			)
 		},
@@ -139,60 +135,12 @@ export default {
 </script>
 
 <style scoped>
+
 body {
-    font-family: Roboto,sans-serif;
     font-size: 13px;
     line-height: 1.42857143;
     color: #767676;
     background-color: #edecec;
-}
-
-#messages-main {
-    position: relative;
-    margin: 0 auto;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-}
-#messages-main:after, #messages-main:before {
-    content: " ";
-    display: table;
-}
-
-@media (min-width:768px) {
-    #messages-main .ms-body {
-    padding-left: 240px;
-}
-}@media (max-width:767px) {
-    #messages-main .ms-menu {
-    height: calc(100% - 58px);
-    display: none;
-    z-index: 1;
-    top: 58px;
-}
-#messages-main .ms-body {
-    overflow: hidden;
-}
-}
-
-#messages-main #ms-compose {
-    position: fixed;
-    bottom: 120px;
-    z-index: 1;
-    right: 30px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, .14), 0 4px 8px rgba(0, 0, 0, .28);
-}
-
-#ms-menu-trigger {
-    user-select: none;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 50px;
-    height: 100%;
-    padding-right: 10px;
-    padding-top: 19px;
-}
-#ms-menu-trigger i {
-    font-size: 21px;
 }
 
 .message-feed {
@@ -272,18 +220,8 @@ body {
 .ms-body{
     background:#fff;
 }
-#ms-menu-trigger {
-    user-select: none;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 50px;
-    height: 100%;
-    padding-right: 10px;
-    padding-top: 19px;
-    cursor:pointer;
-}
-#ms-menu-trigger, .message-feed.right {
+
+.message-feed.right {
     text-align: right;
 }
 
@@ -297,11 +235,17 @@ body {
     font-size: 10px;
 }
 
+.list-outer {
+  height: 750px;
+  padding: 12px;
+  background-color:#fffce8;
+  border-radius: 5px;
+}
 .history-section{
     grid-column: 2;
     grid-row: 1;
     margin-right:30%;
-    margin-top: 10%;
+    margin-top: 30px;
 }
 
 </style>

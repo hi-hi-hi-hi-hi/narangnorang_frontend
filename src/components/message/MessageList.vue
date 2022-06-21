@@ -2,11 +2,11 @@
   <!-- 대화 List -->
   <div class="list-outer list-section">
     <div v-for="(message, idx) in list" :key="idx" class="friend-drawer friend-drawer list-inner">
-      <img class="col-3 profile-image"
-        src="@/assets/counsel/norang.png">
- <!-- <img v-else-if="message.senderId === userId" class="col-3 profile-image"
-        :src="require('@/assets/counsel/' + message.recieverId + '.jpg')">
-      <img v-else class="col-3 profile-image" :src="require('@/assets/counsel/' + message.senderId + '.jpg')"> -->
+      <img v-if="message.senderName === null || message.recieverName === null" class="col-3 profile-image"
+        src="@/assets/common/norang.png" style="filter: grayscale(100%);">
+     <img v-else-if="message.senderId === userId" class="col-3 profile-image"
+        :src="require('@/assets/member/' + message.recieverId + '.jpg')">
+      <img v-else class="col-3 profile-image" :src="require('@/assets/member/' + message.senderId + '.jpg')">
       <!-- 대화 상대 -->
       <div class="col-5 text">
         <h6 v-if="message.senderName === null || message.recieverName === null">
@@ -74,7 +74,6 @@ export default {
       })
     },
     showMessageHistory (senderId, recieverId) {
-      console.log(senderId, recieverId)
       this.emitter.emit('showHistory', true)
       let otherId = null
       if (senderId === this.userId) {
@@ -126,17 +125,17 @@ a:hover {
 }
 
 .list-outer {
-  height: 700px;
+  height: 750px;
   padding: 12px;
-  background-color:rgb(255, 247, 101, 0.5);
-  border-radius: 8px;
+  background-color:#fffce8;
+  border-radius: 5px;
 }
 
 .list-section{
   grid-column: 1;
   grid-row: 1;
   margin-left: 20%;
-  margin-top: 10%
+  margin-top: 30px;
 }
 
 </style>
