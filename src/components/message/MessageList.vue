@@ -5,8 +5,8 @@
       <img v-if="message.senderName === null || message.recieverName === null" class="col-3 profile-image"
         src="@/assets/common/norang.png" style="filter: grayscale(100%);">
      <img v-else-if="message.senderId === userId" class="col-3 profile-image"
-        :src="require('@/assets/member/' + message.recieverId + '.jpg')">
-      <img v-else class="col-3 profile-image" :src="require('@/assets/member/' + message.senderId + '.jpg')">
+        :src="'/webapp/resources/images/member/' + message.recieverId + '.png'" @error="replaceImg">
+      <img v-else class="col-3 profile-image" :src="'/webapp/resources/images/member/' + message.senderId + '.png'">
       <!-- 대화 상대 -->
       <div class="col-5 text">
         <h6 v-if="message.senderName === null || message.recieverName === null">
@@ -45,6 +45,8 @@
 </template>
 
 <script>
+import img from '@/assets/member/noImage.jpg'
+
 export default {
   name: 'MessageList',
   data () {
@@ -52,14 +54,19 @@ export default {
       list: {},
       userId: null,
       todayDate: '',
-      timer: ''
+      image: null
     }
   },
   created () {
     this.getList()
-    this.timer = setInterval(this.getList, 3000)
+  },
+  updated () {
+    this.getList()
   },
   methods: {
+    replaceImg (e) {
+      e.target.src = img
+    },
     getList () {
       this.axios.get('/api/message/list', {
 
