@@ -2,7 +2,7 @@
   <div class="postWriteSection">
     <PostSideBar :category="category" @categoryFromSideBar="fnUpdateCategory"/>
     <div class="postWriteArea">
-      <input class="writeTitle form-control" type="text" v-model="title" placeholder="제목을 입력하세요."/><br>
+      <input v-if="category !== '대나무숲'" class="writeTitle form-control" type="text" v-model="title" placeholder="제목을 입력하세요."/><br>
       <textarea class="writeContent form-control" v-model="content" placeholder="내용을 입력하세요."/><br>
       <button class="btn" style="text-align:right;" @click="fnEditPost()">수정</button>
     </div>
@@ -41,7 +41,7 @@ export default {
       })
       .then((res) => {
         alert('게시글이 수정되었습니다.')
-        this.$router.push('/post')
+        this.$router.push({ name: 'post', params: { category: this.category } })
       })
     },
     fnUpdateCategory (category) {

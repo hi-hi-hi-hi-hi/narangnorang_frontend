@@ -33,7 +33,7 @@
               {{ row.datetime.substring(2, 10) }}
             </span>
             <span v-if="member.id === row.memberId">
-              <button class="btn">수정</button>
+              <button class="btn" @click="fnGoEditPage(row.content, row.id)">수정</button>
               <button class="btn" @click="fnPostDelete(row.id)">삭제</button>
             </span>
             <button class="btn btn-default" @click="fnLikePost(row.id)" style="float:right;"> 추천 {{ row.likes }}</button>
@@ -264,6 +264,9 @@ export default {
           console.log(err)
         })
       }
+    },
+    fnGoEditPage (thisContent, thisId) {
+      this.$router.push({ name: 'postEdit', params: { content: thisContent, postId: thisId, category: this.category } })
     }
   },
   watch: {
