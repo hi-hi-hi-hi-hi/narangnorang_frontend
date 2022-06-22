@@ -29,7 +29,11 @@ export default {
       this.axios.post('/api/post/reply', this.requestBody)
       .then((res) => {
         alert('댓글이 등록되었습니다.')
-        this.$router.go()
+        if (this.category === '대나무숲') {
+          this.$router.push({ name: 'post', params: { category: this.category } })
+        } else {
+          this.$router.go()
+        }
       })
     }
   }

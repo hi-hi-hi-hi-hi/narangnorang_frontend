@@ -1,10 +1,13 @@
 <template>
+  <PostUserProfilePopup v-if="popupVal" @close-popup="popupClose"/>
   <div class="postListSection">
+    <!-- 추천 필터링 버튼 -->
     <div class="postLikeButtons">
       <button class="btn btn-default btn" @click="fnUpdateLikes(0)">전체글</button>
       <button class="btn btn-default btn" @click="fnUpdateLikes(10)">추천 10개 이상</button>
       <button class="btn btn-default btn" @click="fnUpdateLikes(30)">추천 30개 이상</button>
     </div>
+    <!-- category가 대나무숲일 때 -->
     <div v-if="category !== '대나무숲'" class="postSearchArea">
       <div class="input-group mb-3">
         <div class="input-group-text p-0">
@@ -15,27 +18,31 @@
         </div>
         <input type="text" class="form-control" v-model="keyword" @keyup="fnPostSearch" />
     </div>
-      <!-- <select @change="fnChangeSearchCol()">
-        <option value="title">제목</option>
-        <option value="member_name">작성자</option>
-      </select>
-      <input type="text" @keyup="fnChangeKeyword()"> -->
     </div>
     <div class="postTableArea">
       <table v-if="category === '대나무숲'" class="table table-bordered">
         <tr v-for="(row, idx) in list" :key="idx">
           <td style="padding:20px;">
             <img :src="require('@/assets/post/profile.png')" style="max-width:50px;heigth:auto;">
-            익명 {{ row.datetime }} <button class="btn btn-default" @click="fnLikePost()"> 추천 {{ row.likes }}</button>
+            익명
+            <!-- 시간 표시 설정 -->
+            <span v-if="row.datetime.substring(0, 10) === todayDate" class="col-4 time text-muted small">
+              {{ row.datetime.substring(10, 19) }}
+            </span>
+            <span v-else class="col-4 time text-muted small">
+              {{ row.datetime.substring(2, 10) }}
+            </span>
+            <button class="btn btn-default" @click="fnLikePost(row.id)"> 추천 {{ row.likes }}</button>
             <br>
             <div style="margin:20px;">
               {{ row.content }}
             </div>
             <button class="btn" @click="fnReplyVisibleToggle()">댓글 {{ row.replies }}</button>
-            <PostReply :id="id" :replies="replies" :replyVisible="replyVisible"/>
+            <PostReply :id="row.id" :replyVisible="replyVisible"/>
           </td>
         </tr>
       </table>
+      <!-- 대나무숲 외 category -->
       <table v-else class="table table-hover" style="text-align:center;table-layout:fixed">
         <thead>
           <tr>
@@ -47,17 +54,30 @@
             <th style="width:100px;">추천</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody v-if="list.length >= 1">
           <tr v-for="(row, idx) in list" :key="idx">
             <td>{{ row.id }}</td>
             <td><a @click="fnGoRetrievePage(row.id)">
             <strong v-if="category === '정보게시판' && row.memberPrivilege === 1" style="cursor:pointer;">{{ row.title }}</strong>
             <span v-else style="cursor:pointer;">{{ row.title }}</span>
             </a><span style="color:red;margin:5px">[{{ row.replies }}]</span></td>
-            <td>{{ row.memberName }}</td>
-            <td>{{ row.datetime }}</td>
+            <td><a @click="popupOpen()" style="cursor:pointer;">{{ row.memberName }}</a></td>
+            <td>
+              <!-- 시간 표시 설정 -->
+              <span v-if="row.datetime.substring(0, 10) === todayDate" class="col-4 time text-muted small">
+                {{ row.datetime.substring(10, 16) }}
+              </span>
+              <span v-else class="col-4 time text-muted small">
+                {{ row.datetime.substring(2, 10) }}
+            </span>
+            </td>
             <td>{{ row.views }}</td>
             <td>{{ row.likes }}</td>
+          </tr>
+        </tbody>
+        <tbody v-else>
+          <tr>
+            <td colspan="6">게시글이 없습니다.</td>
           </tr>
         </tbody>
       </table>
@@ -82,6 +102,7 @@
 
 <script>
 import PostReply from '@/components/post/PostReply'
+import PostUserProfilePopup from '@/components/post/PostUserProfilePopup'
 
 export default {
   name: 'PostList',
@@ -105,14 +126,18 @@ export default {
       prev: 0,
       next: 0,
       pageNumbers: [],
-      replyVisible: false
+      replyVisible: false,
+      todayDate: '',
+      popupVal: false
     }
   },
   components: {
-    PostReply
+    PostReply,
+    PostUserProfilePopup
   },
   mounted () {
     this.fnGetList()
+    console.log(this.login)
   },
   methods: {
     fnGetList () {
@@ -127,8 +152,9 @@ export default {
       })
       .then((res) => {
         this.list = res.data.postDto
+        this.todayDate = res.data.todayDate
         this.fnPagingOp(res.data.pageDto.totalRows, res.data.pageDto.limit, res.data.pageDto.currentPage)
-      })
+        })
       .catch((err) => {
         console.log(err)
       })
@@ -196,7 +222,6 @@ export default {
       this.$router.push({ name: 'postWrite', params: { category: this.category } })
     },
     fnGoRetrievePage (id) {
-      console.log(this.category)
       this.$router.push('/post/' + id + '?category=' + this.category)
     },
     fnReplyVisibleToggle () {
@@ -206,19 +231,25 @@ export default {
         this.replyVisible = true
       }
     },
-    fnLikePost () {
-      this.axios.post('/api/post/like/' + this.id)
+    fnLikePost (id) {
+      this.axios.post('/api/post/like/' + id)
       .then((res) => {
         if (res.data === 1) {
           alert('게시글을 추천했습니다.')
         } else if (res.data === -1) {
           alert('추천을 취소하였습니다.')
         }
-        this.fnGetPostRetrieve()
+        this.fnGetList()
       })
       .catch((err) => {
         console.log(err)
       })
+    },
+    popupOpen () {
+      this.popupVal = true
+    },
+    popupClose () {
+      this.popupVal = false
     }
   },
   watch: {

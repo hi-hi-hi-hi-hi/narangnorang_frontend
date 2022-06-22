@@ -12,5 +12,10 @@ export default [{
     path: '/post/write',
     name: 'postWrite',
     component: () => import('../views/post/PostWriteView.vue')
+  },
+  {
+    path: '/post/edit',
+    name: 'postEdit',
+    component: () => import('../views/post/PostEditView.vue')
   }
 ]

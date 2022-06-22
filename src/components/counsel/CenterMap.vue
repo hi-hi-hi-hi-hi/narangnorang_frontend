@@ -1,17 +1,20 @@
 <template>
+  <!-- 검색창 -->
   <div class="searchBox">
-    <div>
-      <input type="text" ref="keyword" @keyup.enter="searchCenter">
+    <div class="searchArea">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" ref="keyword" @keyup="searchCenter" placeholder="지역을 입력하세요." />
+      </div>
     </div>
+    <!-- 카카오 지도 -->
     <div ref="kakaomap" style="width:700px;height:600px;float:left"></div>
+    <!-- 마커 클릭시 세부정보 -->
     <div v-if="overlay == true" style="float:left">
-      <img src='@/assets/counsel/pointer.png' style="height:100px"><br>
       <h3> {{ centerInfo.place_name }} </h3>
       <div> 연락처: {{ centerInfo.phone }} </div>
       <div> 지번주소: {{ centerInfo.address_name }}</div>
       <div> 도로명주소: {{ centerInfo.road_address_name }} </div>
       <div> <a target="_blank" :href=centerInfo.place_url> 자세히 </a> </div>
-      <button @click="overlay = false">닫기</button>
     </div>
   </div>
 </template>
@@ -54,7 +57,7 @@ export default {
     },
     // 마커 표시
     displayMarker (place) {
-      const imageSrc = require('@/assets/counsel/norang.png') // 마커이미지의 주소입니다
+      const imageSrc = require('@/assets/common/norang.png') // 마커이미지의 주소입니다
       const imageSize = new window.kakao.maps.Size(50, 50) // 마커이미지의 크기입니다
       const imageOption = { offset: new window.kakao.maps.Point(27, 69) }
 
@@ -119,3 +122,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .searchArea{
+    grid-column: 2;
+    grid-row: 1;
+  }
+</style>

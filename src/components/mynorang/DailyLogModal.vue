@@ -1,22 +1,24 @@
 <template>
     <div class="black-bg" @click="close">
-        <div class="white-bg">
-            <div>{{datetime}}</div>
-            <div>
+        <div class="white-bg text-center">
+            <div><b class="fs-5">{{datetime}}</b></div>
+            <hr>
+            <div class="my-3">
                 잠 : <input type="number" v-model="sleep" min="0" max="24" required="required">
             </div>
-            <div>
+            <div class="my-3">
                 약 :
                 <input type="radio" v-model="medicine" value="0">X
                 <input type="radio" v-model="medicine" value="1">
                 <img src="@/assets/mynorang/medicine.png" width="20">
             </div>
-            <div v-if="dailyLog">
-                <button type="button" @click="putDailyLog">수정</button>
-                <button type="button" @click="deleteDailyLog">삭제</button>
+            <hr>
+            <div v-if="dailyLog" class="m">
+                <button type="button" @click="putDailyLog" class="btn btn-outline-dark mx-3">수정</button>
+                <button type="button" @click="deleteDailyLog" class="btn btn-outline-dark mx-3">삭제</button>
             </div>
             <div v-else>
-                <button type="button" @click="postDailyLog">저장</button>
+                <button type="button" @click="postDailyLog" class="btn btn-outline-dark">저장</button>
             </div>
         </div>
     </div>
@@ -38,7 +40,7 @@
         -ms-transform: translate(-50%, -50%);
         -o-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
-        width: 25%; height: 25%;
+        width: 20%; height: 33%;
         padding: 20px;
         border-radius: 10px;
         background: white;
@@ -59,7 +61,6 @@ export default {
     },
     methods: {
         close (event) {
-            console.log(event.target)
             if (event.target.className === 'black-bg') {
                 this.$emit('close')
 			}
@@ -74,7 +75,7 @@ export default {
                 },
                 responseType: 'json'
             }).then((response) => {
-                this.close()
+                this.$emit('close')
             })
         },
         deleteDailyLog () {
@@ -84,7 +85,7 @@ export default {
                 data: {},
                 responseType: 'json'
             }).then((response) => {
-                this.close()
+                this.$emit('close')
             })
         },
         postDailyLog () {
@@ -98,7 +99,7 @@ export default {
                 },
                 responseType: 'json'
             }).then((response) => {
-                this.close()
+                this.$emit('close')
             })
         }
     },

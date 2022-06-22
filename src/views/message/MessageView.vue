@@ -1,9 +1,7 @@
 <template>
-    <div class="container">
-        <div class="row">
-            <MessageList></MessageList>
-            <MessageHistory></MessageHistory>
-        </div>
+    <div class="section">
+        <MessageList></MessageList>
+        <MessageHistory></MessageHistory>
     </div>
 </template>
 
@@ -20,8 +18,10 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  margin: 50px auto;
-  padding: 0;
-}
+  .section{
+    display: grid;
+    grid-template-columns: 600px 700px;
+    grid-gap: 0px;
+    position: absolute;
+  }
 </style>

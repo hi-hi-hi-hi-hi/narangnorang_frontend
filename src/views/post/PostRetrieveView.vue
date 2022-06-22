@@ -2,8 +2,9 @@
   <div class="postRetrieveSection">
     <PostSideBar :category="category" @categoryFromSideBar="fnUpdateCategory"/>
     <div class="postRetrieveArea">
-      <div style="margin-bottom:20px;"><button class="btn">수정</button>
+      <div style="margin-bottom:20px;"><button class="btn" @click="fnGoEditPage()">수정</button>
       <button class="btn" @click="fnPostDelete()">삭제</button></div>
+      <hr>
       {{ category }} <br>
       <strong style="font-size:30px;">{{ title }}</strong>
       <div class="postInfoArea">
@@ -16,6 +17,7 @@
         {{ content }}
       </div>
       <button class="btn" @click="fnReplyVisibleToggle()">댓글 {{ replies }}</button>
+      <hr>
       <PostReply :id="id" :replies="replies" :replyVisible="replyVisible"/>
     </div>
   </div>
@@ -99,6 +101,9 @@ export default {
     fnUpdateCategory (category) {
       this.category = category
       this.$router.push({ name: 'post', params: { category: this.category } })
+    },
+    fnGoEditPage () {
+      this.$router.push({ name: 'postEdit', params: { title: this.title, content: this.content, postId: this.id } })
     }
   }
 }
@@ -111,6 +116,7 @@ export default {
   grid-gap: 30px;
 }
 .postRetrieveArea{
+  width: 600px;
   grid-column: 2;
   grid-row: 1;
 }

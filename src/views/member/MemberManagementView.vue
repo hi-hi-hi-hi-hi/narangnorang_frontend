@@ -1,24 +1,25 @@
 <template>
+  <br>
   <h2>계정관리</h2>
-  <table border="1">
+  <table class="table" border="1">
     <thead>
       <tr>
-        <th>체크</th>
-        <th>id</th>
-        <th>email</th>
-        <th>password</th>
-        <th>phone</th>
-        <th>privilege</th>
-        <th>name</th>
-        <th>region</th>
-        <th>datetime</th>
-        <th>point</th>
-        <th>zipcode</th>
-        <th>address1</th>
-        <th>address2</th>
-        <th>address3</th>
-        <th>job</th>
-        <th>introduction</th>
+        <th scope="col">체크</th>
+        <th scope="col">id</th>
+        <th scope="col">이메일</th>
+        <th scope="col">비밀번호</th>
+        <th scope="col">전화번호</th>
+        <th scope="col">권한등급</th>
+        <th scope="col">이름(별명)</th>
+        <th scope="col">지역</th>
+        <th scope="col">가입날짜</th>
+        <th scope="col">포인트</th>
+        <th scope="col">우편번호</th>
+        <th scope="col">도로명</th>
+        <th scope="col">지번</th>
+        <th scope="col">상세주소</th>
+        <th scope="col">직업</th>
+        <th scope="col">소개</th>
       </tr>
     </thead>
     <tbody>
@@ -43,7 +44,7 @@
     </tbody>
   </table>
   <br>
-  <button type="button" @click="delSelected">선택 계정 삭제</button>
+  <button type="button" class="btn btn-danger" @click="delSelected">선택 계정 삭제</button>
   <br>
 </template>
 
