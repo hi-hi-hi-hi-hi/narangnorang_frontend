@@ -8,11 +8,7 @@
 <script>
 export default {
   name: 'postWriteReply',
-  props: {
-    postId: {
-      default: 0
-    }
-  },
+  props: ['postId'],
   data () {
     return {
       requestBody: {},
@@ -29,11 +25,8 @@ export default {
       this.axios.post('/api/post/reply', this.requestBody)
       .then((res) => {
         alert('댓글이 등록되었습니다.')
-        if (this.category === '대나무숲') {
-          this.$router.push({ name: 'post', params: { category: this.category } })
-        } else {
-          this.$router.go()
-        }
+        this.$emit('fnGetReplyList')
+        this.content = ''
       })
     }
   }

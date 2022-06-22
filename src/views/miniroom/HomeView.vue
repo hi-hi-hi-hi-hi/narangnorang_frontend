@@ -1,25 +1,40 @@
 <template>
 
-    <div v-if="privilege ===3" class="home">
-      <div class="postSection">
-    <MiniroomSideBar />
+    <div v-if="privilege ===3" class="section">
+      <div class="miniroomSideBar">
+    <MiniroomSideBar v-on:group="groupp" />
     </div>
       <div class="align">
         <HomeImage />
       </div>
-
+      <div></div>
+      <div v-if="group === 'B'">
+        <HomeBuy ></HomeBuy>
+      </div>
+      <div v-else-if="group === 'S'">
+        <HomeStyle></HomeStyle>
+      </div>
+      <div v-else-if="group === 'W'">
+        <HomeWish></HomeWish>
+      </div>
    </div>
 </template>
 
 <script>
 import HomeImage from '@/components/miniroom/HomeImage.vue'
 import MiniroomSideBar from '@/components/miniroom/MiniroomSideBar'
+import HomeBuy from '@/views/miniroom/HomeBuyView'
+import HomeStyle from '@/views/miniroom/HomeStyleView'
+import HomeWish from '@/views/miniroom/HomeWishView'
 import axios from 'axios'
 export default {
   name: 'HomeView',
   components: {
     HomeImage,
-    MiniroomSideBar
+    MiniroomSideBar,
+    HomeBuy,
+    HomeStyle,
+    HomeWish
   },
   created () {
     this.getImage()
@@ -27,7 +42,8 @@ export default {
   data () {
     return {
       privilege: '',
-      point: ''
+      point: '',
+      group: ''
     }
   },
   methods: {
@@ -40,19 +56,22 @@ export default {
         this.privilege = response.data.privilege
         this.point = response.data.point
       })
+    },
+    groupp (group) {
+      this.group = group
     }
 }
 }
 </script>
 
 <style scoped>
-.align{
-  margin: 30px 50px 30px 400px;
-}
-.postSection{
+.section{
     display: grid;
-    grid-template-columns: 300px 500px;
+    grid-template-columns: 300px 900px;
     grid-gap: 30px;
     position: absolute;
   }
+.align{
+  margin-left: 200px;
+}
 </style>
