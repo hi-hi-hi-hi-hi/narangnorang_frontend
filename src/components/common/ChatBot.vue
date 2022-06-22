@@ -8,7 +8,7 @@
 			<div class="action-header clearfix">
 				<div class="row">
 					<div class="pull-left hidden-xs col-6">
-						<img src="@/assets/counsel/norang.png" alt="" class="img-avatar m-r-10">
+						<img src="@/assets/common/norang.png" alt="" class="img-avatar m-r-10">
 						<h5><b>{{ challenge }}</b></h5>
 					</div>
 					<div v-show="!challengeSend" class="col-6">
