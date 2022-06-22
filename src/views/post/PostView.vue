@@ -50,5 +50,6 @@ export default {
     grid-template-columns: 300px 500px;
     grid-gap: 30px;
     position: absolute;
+    left: 10%;
   }
 </style>

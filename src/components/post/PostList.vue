@@ -20,7 +20,7 @@
     </div>
     </div>
     <div class="postTableArea">
-      <table v-if="category === '대나무숲'" class="table table-bordered">
+      <table v-if="category === '대나무숲'" class="table table-bordered" style="width:600px;">
         <tr v-for="(row, idx) in list" :key="idx">
           <td style="padding:20px;">
             <img :src="require('@/assets/post/profile.png')" style="max-width:50px;heigth:auto;">
@@ -32,13 +32,16 @@
             <span v-else class="col-4 time text-muted small">
               {{ row.datetime.substring(2, 10) }}
             </span>
-            <button class="btn btn-default" @click="fnLikePost(row.id)"> 추천 {{ row.likes }}</button>
-            <br>
+            <span v-if="member.id === row.memberId">
+              <button class="btn">수정</button>
+              <button class="btn" @click="fnPostDelete(row.id)">삭제</button>
+            </span>
+            <button class="btn btn-default" @click="fnLikePost(row.id)" style="float:right;"> 추천 {{ row.likes }}</button>
             <div style="margin:20px;">
               {{ row.content }}
             </div>
-            <button class="btn" @click="fnReplyVisibleToggle()">댓글 {{ row.replies }}</button>
-            <PostReply :id="row.id" :replyVisible="replyVisible"/>
+            <button class="btn" @click="fnReplyVisibleToggle(row.id)" >댓글 {{ row.replies }}</button>
+            <PostReply :id="row.id" :replyVisible="replyVisible" :replyVisibleId="replyVisibleId"/>
           </td>
         </tr>
       </table>
@@ -54,7 +57,7 @@
             <th style="width:100px;">추천</th>
           </tr>
         </thead>
-        <tbody v-if="list.length >= 1">
+        <tbody v-if="list.length">
           <tr v-for="(row, idx) in list" :key="idx">
             <td>{{ row.id }}</td>
             <td><a @click="fnGoRetrievePage(row.id)">
@@ -106,7 +109,7 @@ import PostUserProfilePopup from '@/components/post/PostUserProfilePopup'
 
 export default {
   name: 'PostList',
-  props: ['category'],
+  props: ['category', 'member'],
   data () {
     return {
       requestBody: {},
@@ -125,7 +128,8 @@ export default {
       replyVisible: false,
       todayDate: '',
       popupVal: false,
-      popupMemberName: ''
+      popupMemberName: '',
+      replyVisibleId: 0
     }
   },
   components: {
@@ -134,7 +138,6 @@ export default {
   },
   mounted () {
     this.fnGetList()
-    console.log(this.login)
   },
   methods: {
     fnGetList () {
@@ -221,11 +224,12 @@ export default {
     fnGoRetrievePage (id) {
       this.$router.push({ path: '/post/' + id, query: { category: this.category } })
     },
-    fnReplyVisibleToggle () {
+    fnReplyVisibleToggle (replyVisibleId) {
       if (this.replyVisible === true) {
         this.replyVisible = false
       } else {
         this.replyVisible = true
+        this.replyVisibleId = replyVisibleId
       }
     },
     fnLikePost (id) {
@@ -248,6 +252,18 @@ export default {
     },
     popupClose () {
       this.popupVal = false
+    },
+    fnPostDelete () {
+      if (confirm('게시글을 삭제하시겠습니까?')) {
+      this.axios.delete('/api/post/' + this.id)
+        .then((res) => {
+          alert('게시물을 삭제하였습니다.')
+          this.fnGetList()
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+      }
     }
   },
   watch: {
