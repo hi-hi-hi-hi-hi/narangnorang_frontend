@@ -1,9 +1,11 @@
 <template>
-  <div class="miniroomSideBar">
+  <div class="sideBar">
+    <h5><b>미니룸</b></h5>
+    <hr>
     <ul class="list-group">
-      <a @click="transferLinkBuy" ><li class="list-group-item">아이템 구매</li></a><br>
-      <a @click="transferLinkStyle" ><li class="list-group-item">아이템 적용</li></a><br>
-      <a @click="transferLinkWish" ><li class="list-group-item">위시리스트</li></a><br>
+      <a @click="transfer" ><li class="list-group-item B"> - 아이템 구매</li></a><br>
+      <a class="S" @click="transfer" ><li class="list-group-item S"> - 아이템 적용</li></a><br>
+      <a class="W" @click="transfer" ><li class="list-group-item W"> - 위시리스트</li></a><br>
     </ul>
     <div>내 포인트: {{point}}포인트</div>
   </div>
@@ -15,21 +17,26 @@ export default {
   created () {
     this.getImage()
   },
+  props: ['login'],
   data () {
     return {
       privilege: '',
-      point: ''
+      point: '',
+      group: ''
     }
   },
   methods: {
-    transferLinkBuy () {
-      this.$router.push('/home/buy')
-    },
-    transferLinkStyle () {
-      this.$router.push('/home/style')
-    },
-    transferLinkWish () {
-      this.$router.push('/home/wish')
+    transfer (event) {
+      if (event.target.className === 'list-group-item B') {
+        this.group = 'B'
+        this.$emit('group', this.group)
+      } else if (event.target.className === 'list-group-item W') {
+        this.group = 'W'
+        this.$emit('group', this.group)
+      } else {
+        this.group = 'S'
+        this.$emit('group', this.group)
+      }
     },
     getImage () {
       axios({
@@ -45,13 +52,19 @@ export default {
 }
 </script>
 <style scoped>
-  .miniroomSideBar{
+  .sideBar{
     grid-column: 1;
     grid-row: 1;
-    margin-left: 2%;
-    margin-top: 5%
+    margin-left: 20%;
+    margin-top: 10%;
   }
-  .list-group-item{
+
+  .list-group-item {
     cursor: pointer;
+    border: none;
+  }
+  .text {
+    text-decoration: none;
+    color: black;
   }
 </style>

@@ -2,27 +2,27 @@
 <div>
 <div class="Miniroom">
       <div v-if="myRoomDTO.floor !== 0">
-        <img  class="zIndex0" :srcset="require(`@/assets/items/${myRoomDTO.floor}.png`)">
+        <img  class="zIndex0 HomeImg" :srcset="require(`@/assets/items/${myRoomDTO.floor}.png`)">
       </div>
       <div v-if="myRoomDTO.bed !== 0">
-        <img class="zIndex2" :srcset="require(`@/assets/items/${myRoomDTO.bed}.png`)">
+        <img class="zIndex2 HomeImg" :srcset="require(`@/assets/items/${myRoomDTO.bed}.png`)">
       </div>
       <div v-if="myRoomDTO.wallpaper !== 0">
-        <img class="zIndex0" :srcset="require(`@/assets/items/${myRoomDTO.wallpaper}.png`)">
+        <img class="zIndex0 HomeImg" :srcset="require(`@/assets/items/${myRoomDTO.wallpaper}.png`)">
       </div>
       <div v-if="myRoomDTO.closet !== 0">
-        <img class="zIndex2" :srcset="require(`@/assets/items/${myRoomDTO.closet}.png`)">
+        <img class="zIndex2 HomeImg" :srcset="require(`@/assets/items/${myRoomDTO.closet}.png`)">
       </div>
-      <div v-if="myRoomDTO.desk !== 0"><img :srcset="require(`@/assets/items/${myRoomDTO.desk}.png`)">
+      <div v-if="myRoomDTO.desk !== 0"><img class="HomeImg" :srcset="require(`@/assets/items/${myRoomDTO.desk}.png`)">
       </div>
       <div v-if="myRoomDTO.walldecoLeft !== 0">
-        <img class="zIndex0" :srcset="require(`@/assets/items/${myRoomDTO.walldecoLeft}.png`)">
+        <img class="zIndex0 HomeImg" :srcset="require(`@/assets/items/${myRoomDTO.walldecoLeft}.png`)">
       </div>
       <div v-if="myRoomDTO.walldecoRight !== 0">
-        <img :srcset="require(`@/assets/items/${myRoomDTO.walldecoRight}.png`)">
+        <img class="HomeImg" :srcset="require(`@/assets/items/${myRoomDTO.walldecoRight}.png`)">
       </div>
       <div v-if="myRoomDTO.chair !== 0">
-        <img :srcset="require(`@/assets/items/${myRoomDTO.chair}.png`)">
+        <img class="HomeImg" :srcset="require(`@/assets/items/${myRoomDTO.chair}.png`)">
       </div>
     </div>
     </div>
@@ -64,20 +64,16 @@ export default {
 </script>
 <style scoped>
 
-    img {
+    .HomeImg {
       width: 500px;
       height: 500px;
       position: absolute;
       display: block;
-      margin: 0 auto;
     }
     .zIndex0{
       z-index: 0;
     }
     .zIndex2{
       z-index: 2;
-    }
-    .Miniroom{
-      position: relative;
     }
 </style>
