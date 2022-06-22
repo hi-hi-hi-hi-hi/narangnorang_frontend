@@ -1,5 +1,5 @@
 <template>
-	<button type="button" v-if="!modal" @click="open" style="position: fixed; right: 5%; bottom: 5%; border-radius: 40%; z-index: 3;">
+	<button type="button" v-if="!modal" @click="open" class="btn-norang">
 		<img src="@/assets/common/norang.png" width="70">
 	</button>
 	<div v-if="modal" class="black-bg" @click="close">
@@ -8,12 +8,15 @@
 			<div class="action-header clearfix">
 				<div class="row">
 					<div class="pull-left hidden-xs col-6">
-						<img src="@/assets/counsel/norang.png" alt="" class="img-avatar m-r-10">
+						<img src="@/assets/common/norang.png" class="img-avatar m-r-10">
+						<h5><b>오늘의 챌린지</b></h5>
 						<h5><b>{{ challenge }}</b></h5>
 					</div>
-					<div v-show="!challengeSend" class="col-6">
-						<input type="file" @change="multipartFile = $event.target.files[0]">
-						<input type="text" v-model="title">
+					<div v-show="challengeSend" class="col-6">
+						<input type="file" @change="multipartFile = $event.target.files[0]" id="input-file">
+						<label for="input-file" v-if="multipartFile == null">파일선택</label>
+						<label for="input-file" v-else>{{multipartFile.name}}</label><br>
+						<input type="text" v-model="title" placeholder="제목을 입력하세요">
 						<button type="button" @click="postChallenge(multipartFile, title)" class="btn btn-outline-dark">업로드</button>
 					</div>
 				</div>
@@ -24,7 +27,7 @@
 					<!-- 상대가 보냄 -->
 					<div v-if="message.from === '노랑이'" class="message-feed media">
 						<div class="pull-left">
-							<img src="@/assets/common/norang.png" alt="" class="img-avatar">
+							<img src="@/assets/common/norang.png" class="img-avatar">
 						</div>
 						<div class="media-body">
 							<div class="mf-content">
@@ -42,16 +45,17 @@
 					</div>
 				</div>
 			</div>
-			<div v-if="dailyLogSend">
-				<input type="number" v-model="sleep" min="0" max="24" required="required"><br>
+			<div v-if="dailyLogSend" class="msb-reply text-center">
+				<input type="number" v-model="sleep" min="0" max="24" required="required">시간<br>
 				<input type="radio" v-model="medicine" value="0">X
 				<input type="radio" v-model="medicine" value="1">
-				<img src="@/assets/mynorang/medicine.png" width="20"><br>
-				<button type="button" @click="postDailyLog(sleep, medicine)" class="btn btn-outline-dark">전송</button>
+				<img src="@/assets/mynorang/medicine.png" width="20">
+				<button type="button" @click="postDailyLog(sleep, medicine)"><b class="send-button">전송</b></button>
 			</div>
-			<div v-if="moodStateSend">
-				<input type="number" v-model="state" min="0" max="100" required="required">
-				<button type="button" @click="postMoodState(state)" class="btn btn-outline-dark">전송</button>
+			<div v-if="moodStateSend" class="msb-reply text-center">
+				<div>0 ~ 100 점</div>
+				<input type="number" v-model="state" min="0" max="100" required="required">점<br>
+				<button type="button" @click="postMoodState(state)"><b class="send-button">전송</b></button>
 			</div>
 			<div v-if="messageSend" class="msb-reply">
                 <textarea v-model="content" @keyup.enter="sendMessage" placeholder="내용을 입력하세요"></textarea>
@@ -62,6 +66,14 @@
 </template>
 
 <style scoped>
+	.btn-norang {
+		position: fixed;
+		right: 5%;
+		bottom: 5%;
+		border-radius: 40%;
+		z-index: 3;
+	}
+
     .black-bg {
         position: fixed;
         top: 0; left: 0;
@@ -69,15 +81,19 @@
         background: rgba(0, 0, 0, 0.05);
         z-index: 3;
     }
+
     .white-bg {
         position: fixed;
         right: 10%; bottom: 10%;
         width: 33%; height: 85%;
-        padding: 5px;
+        padding: 20px;
         border-radius: 10px;
         background: white;
     }
 
+	input[type="file"] {
+		display: none;
+	}
 </style>
 
 <script>
@@ -118,10 +134,10 @@ export default {
 				responseType: 'json'
 			}).then((response) => {
 				if (response.data.flag) {
-					this.challenge = '오늘의 챌린지 완료!'
+					this.challenge = '완료!'
 					this.challengeSend = false
 				} else {
-					this.challenge = '오늘의 챌린지 ' + response.data.challenge + '찍기!'
+					this.challenge = response.data.challenge + ' 사진 찍기!'
 					this.challengeSend = true
 				}
 			})
@@ -136,7 +152,7 @@ export default {
 					this.getMoodState()
 				} else {
 					const from = '노랑이'
-					const content = '수면시간이랑 약먹었는지 알려줘!'
+					const content = '수면 시간이랑, 약 먹었는지 알려줄 수 있어?'
 					const message = { from: from, content: content }
 					this.messageList.push(message)
 					this.dailyLogSend = true
@@ -150,10 +166,10 @@ export default {
 				responseType: 'json'
 			}).then((response) => {
 				if (response.data.flag) {
-					this.sendMessage()
+					this.startChat()
 				} else {
 					const from = '노랑이'
-					const content = '기분은 어때?'
+					const content = '기분은 좀 어때?'
 					const message = { from: from, content: content }
 					this.messageList.push(message)
 					this.moodStateSend = true
@@ -225,24 +241,30 @@ export default {
 					const message = { from: from, content: content }
 					this.messageList.push(message)
 					this.moodStateSend = false
-					this.sendMessage()
+					this.startChat()
 				}
 			})
 		},
-		sendMessage () {
+		startChat () {
 			const from = '노랑이'
 			const content = '나랑노랑!'
 			const message = { from: from, content: content }
 			this.messageList.push(message)
 			this.messageSend = true
-			for (let j = 0; j < 3; j++) {
-				const from = '나'
-				const content = '싫어!'
-				const message = { from: from, content: content }
-				this.messageList.push(message)
-				this.messageSend = true
-			}
+		},
+		sendMessage () {
+			const from = '나'
+			const content = this.content
+			this.content = ''
+			const message = { from: from, content: content }
+			this.messageList.push(message)
 		}
+	},
+	updated () {
+		this.$nextTick(function () {
+			const history = document.querySelector('.history')
+			history.scrollTop = history.scrollHeight
+		})
 	}
 }
 </script>
@@ -347,6 +369,7 @@ body {
 }
 
 .msb-reply {
+	height: 10%;
     box-shadow: 0 -20px 20px -5px #fff;
     position: relative;
     margin-top: 30px;
@@ -428,5 +451,4 @@ body {
     margin-right: 30%;
     margin-top: 10%;
 }
-
 </style>

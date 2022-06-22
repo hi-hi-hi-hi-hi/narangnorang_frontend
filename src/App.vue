@@ -2,7 +2,7 @@
 	<div>
 		<!-- Start Header -->
 		<router-link v-if="getPrivilege" to="/home">
-			<img :src="require('@/assets/header/logo.png')" style="max-width: 200px;">
+			<img src="@/assets/common/logo.png" style="max-width: 200px;">
 		</router-link>
 		<TopComponent v-if="getPrivilege" :privilege="member.privilege" />
 		<button type="button" v-if="getPrivilege" @click="logout">로그아웃</button>
@@ -58,9 +58,8 @@ export default {
 				responseType: 'json'
 			}).then((response) => {
 				if (response.data === '') {
-					alert('로그인을 해주세요')
 					this.member = null
-					this.$router.push('/')
+					this.$router.push('/login')
 				} else {
 					this.member = response.data
 				}

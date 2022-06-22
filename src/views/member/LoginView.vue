@@ -2,7 +2,7 @@
   <body class="text-center">
     <main class="form-signin w-100 m-auto">
       <form>
-        <img class="mb-3" :src="require('@/assets/header/logo.png')" style="max-width:200px;heigth:auto;">
+        <img class="mb-3" :src="require('@/assets/common/logo.png')" style="max-width:200px;heigth:auto;">
         <div class="form-floating">
           <input type="email" class="form-control" id="floatingInput" v-model="email" required="required" placeholder="abc@example.com">
           <label for="floatingInput">Email address</label>

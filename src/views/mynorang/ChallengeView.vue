@@ -12,6 +12,7 @@
                         </div>
                     </div>
                 </div>
+                <div v-if="challengeList.length == 0" class="col-auto m-2">챌린지를 먼저 진행해주세요</div>
             </div>
         </div>
     </div>
