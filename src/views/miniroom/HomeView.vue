@@ -29,6 +29,7 @@ import HomeWish from '@/views/miniroom/HomeWishView'
 import axios from 'axios'
 export default {
   name: 'HomeView',
+  props: ['member'],
   components: {
     HomeImage,
     MiniroomSideBar,
@@ -37,6 +38,7 @@ export default {
     HomeWish
   },
   created () {
+    console.log(this.member)
     this.getImage()
   },
   data () {

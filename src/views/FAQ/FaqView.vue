@@ -3,7 +3,6 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 col-sm-8 col-lg-6">
-                <!-- Section Heading-->
                 <div class="section_heading text-center wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
                     <h3><span>나랑노랑 FAQ</span></h3>
                     <p>나랑노랑 서비스에 대해 궁금했던 점을 확인해 보세요.</p>
@@ -13,45 +12,53 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-12 col-sm-10 col-lg-8">
-                <div class="accordion faq-accordian" id="faqAccordion">
-                    <div class="card border-0 wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-                        <div class="card-header" id="headingOne">
-                            <h6 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">나랑노랑은 어떤 서비스인가요?<span class="lni-chevron-up"></span></h6>
-                        </div>
-                        <div class="collapse" id="collapseOne" aria-labelledby="headingOne" data-parent="#faqAccordion">
-                            <div class="card-body">
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto quidem facere deserunt sint animi sapiente vitae suscipit.</p>
-                                <p>Appland is completely creative, lightweight, clean &amp; super responsive app landing page.</p>
-                            </div>
-                        </div>
+                <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      나랑노랑은 어떤 서비스인가요?
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <strong>나랑노랑은 챗봇을 활용한 멘탈 케어 서비스입니다. </strong>
+                      매일 챗봇을 통해 수면 시간과 약 복용 여부, 기분 변화를 기록하여 자신의 상태를 확인할 수 있습니다.
+                      커뮤니티를 통해 속마음을 털어 놓고, 간단한 테스트를 통해 자신의 상태를 확인해 볼 수도 있습니다.
+                      가까운 상담센터를 찾고, 전문 상담사에게 쪽지로 상담 요청도 해 보세요.
+                      포인트를 통해 아이템을 사고, 나만의 미니룸을 꾸며 보는 것도 잊지 마세요!
                     </div>
-                    <div class="card border-0 wow fadeInUp" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
-                        <div class="card-header" id="headingTwo">
-                            <h6 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">포인트는 어떻게 얻나요?<span class="lni-chevron-up"></span></h6>
-                        </div>
-                        <div class="collapse" id="collapseTwo" aria-labelledby="headingTwo" data-parent="#faqAccordion">
-                            <div class="card-body">
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto quidem facere deserunt sint animi sapiente vitae suscipit.</p>
-                                <p>Appland is completely creative, lightweight, clean &amp; super responsive app landing page.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card border-0 wow fadeInUp" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
-                        <div class="card-header" id="headingThree">
-                            <h6 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">노랑이와 나눈 대화는 비밀이 보장되나요?<span class="lni-chevron-up"></span></h6>
-                        </div>
-                        <div class="collapse" id="collapseThree" aria-labelledby="headingThree" data-parent="#faqAccordion">
-                            <div class="card-body">
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto quidem facere deserunt sint animi sapiente vitae suscipit.</p>
-                                <p>Appland is completely creative, lightweight, clean &amp; super responsive app landing page.</p>
-                            </div>
-                        </div>
-                    </div>
+                  </div>
                 </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      포인트는 어떻게 얻을 수 있나요?
+                    </button>
+                  </h2>
+                  <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <strong>포인트는 매일 챗봇 '노랑이'가 제공하는 챌린지를 완수하면 제공됩니다. </strong>
+                      챌린지 내용을 확인하고 해당하는 사진을 찍어 노랑이에게 보내 주세요. 지급된 포인트로 미니룸을 꾸밀 수 있습니다!
+                      챌린지를 통해 제출한 사진들은 마이노랑에서 앨범 형식으로 확인이 가능합니다.
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                      노랑이와 나눈 대화 / 상담사와 나눈 쪽지 내용은 비밀이 보장되나요?
+                    </button>
+                  </h2>
+                  <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      나랑노랑에서 나눈 대화 내역은 나랑노랑이 안전하게 보관하겠습니다!
+                    </div>
+                  </div>
+                </div>
+              </div>
                 <!-- Support Button-->
                 <div class="support-button text-center d-flex align-items-center justify-content-center mt-4" style="visibility: visible;">
-                    <p class="mb-0 px-2">충분한 답이 되지 못했다면, </p>
-                    <a href="#">aaa@bbb.com</a>
+                    <p class="mb-0 px-2">충분한 답이 되지 못했다면, 추가 문의 사항을 메일로 보내 주세요. aaa@bbb.com</p>
                 </div>
             </div>
         </div>
