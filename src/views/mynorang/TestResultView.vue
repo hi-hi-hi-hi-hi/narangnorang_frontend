@@ -15,6 +15,7 @@
                         </div>
                     </div>
                 </div>
+                <div v-if="testResultList.length == 0" class="col-auto m-2">테스트를 먼저 진행해주세요</div>
             </div>
         </div>
     </div>

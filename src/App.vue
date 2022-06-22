@@ -58,9 +58,8 @@ export default {
 				responseType: 'json'
 			}).then((response) => {
 				if (response.data === '') {
-					alert('로그인을 해주세요')
 					this.member = null
-					this.$router.push('/')
+					this.$router.push('/login')
 				} else {
 					this.member = response.data
 				}
