@@ -1,11 +1,11 @@
 <template>
 	<div>
 		<!-- Start Header -->
-		<router-link v-if="getPrivilege" to="/home">
+		<router-link v-if="getPrivilege" to="/home" style="position:absolute;top:20px;left:100px;">
 			<img :src="require('@/assets/header/logo.png')" style="max-width: 200px;">
 		</router-link>
 		<TopComponent v-if="getPrivilege" :privilege="member.privilege" />
-		<button type="button" v-if="getPrivilege" @click="logout">로그아웃</button>
+		<button type="button" class="btn" v-if="getPrivilege" @click="logout" style="position:absolute;top:27px;right:100px;">로그아웃</button>
 		<NavBarComponent v-if="getPrivilege" :privilege="member.privilege" />
 		<!-- End Header -->
 
@@ -58,9 +58,8 @@ export default {
 				responseType: 'json'
 			}).then((response) => {
 				if (response.data === '') {
-					alert('로그인을 해주세요')
 					this.member = null
-					this.$router.push('/')
+					this.$router.push('/login')
 				} else {
 					this.member = response.data
 				}

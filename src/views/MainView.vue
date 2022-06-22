@@ -1,5 +1,4 @@
 <template>
-    <div id="page-top">
         <!-- Masthead-->
         <header class="masthead">
             <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
@@ -31,22 +30,27 @@
             <div class="container px-4 px-lg-5">
                 <!-- Featured Project Row-->
                 <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
-                    <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="@/assets/miniroom1.png" alt="..." ></div>
+                    <div class="col-xl-8 col-lg-7 img-box" style="position: relative">
+                    <img class="img-fluid mb-3 mb-lg-0 img-up" src="@/assets/miniroom2.png" width="600px">
+                    <div style="position: absolute; top: 10px; left: 10px;">
+                    <img class="img-fluid mb-3 mb-lg-0 img-dn" src="@/assets/miniroom1.png" width="600px">
+                    </div>
+                    </div>
                     <div class="col-xl-4 col-lg-5">
                         <div class="featured-text text-center text-lg-left">
-                            <h4>미니룸</h4>
+                            <h4><b style="color:black">미니룸</b></h4>
                             <p class="text-black-50 mb-0">Grayscale is open source and MIT licensed. This means you can use it for any project - even commercial projects! Download it, customize it, and publish your website!</p>
                         </div>
                     </div>
                 </div>
                 <!-- Project One Row-->
                 <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-                    <div class="col-lg-6"><img class="img-fluid" src="@/assets/counselorCard.png" alt="..." ></div>
+                    <div class="col-lg-6"><img class="img-fluid" src="@/assets/counselorCard.png"></div>
                     <div class="col-lg-6">
-                        <div class="bg-black text-center h-100 project">
+                        <div class="text-center h-100 project">
                             <div class="d-flex h-100 shadow">
                                 <div class="project-text w-100 my-auto text-center text-lg-left ">
-                                    <h4 class="text-white">검증된 전문가</h4>
+                                    <h4 class="text-white"><b>검증된 전문가</b></h4>
                                     <p class="mb-0 text-white-50">An example of where you can put an image of a project, or anything else, along with a description.</p>
                                     <hr class="d-none d-lg-block mb-0 ms-0" >
                                 </div>
@@ -58,10 +62,10 @@
                 <div class="row gx-0 justify-content-center">
                     <div class="col-lg-6"><img class="img-fluid" src="@/assets/dayData.png" alt="..." ></div>
                     <div class="col-lg-6 order-lg-first">
-                        <div class="bg-black text-center h-100 project">
+                        <div class="text-center h-100 project">
                             <div class="d-flex h-100 shadow">
                                 <div class="project-text w-100 my-auto text-center text-lg-right">
-                                    <h4 class="text-white">매일 체크하는 일기</h4>
+                                    <h4 class="text-white"><b>매일 체크하는 일기</b></h4>
                                     <p class="mb-0 text-white-50">Another example of a project with its respective description. These sections work well responsively as well, try this theme on a small screen!</p>
                                     <hr class="d-none d-lg-block mb-0 me-0" >
                                 </div>
@@ -72,7 +76,7 @@
             </div>
         </section>
         <!-- Contact-->
-        <section class="contact-section bg-black">
+        <section class="contact-section">
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5">
                     <div class="col-md-4 mb-3 mb-md-0">
@@ -88,38 +92,43 @@
                     <div class="col-md-4 mb-3 mb-md-0">
                         <div class="card py-4 h-100 social">
                             <div class="card-body text-center">
-                                <i class="fas fa-envelope text-primary mb-2"></i>
+                                <i class="fas fa-envelope"></i>
                                 <h4 class="text-uppercase m-0">Email</h4>
                                 <hr class="my-4 mx-auto" >
-                                <div class="small text-black-50"><a href="#!">hello@yourdomain.com</a></div>
+                                <div class="small text-black-50"><a href="#!">narangnorang5@gmail.com</a></div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 mb-3 mb-md-0">
                         <div class="card py-4 h-100 social">
                             <div class="card-body text-center">
-                                <i class="fas fa-mobile-alt text-primary mb-2"></i>
-                                <h4 class="text-uppercase m-0">Phone</h4>
+                                <i class="fa-solid fa-people-group"></i>
+                                <h4 class="text-uppercase m-0">Team</h4>
                                 <hr class="my-4 mx-auto" >
-                                <div class="small text-black-50">+1 (555) 902-8832</div>
+                                <div class="small text-black-50"><a href="#!">Hi5</a></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+        <div style="position: fixed; bottom: 20px; right: 20px;"><a href="#" style="color:black">
+        <i class="fa-solid fa-angle-up fa-2xl"></i></a></div>
         <!-- Footer-->
-        <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; Your Website 2022</div></footer>
+        <footer class="footer small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; Your Website 2022</div></footer>
         <!-- Bootstrap core JS-->
-    </div>
 </template>
 
 <style scoped>
-
-.img-fluid {
-  max-width: 100%;
-  height: auto;
+a {
+  text-decoration: none;
+  color: black;
 }
+.img-box{
+  background-color: #fff;
+  border-radius:20px;
+}
+.img-box:hover img:last-child { opacity:0 }
 
 .container {
   width: 100%;
@@ -227,6 +236,7 @@
 .card-body {
   flex: 1 1 auto;
   padding: 1rem 1rem;
+  color: black;
 }
 
 .d-flex {
@@ -260,10 +270,6 @@
   margin-bottom: 0 !important;
 }
 
-.mb-2 {
-  margin-bottom: 0.5rem !important;
-}
-
 .mb-3 {
   margin-bottom: 1rem !important;
 }
@@ -294,14 +300,9 @@
   text-align: center !important;
 }
 
-.text-primary {
-  --bs-text-opacity: 1;
-  color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity)) !important;
-}
-
 .btn {
   padding: 1.25rem 2rem;
-  font-size: 80%;
+  font-size: 90%;
   font-weight: bold;
   margin-top: 50px;
   width: 300px;
@@ -371,7 +372,7 @@
 @media (min-width: 992px) {
   .projects-section .featured-text {
     padding: 0 0 0 2rem;
-    border-left: 0.5rem solid #64a19d;
+    border-left: 0.5rem solid #ede65ee7;
   }
 }
 .projects-section .project-text {
@@ -389,16 +390,22 @@
   }
 }
 
+.project {
+  background-color: #303030;
+}
+
 .shadow:hover {
-  background-color: #ede65ee7;
+  background-color: #fff982e7;
 }
 
 .contact-section {
   padding-top: 5rem;
+  padding-bottom: 5rem;
+  background-color: #303030;
 }
 .contact-section .card {
   border: 0;
-  border-bottom: 0.25rem solid #64a19d;
+  border-bottom: 0.25rem solid #ede65ee7;
 }
 .contact-section .card h4, .contact-section .card .h4 {
   font-size: 0.8rem;
@@ -406,7 +413,7 @@
   letter-spacing: 0.15rem;
 }
 .contact-section .card hr {
-  border-color: #64a19d;
+  border-color: #ede65ee7;
   border-width: 0.25rem;
   width: 3rem;
 }

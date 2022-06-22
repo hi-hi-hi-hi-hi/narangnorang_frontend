@@ -4,10 +4,13 @@
             <!-- 대화상대 -->
             <div class="action-header clearfix">
                 <div class="pull-left hidden-xs">
-                    <img src="@/assets/common/norang.png" class="img-avatar m-r-10">
                     <div class="lv-avatar pull-left">
                     </div>
-                    <h3><b>{{ messageInfo.recieverName }}</b></h3>
+                    <h3 v-if="messageInfo.recieverName === null"><b style="font-size: 11px; color: grey">탈퇴한 사용자</b></h3>
+                    <h3 v-else><b>{{ messageInfo.recieverName }}</b></h3>
+                    <b style="font-size: 15px; color: green" v-if="messageInfo.recieverPrivilege == 1 && messageInfo.recieverName !== null">
+            상담사
+          </b>
                 </div>
             </div>
             <!-- 대화내역 부분 -->
@@ -16,7 +19,8 @@
                     <!-- 상대가 보냄 -->
                     <div v-if="message.senderId === otherId" class="message-feed media">
                         <div class="pull-left">
-                            <img :src="require('@/assets/member/' + messageInfo.recieverId + '.jpg')" alt="" class="img-avatar">
+                            <img v-if="messageInfo.recieverName === null" class="img-avatar" src="@/assets/common/norang.png" style="filter: grayscale(100%);">
+                            <img v-else :src="'/webapp/resources/images/member/' + messageInfo.recieverId + '.png'" class="img-avatar" @error="replaceImg">
                         </div>
                         <div class="media-body">
                             <div class="mf-content">
@@ -51,6 +55,8 @@
 </template>
 
 <script>
+import img from '@/assets/member/noImage.jpg'
+
 export default {
     name: 'MessageHistory',
 	data () {
@@ -64,14 +70,23 @@ export default {
                 recieverPrivilege: null,
                 content: ''
             },
-            timer: ''
+            image: null
 		}
 	},
-	mounted () {
+	created () {
 		this.getInfoFromSibling()
-        this.timer = setInterval(this.getInfoFromSibling, 3000)
 	},
+    updated () {
+        this.getInfoFromSibling()
+        this.$nextTick(() => {
+            // this.history.scrollTop = this.history.scrollHeight
+            }
+        )
+    },
 	methods: {
+        replaceImg (e) {
+            e.target.src = img
+        },
 		getHistory () {
 			this.axios({
 				url: '/api/message/history',

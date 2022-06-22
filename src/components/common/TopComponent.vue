@@ -1,24 +1,24 @@
 <template>
-	<div class="top" v-if="privilege === 3">
-		<router-link class="top-link" to="/">고객문의</router-link> |
-		<router-link class="top-link" to="/">알림</router-link> |
-		<router-link class="top-link" to="/message"><i class="fa-solid fa-envelope"></i><b>{{ unreads }}</b>쪽지</router-link> |
+	<div class="top" v-if="privilege === 3" style="">
+		<router-link class="top-link" to="/faq">고객문의</router-link>
+		<router-link class="top-link" to="/">알림</router-link>
+		<router-link class="top-link" to="/message"><i class="fa-solid fa-envelope"></i><b>{{ unreads }}</b>쪽지</router-link>
 		<router-link class="top-link" to="/myPage">내정보</router-link>
 	</div>
 	<div class="top" v-else-if="privilege === 2">
-		<router-link class="top-link" to="/">고객문의</router-link> |
+		<router-link class="top-link" to="/faq">고객문의</router-link> |
 		<router-link class="top-link" to="/">알림</router-link> |
 		<router-link class="top-link" to="/message"><i class="fa-solid fa-envelope"></i><b>{{ unreads }}</b>쪽지</router-link> |
 		<router-link class="top-link" to="/myPage">내정보</router-link>
 	</div>
 	<div class="top" v-else-if="privilege === 1">
-		<router-link class="top-link" to="/">고객문의</router-link> |
+		<router-link class="top-link" to="/faq">고객문의</router-link> |
 		<router-link class="top-link" to="/">알림</router-link> |
 		<router-link class="top-link" to="/message"><i class="fa-solid fa-envelope"></i><b>{{ unreads }}</b>쪽지</router-link> |
 		<router-link class="top-link" to="/myPage">내정보</router-link>
 	</div>
 	<div class="top" v-else-if="privilege === 0">
-		<router-link class="top-link" to="/">고객문의</router-link>
+		<router-link class="top-link" to="/faq">고객문의</router-link>
 	</div>
 </template>
 
@@ -29,7 +29,13 @@
 	}
 	.top-link {
 		text-decoration: none;
-		color: black;
+		color: gray;
+		margin: 10px;
+	}
+	.top {
+		position: absolute;
+		right: 200px;
+		top: 30px;
 	}
 </style>
 
@@ -56,6 +62,7 @@ export default {
 			})
 			.catch((err) => {
 				console.log(err)
+				clearInterval(this.timer)
 			})
 		}
 	},

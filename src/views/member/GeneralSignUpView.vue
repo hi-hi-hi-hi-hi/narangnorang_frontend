@@ -2,15 +2,15 @@
   <body class="text-center">
     <main class="form-signin w-100 m-auto">
       <form @submit.prevent="generalSignUp">
-        <h1 class="h3 mb-3 fw-normal">일반회원가입</h1>
+        <h1 class="h3 mb-3 fw-normal"><b>일반회원가입</b></h1>
         <div class="form-floating">
           <input type="email" class="form-control" id="email" v-model="email" placeholder="Email" required>
           <label for="email" class="">Email address</label>
           <span id="emailCheckResult" style="color: blue">{{ emailCheckResult }}</span>
         </div>
         <br>
-        <button type="button" class="btn btn-secondary" @click="checkEmail">중복 체크</button>
-        <button type="button" class="btn btn-secondary" @click="sendMail">인증메일보내기</button><br>
+        <button type="button" class="btn btn-dark btn-id" @click="checkEmail">중복 체크</button>
+        <button type="button" class="btn btn-dark" @click="sendMail">인증메일보내기</button><br>
         <br>
         <div class="form-floating">
           <input type="text" class="form-control" id="com" v-model="com" placeholder="인증확인" required>
@@ -18,7 +18,7 @@
           <span id="compare-text" style="color: blue">{{ compareText }}</span>
         </div>
         <br>
-        <button type="button" class="btn btn-secondary" @click="compare">인증확인</button>
+        <button type="button" class="btn btn-dark" @click="compare">인증확인</button>
         <br>
         <div class="form-floating">
           <br>
@@ -37,7 +37,7 @@
           <span id="nicknameCheckResult" style="color: blue">{{ nicknameCheckResult }}</span>
         </div>
         <br>
-        <button type="button" class="btn btn-secondary" @click="checkName">중복 체크</button>
+        <button type="button" class="btn btn-dark" @click="checkName">중복 체크</button>
         <br>
         <div class="form-floating">
           <br>
@@ -50,7 +50,7 @@
           <label for="region">지역</label>
         </div>
         <br>
-        <button type="submit" class="w-100 mt-3 btn btn-lg btn-primary">회원가입</button>
+        <button type="submit" class="w-100 btn btn-outline-dark btn-lg">회원가입</button>
       </form>
     </main>
   </body>
@@ -254,5 +254,12 @@ body {
 
 .form-signin .form-floating:focus-within {
   z-index: 2;
+}
+
+.btn-id {
+  margin-right: 10px;
+}
+.btn-lg {
+  font-weight: bold;
 }
 </style>

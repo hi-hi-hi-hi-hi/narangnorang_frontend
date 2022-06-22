@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="infos">
-      <img class="img-area" :src="require('@/assets/member/' + counselor.id + '.jpg')">
+      <img class="img-area" :src="'/webapp/resources/images/member/' + counselor.id + '.png'">
       <div class="name-area">
         <h2>{{ counselor.name }}</h2>
         <h4>{{ counselor.job }}</h4>
@@ -20,7 +20,7 @@
         <h4>{{ counselor.address2 }}, <br>{{ counselor.address3 }}</h4>
       </li>
     </ul>
-    <button @click="this.$parent.viewModal(counselor.id, counselor.name, counselor.privilege)" type="button" class="btn btn-outline-dark">상담하기</button>
+    <button @click="this.$parent.viewModal(counselor.id, counselor.name, counselor.privilege)" type="button" class="btn btn-outline-dark btn-lg">상담하기</button>
     </div>
   </div>
   </div>
@@ -84,7 +84,6 @@ padding: 2.5rem 2rem;
 border-radius: 10px;
 background-color: rgba(255, 255, 255, .5);
 max-width: 700px;
-box-shadow: 0 0 30px rgba(0, 0, 0, .15);
 margin: 1rem;
 position: relative;
 transform-style: preserve-3d;
@@ -110,6 +109,10 @@ width: 15rem;
 background-color: rgb(255, 247, 101, 0.5);
 top: -8rem;
 right: -8rem;
+}
+
+.card:hover {
+   box-shadow: 0 0 30px rgba(0, 0, 0, .15);
 }
 
 .card img {
@@ -149,7 +152,7 @@ font-size: .75rem;
 
 .btn {
 padding: .2rem;
-border: 1px solid rgb(137, 137, 137);
+border: 2px solid rgb(137, 137, 137);
 font-weight: bold;
 }
 
@@ -177,4 +180,5 @@ font-weight: bold;
 .bottom-area {
   text-align: center;
 }
+
 </style>

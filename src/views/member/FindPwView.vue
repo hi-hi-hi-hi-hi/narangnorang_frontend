@@ -2,21 +2,21 @@
   <body class="text-center">
     <main class="form-signin w-100 m-auto">
       <form @submit.prevent="findPw">
-        <h1 class="h3 mb-3 fw-normal">비밀번호 찾기</h1>
-        <div class="form-floating">
+        <h1 class="h3 mb-3 fw-normal"><b>비밀번호 찾기</b></h1>
+        <div class="form-floating form-up">
           <input type="email" class="form-control" id="email" v-model="email" placeholder="Email" required>
           <label for="email" class="">Email address</label>
         </div>
-        <br>
         <div class="form-floating">
           <input type="text" class="form-control" id="com" v-model="com" placeholder="인증확인" required>
           <label for="com" class="">인증확인</label>
           <span id="compare-text" style="color: blue">{{ compareText }}</span><br>
         </div>
-        <button type="button" class="btn btn-secondary" @click="sendMail">인증메일보내기</button>
-        <button type="button" class="btn btn-secondary" @click="compare">인증확인</button>
-        <button type="submit" class="w-100 mt-3 btn btn-lg btn-primary">새 비번 설정하기</button>
+        <button type="button" class="btn btn-dark btn-id" @click="sendMail">인증메일보내기</button>
+        <button type="button" class="btn btn-dark" @click="compare">인증확인</button>
+        <button type="submit" class="w-100 btn btn-outline-dark btn-lg">새 비번 설정하기</button>
       </form>
+      <router-link to="/login" style="color:black">로그인 화면</router-link>
     </main>
   </body>
 </template>
@@ -104,8 +104,8 @@ body {
 body {
   display: flex;
   align-items: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 200px;
+  padding-bottom: 200px;
   background-color: white;
 }
 
@@ -116,5 +116,17 @@ body {
 
 .form-signin .form-floating:focus-within {
   z-index: 2;
+}
+
+.btn-id {
+  margin-right: 10px;
+}
+
+.btn-lg {
+  font-weight: bold;
+}
+
+.form-up, .btn {
+  margin-bottom: 10px
 }
 </style>
