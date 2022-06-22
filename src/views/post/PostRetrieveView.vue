@@ -2,8 +2,10 @@
   <div class="postRetrieveSection">
     <PostSideBar :category="category" @categoryFromSideBar="fnUpdateCategory"/>
     <div class="postRetrieveArea">
-      <div style="margin-bottom:20px;"><button class="btn" @click="fnGoEditPage()">수정</button>
-      <button class="btn" @click="fnPostDelete()">삭제</button></div>
+      <div v-if="member.id === memberId">
+        <div style="margin-bottom:20px;"><button class="btn" @click="fnGoEditPage()">수정</button>
+        <button class="btn" @click="fnPostDelete()">삭제</button></div>
+      </div>
       <hr>
       {{ category }} <br>
       <strong style="font-size:30px;">{{ title }}</strong>
@@ -27,6 +29,7 @@ import PostSideBar from '@/components/post/PostSideBar'
 import PostReply from '@/components/post/PostReply'
 
 export default {
+  props: ['member'],
   data () {
     return {
       id: 0,
@@ -34,6 +37,7 @@ export default {
       content: '',
       datetime: '',
       memberName: '',
+      memberId: '',
       views: 0,
       likes: 0,
       replies: 0,
@@ -57,6 +61,7 @@ export default {
         this.content = res.data.content
         this.datetime = res.data.datetime
         this.memberName = res.data.memberName
+        this.memberId = res.data.memberId
         this.views = res.data.views
         this.likes = res.data.likes
         this.replies = res.data.replies
