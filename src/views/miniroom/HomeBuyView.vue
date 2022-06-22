@@ -1,36 +1,33 @@
 <template>
 <div>
-    <div class="align">
-      <HomeImage />
-    </div>
-    <br><br><br>
-    <h1>아이템 구매</h1>
-    <div class="postSection">
-    <MiniroomSideBar />
-    </div>
-<div class="table-responsive">
-
-  <table class="table">
+<div class="table-res">
+  <h1>아이템 구매</h1>
+  <table class="table container">
     <thead>
       <tr>
-            <th><button class="btn btn-info" @click="changeCategory('bed')">침대</button></th>
-            <th><button class="btn btn-info" @click="changeCategory('closet')">옷장</button></th>
-            <th><button class="btn btn-info" @click="changeCategory('floor')" >바닥</button></th>
-            <th><button class="btn btn-info" @click="changeCategory('wallpaper')" >벽지</button></th>
-            <th><button class="btn btn-info" @click="changeCategory('desk')" >책상</button></th>
-            <th><button class="btn btn-info" @click="changeCategory('chair')" >의자</button></th>
-            <th><button class="btn btn-info" @click="changeCategory('walldecoRight')" >오른쪽벽장식</button></th>
-            <th><button class="btn btn-info" @click="changeCategory('walldecoLeft')" >왼쪽벽장식</button></th>
+            <th><button class="btn btn-info col-sm-6" @click="changeCategory('bed')">침대</button></th>
+            <th><button class="btn btn-info col-sm-6" @click="changeCategory('closet')">옷장</button></th>
+            <th><button class="btn btn-info col-sm-6" @click="changeCategory('floor')" >바닥</button></th>
+            <th><button class="btn btn-info col-sm-6" @click="changeCategory('wallpaper')" >벽지</button></th>
+            <th><button class="btn btn-info col-sm-6" @click="changeCategory('desk')" >책상</button></th>
+            <th><button class="btn btn-info col-sm-6" @click="changeCategory('chair')" >의자</button></th>
+            <th><button class="btn btn-info col-sm-6" @click="changeCategory('walldecoRight')" >우장</button></th>
+            <th><button class="btn btn-info col-sm-6" @click="changeCategory('walldecoLeft')" >좌장</button></th>
       </tr>
     </thead>
+  </table>
+  <table class="container">
     <tbody>
-      <tr v-for="(dto, idx) in itemList" :key="idx">
-        <td>아이템 번호: {{dto.id}}</td>
-        <td>아이템 이름: {{dto.name}}</td>
-        <td><img class="img-fluid" :srcset="require(`../../assets/items/items/${dto.id}.png`)"></td>
-        <td>가격:<span class="red">{{dto.price}}pt</span></td>
-        <td><button class="btn btn-warning" @click="buy(dto.id,dto.price,dto.name,dto.category)">구매</button></td>
-        <td><button class="btn btn-warning" @click="wish(dto.id,dto.category)">위시리스트</button></td>
+      <tr>
+        <td v-for="(dto, idx) in itemList" :key="idx">
+        <table class="col-sm-6">
+            <tr><td>번호: {{dto.id}}</td></tr>
+            <tr><td><img class="imgMini" :srcset="require(`../../assets/items/items/${dto.id}.png`)"></td></tr>
+            <tr><td>가격:<span class="red">{{dto.price}}pt</span></td></tr>
+            <tr><td><button class="btn btn-warning" @click="buy(dto.id,dto.price,dto.name,dto.category)">구매</button></td></tr>
+            <tr><td><button class="btn btn-warning" @click="wish(dto.id,dto.category)">Wish</button></td></tr>
+       </table>
+       </td>
       </tr>
     </tbody>
   </table>
@@ -39,8 +36,6 @@
 </template>
 
 <script>
-import HomeImage from '@/components/miniroom/HomeImage.vue'
-import MiniroomSideBar from '@/components/miniroom/MiniroomSideBar'
 import axios from 'axios'
 export default {
   name: 'HomeBuy',
@@ -106,35 +101,21 @@ export default {
         console.log(err)
       })
     }
-  },
-  components: {
-    HomeImage,
-    MiniroomSideBar
   }
 
 }
 </script>
 
 <style scoped>
-img {
+.imgMini {
   width: 100px;
   height: auto;
-}
-table{
-    margin-top: 400px;
-    border: 5px;
 }
 .red{
   color: red;
 }
-.align{
-  margin: 30px 50px 30px 400px;
-
+.table-res{
+  margin-top: 200px;
+  border: 5px;
 }
-.postSection{
-    display: grid;
-    grid-template-columns: 300px 500px;
-    grid-gap: 30px;
-    position: absolute;
-  }
 </style>
