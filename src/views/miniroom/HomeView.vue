@@ -29,6 +29,7 @@ import HomeStyle from '@/views/miniroom/HomeStyleView'
 import HomeWish from '@/views/miniroom/HomeWishView'
 export default {
   name: 'HomeView',
+  props: ['member'],
   components: {
     HomeImage,
     MiniroomSideBar,
@@ -37,6 +38,7 @@ export default {
     HomeWish
   },
   created () {
+    console.log(this.member)
     this.getImage()
   },
   data () {
