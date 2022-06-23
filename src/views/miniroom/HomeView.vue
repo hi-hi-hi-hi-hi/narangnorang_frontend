@@ -38,7 +38,8 @@ export default {
     MiniroomSideBar,
     HomeBuy,
     HomeStyle,
-    HomeWish
+    HomeWish,
+    MiniroomButton
   },
   created () {
     this.getImage()
