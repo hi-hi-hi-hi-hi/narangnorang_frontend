@@ -19,6 +19,7 @@
         <HomeWish></HomeWish>
       </div>
    </div>
+   </div>
 </template>
 
 <script>
