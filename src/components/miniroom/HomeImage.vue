@@ -23,7 +23,6 @@
       <div v-if="myRoomDTO.chair !== 0">
         <img class="HomeImg" :srcset="require(`@/assets/items/${myRoomDTO.chair}.png`)">
       </div>
-      <button class="btn">ddd</button>
   </div>
 </template>
 <script>

@@ -1,9 +1,10 @@
 <template>
     <div v-if="privilege ===3" class="section">
-      <div class="miniroomSideBar">
-    <MiniroomSideBar v-on:group="groupp" />
-    내 포인트: {{point}}포인트
-    </div>
+    <div class="sideBar">
+    <h5><b>미니룸</b></h5>
+    <hr>
+    <div>내 포인트: {{point}}포인트</div>
+  </div>
     <div class="section-1">
       <div class="home-img border border-3">
         <HomeImage />
@@ -19,11 +20,11 @@
         <HomeWish></HomeWish>
       </div>
    </div>
+   </div>
 </template>
 
 <script>
 import HomeImage from '@/components/miniroom/HomeImage.vue'
-import MiniroomSideBar from '@/components/miniroom/MiniroomSideBar'
 import HomeBuy from '@/views/miniroom/HomeBuyView'
 import HomeStyle from '@/views/miniroom/HomeStyleView'
 import HomeWish from '@/views/miniroom/HomeWishView'
@@ -34,7 +35,6 @@ export default {
   props: ['member'],
   components: {
     HomeImage,
-    MiniroomSideBar,
     HomeBuy,
     HomeStyle,
     HomeWish,
@@ -92,5 +92,12 @@ export default {
   width: 700px;
   height: 500px;
 }
+
+  .sideBar{
+    grid-column: 1;
+    grid-row: 1;
+    margin-left: 20%;
+    margin-top: 10%;
+  }
 
 </style>

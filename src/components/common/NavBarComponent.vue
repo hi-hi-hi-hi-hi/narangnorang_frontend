@@ -38,10 +38,16 @@ export default {
 		text-align: center;
 		margin-top: 100px;
 		margin-bottom: 40px;
+		background-color: #fffbca60;
+		border-radius: 10px;
 	}
 	.nav-bar {
 		position: relative;
 		display: inline-block;
+	}
+
+	.nav-bar a{
+		font-weight: bold;
 	}
 	.nav-bar-link {
 		text-decoration: none;
