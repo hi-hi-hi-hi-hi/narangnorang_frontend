@@ -119,6 +119,8 @@ export default {
   display: grid;
   grid-template-columns: 300px 1fr;
   grid-gap: 30px;
+  position: absolute;
+  left: 10%;
 }
 .postRetrieveArea{
   width: 600px;

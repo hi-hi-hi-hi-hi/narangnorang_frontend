@@ -1,13 +1,11 @@
 <template>
 	<div>
 		<!-- Start Header -->
-		<div>
 		<router-link class="header" v-if="getPrivilege" to="/home">
 			<img :src="require('@/assets/header/logo.png')">
 		</router-link>
 		<TopComponent v-if="getPrivilege" :privilege="member.privilege" />
 		<button type="button" class="btn" v-if="getPrivilege" @click="logout">로그아웃</button>
-		</div>
 		<NavBarComponent v-if="getPrivilege" :privilege="member.privilege" />
 		<!-- End Header -->
 
