@@ -1,8 +1,9 @@
 <template>
     <div v-if="privilege ===3" class="section">
       <div class="miniroomSideBar">
-    <MiniroomSideBar v-on:group="groupp" />
-    내 포인트: {{point}}포인트
+        <MiniroomSideBar v-on:group="groupp" />
+        내 포인트: {{point}}포인트
+      </div>
     </div>
     <div class="section-1">
       <div class="home-img border border-3">
