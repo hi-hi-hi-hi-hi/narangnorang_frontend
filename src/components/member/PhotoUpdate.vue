@@ -2,11 +2,8 @@
   <body class="text-center">
     <h3>변경 전</h3>
     <br>
-    <div v-if="photo === null">
-    <img :src="require('@/assets/member/noImage.jpg')" width="250" height="250">
-    </div>
-    <div v-else>
-      <img :src="'/webapp/resources/images/member/' + id + '.png'" width="250" height="250">
+    <div>
+      <img :src="'/webapp/resources/images/member/' + id + '.png'" width="250" height="250" @error="replaceImg">
     </div>
     <p>----------------------------------------</p>
     <h3>변경 후</h3>
@@ -30,17 +27,20 @@
 
 <script>
 import axios from 'axios'
+import img from '@/assets/member/noImage.jpg'
 
 export default {
   data () {
     return {
       id: 0,
-      photo: null,
       image: '',
       mFile: null
     }
   },
   methods: {
+    replaceImg (e) {
+            e.target.src = img
+        },
     photoUpload (e) {
       const files = e.target.files || e.dataTransfer.files
       this.createImage(files[0])
@@ -87,8 +87,6 @@ export default {
     })
     .then((response) => {
       this.id = response.data.id
-      this.photo = response.data.photo
-      console.log(this.photo)
     })
   }
 }
