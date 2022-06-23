@@ -7,21 +7,13 @@
       <a class="S" @click="transfer" ><li class="list-group-item S"> - 아이템 적용</li></a><br>
       <a class="W" @click="transfer" ><li class="list-group-item W"> - 위시리스트</li></a><br>
     </ul>
-    <div>내 포인트: {{point}}포인트</div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 export default {
-  created () {
-    this.getImage()
-  },
-  props: ['login'],
   data () {
     return {
-      privilege: '',
-      point: '',
       group: ''
     }
   },
@@ -37,16 +29,6 @@ export default {
         this.group = 'S'
         this.$emit('group', this.group)
       }
-    },
-    getImage () {
-      axios({
-        url: '/api/home',
-        method: 'get',
-        responseType: 'json'
-      }).then((response) => {
-        this.privilege = response.data.privilege
-        this.point = response.data.point
-      })
     }
   }
 }
