@@ -1,9 +1,8 @@
 <template>
-  <div class="userProfileModal">
+  <div class="notiModal">
     <div class="black-bg" @click="modalClose">
       <div class="white-bg">
-        <h4>{{ memberName }}의 미니룸</h4>
-        <hr>
+        알림
       </div>
     </div>
   </div>
@@ -11,7 +10,6 @@
 
 <script>
 export default {
-  props: ['memberName'],
   methods: {
     modalClose () {
       this.$emit('modalClose')
