@@ -7,16 +7,9 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
-  created () {
-    this.getImage()
-  },
-  props: ['login'],
   data () {
     return {
-      privilege: '',
-      point: '',
       group: ''
     }
   },
@@ -32,16 +25,6 @@ export default {
         this.group = 'S'
         this.$emit('group', this.group)
       }
-    },
-    getImage () {
-      axios({
-        url: '/api/home',
-        method: 'get',
-        responseType: 'json'
-      }).then((response) => {
-        this.privilege = response.data.privilege
-        this.point = response.data.point
-      })
     }
   }
 }

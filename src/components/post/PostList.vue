@@ -1,5 +1,5 @@
 <template>
-  <PostUserProfilePopup v-if="popupVal" :memberName="popupMemberName" @popupClose="popupClose"/>
+  <PostUserProfileModal v-if="popupVal" :memberName="popupMemberName" @popupClose="popupClose"/>
   <div class="postListSection">
     <!-- 추천 필터링 버튼 -->
     <div class="postLikeButtons">
@@ -20,7 +20,7 @@
     </div>
     </div>
     <div class="postTableArea">
-      <table v-if="category === '대나무숲'" class="table table-bordered" style="width:600px;">
+      <table v-if="category === '대나무숲'" class="table table-bordered">
         <tr v-for="(row, idx) in list" :key="idx">
           <td style="padding:20px;">
             <img :src="require('@/assets/post/profile.png')" style="max-width:50px;heigth:auto;">
@@ -36,8 +36,8 @@
               <button class="btn" @click="fnGoEditPage(row.content, row.id)">수정</button>
               <button class="btn" @click="fnPostDelete(row.id)">삭제</button>
             </span>
-            <button class="btn btn-default" @click="fnLikePost(row.id)" style="float:right;"> 추천 {{ row.likes }}</button>
-            <div style="margin:20px;">
+            <button class="likeBtn btn btn-default" @click="fnLikePost(row.id)"> 추천 {{ row.likes }}</button>
+            <div class="contentArea">
               {{ row.content }}
             </div>
             <button class="btn" @click="fnReplyVisibleToggle(row.id)" >댓글 {{ row.replies }}</button>
@@ -46,7 +46,7 @@
         </tr>
       </table>
       <!-- 대나무숲 외 category -->
-      <table v-else class="table table-hover" style="text-align:center;table-layout:fixed">
+      <table v-else class="nomalPostTable table table-hover">
         <thead>
           <tr>
             <th style="width:100px;">번호</th>
@@ -61,8 +61,8 @@
           <tr v-for="(row, idx) in list" :key="idx">
             <td>{{ row.id }}</td>
             <td><a @click="fnGoRetrievePage(row.id)">
-            <strong v-if="category === '정보게시판' && row.memberPrivilege === 1" style="cursor:pointer;">{{ row.title }}</strong>
-            <span v-else style="cursor:pointer;">{{ row.title }}</span>
+            <strong class="postTitle" v-if="category === '정보게시판' && row.memberPrivilege === 1">{{ row.title }}</strong>
+            <span class="postTitle" v-else>{{ row.title }}</span>
             </a><span style="color:red;margin:5px">[{{ row.replies }}]</span></td>
             <td><a @click="popupOpen(row.memberName)" style="cursor:pointer;">{{ row.memberName }}</a></td>
             <td>
@@ -105,7 +105,7 @@
 
 <script>
 import PostReply from '@/components/post/PostReply'
-import PostUserProfilePopup from '@/components/post/PostUserProfilePopup'
+import PostUserProfileModal from '@/components/post/PostUserProfileModal'
 
 export default {
   name: 'PostList',
@@ -134,7 +134,7 @@ export default {
   },
   components: {
     PostReply,
-    PostUserProfilePopup
+    PostUserProfileModal
   },
   mounted () {
     this.fnGetList()
@@ -319,9 +319,25 @@ export default {
     background: #fff765;
     border-color: lightgray;
   }
-  .buttonArea{
+  .buttonArea {
     grid-column: 1/3;
     grid-row:4;
     text-align: center;
+  }
+  .nomalPostTable {
+    text-align:center;
+    table-layout:fixed;
+  }
+  .table {
+    width:600px;
+  }
+  .likeBtn {
+    float:right;
+  }
+  .contentArea {
+    margin:20px;
+  }
+  .postTitle {
+    cursor: pointer;
   }
 </style>

@@ -5,7 +5,7 @@
         <li v-if="replyVisible && replyVisibleId == row.postId" class="list-group-item border-0">
           <div class="commentSection">
               {{ row.memberName }}
-              <span style="font-size:12px">{{ row.datetime }}</span>
+              <span class="datetimeArea">{{ row.datetime }}</span>
               <!-- <button class="btn btn-sm">추천 {{ row.likes }}</button> -->
               <div class="replyContentArea" style="padding:10px">{{ row.content }}</div>
           </div>
@@ -54,5 +54,8 @@ export default {
 .replyContentArea{
   margin-top: 10px;
   margin-bottom: 10px;
+}
+.datetimeArea{
+  font-size:12px;
 }
 </style>

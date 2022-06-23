@@ -13,8 +13,8 @@
         <td>아이템 이름: {{dto.name}}</td>
         <td><img class="imgMini" :srcset="require(`../../assets/items/items/${dto.id}.png`)"></td>
         <td>가격:<span class="red">{{dto.price}}pt</span></td>
-        <td><button class="btn btn-warning" @click="buy(dto.id,dto.price,dto.name,dto.category)">구매</button></td>
-        <td><button class="btn btn-warning" @click="wish(dto.id,dto.category)">위시리스트 추가/제거</button></td>
+        <td><button class="w-100 btn btn-outline-dark btn-lg" @click="buy(dto.id,dto.price,dto.name,dto.category)">구매</button></td>
+        <td><button class="w-100 btn btn-outline-dark btn-lg" @click="wish(dto.id,dto.category)">위시리스트 추가/제거</button></td>
       </tr>
     </tbody>
   </table>
@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   name: 'HomeBuy',
   data () {
@@ -37,9 +36,12 @@ export default {
   mounted () {
     this.getList()
   },
+  updated () {
+    this.getList()
+  },
   methods: {
     getList () {
-      axios.get('/api/home/wish', {
+      this.axios.get('/api/home/wish', {
         params: {
           category: this.category
         }
@@ -56,7 +58,7 @@ export default {
       this.getList()
     },
     buy (NitemId, Nprice, name, category) {
-        axios.post('/api/home/buy', {
+        this.axios.post('/api/home/buy', {
         data: {
           id: NitemId,
           category: category,
