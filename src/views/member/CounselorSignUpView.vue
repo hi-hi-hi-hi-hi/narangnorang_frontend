@@ -6,7 +6,7 @@
         <div class="form-floating">
           <input type="email" class="form-control" id="email" v-model="email" placeholder="Email" required>
           <label for="email" class="">Email address</label>
-          <span id="emailCheckResult" style="color: blue">{{ emailCheckResult }}</span>
+          <span id="emailCheckResult">{{ emailCheckResult }}</span>
         </div>
         <br>
         <button type="button" class="btn btn-dark btn-id" @click="checkEmail">중복 체크</button>
@@ -15,7 +15,7 @@
         <div class="form-floating">
           <input type="text" class="form-control" id="com" v-model="com" placeholder="인증확인" required>
           <label for="com" class="">인증확인</label>
-          <span id="compare-text" style="color: blue">{{ compareText }}</span>
+          <span id="compare-text">{{ compareText }}</span>
         </div>
         <br>
         <button type="button" class="btn btn-dark" @click="compare">인증확인</button>
@@ -28,7 +28,7 @@
         <div class="form-floating">
           <input type="text" class="form-control" id="password2" @input="pwCheck" v-model="password2" placeholder="Password Check" required>
           <label for="password2" class="">Password Check</label>
-          <span id="pwCheckResult" style="color: blue">{{ pwCheckResult }}</span>
+          <span id="pwCheckResult">{{ pwCheckResult }}</span>
         </div>
         <br>
         <div class="form-floating">
@@ -281,6 +281,9 @@ body {
   background-color: white;
 }
 
+span {
+  color: blue;
+}
 .form-signin {
   max-width: 330px;
   padding: 15px;

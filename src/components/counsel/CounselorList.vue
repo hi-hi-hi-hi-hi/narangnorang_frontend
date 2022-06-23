@@ -12,9 +12,7 @@
     </div>
     <!-- 상담사 리스트 -->
     <div class="listSection">
-        <div>
-            <CounselorCard v-for="(counselor, idx) in list" :key="idx" :counselor="counselor"></CounselorCard>
-        </div>
+        <CounselorCard v-for="(counselor, idx) in list" :key="idx" :counselor="counselor"></CounselorCard>
     </div>
 </template>
 
@@ -119,6 +117,7 @@ export default {
 .listSection{
     grid-column: 2;
     grid-row: 1;
+    margin: auto;
 }
 .btn {
 padding: .2rem;

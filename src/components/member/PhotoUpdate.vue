@@ -1,31 +1,36 @@
 <template>
-  <body class="text-center">
-    <h3>변경 전</h3>
-    <br>
-    <div v-if="photo === null">
-    <img :src="require('@/assets/member/noImage.jpg')" width="250" height="250">
-    </div>
-    <div v-else>
-      <img :src="'/webapp/resources/images/member/' + id + '.png'" width="250" height="250">
-    </div>
-    <p>----------------------------------------</p>
-    <h3>변경 후</h3>
-    <br>
-    <form @submit.prevent="photoUpdate">
-      <div v-if="!image">
-        <img :src="require('@/assets/member/noImage.jpg')" width="250" height="250">
-        <br>
-        <input type="file" @change="photoUpload" name="mfile">
+  <div class="text-center">
+    <div class="box">
+      <h3>변경 전</h3>
+      <div v-if="photo === null">
+        <img :src="require('@/assets/member/noImage.jpg')">
       </div>
       <div v-else>
-        <img :src="image" width="250" height="250">
+        <img :src="'/webapp/resources/images/member/' + id + '.png'">
+     <br>
+     </div>
+    </div>
+    <div class="box">
+      <b><i class="fa-solid fa-chevron-right"></i></b>
+    </div>
+    <div class="box">
+      <h3>변경 후</h3>
+      <form @submit.prevent="photoUpdate">
+        <div v-if="!image">
+          <img :src="require('@/assets/member/noImage.jpg')">
+          <br>
+          <input type="file" @change="photoUpload" name="mfile">
+        </div>
+        <div v-else>
+          <img :src="image">
+          <br>
+          <button class="btn btn-danger" @click="remove">지우기</button>
+        </div>
         <br>
-        <button class="btn btn-danger" @click="remove">지우기</button>
-      </div>
-      <br>
-      <button type="submit" class="btn btn-lg btn-primary">수정</button>
-    </form>
-  </body>
+        <button type="submit" class="btn btn-outline-dark btn-lg">수정</button>
+      </form>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -94,3 +99,27 @@ export default {
 }
 
 </script>
+
+<style scoped>
+img {
+  width: 200px;
+  height: 200px;
+  border: 1px solid #303030;
+  border-radius: 5px;
+}
+
+h3 {
+  font-weight: bold;
+  margin-left: 30%;
+}
+
+button {
+  margin-left: 20%;
+}
+
+.box {
+  float: left;
+  width: 30%;
+  padding:10px;
+}
+</style>

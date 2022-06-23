@@ -2,11 +2,6 @@
   <div class="sideBar">
     <h5><b>미니룸</b></h5>
     <hr>
-    <ul class="list-group">
-      <a @click="transfer" ><li class="list-group-item B"> - 아이템 구매</li></a><br>
-      <a class="S" @click="transfer" ><li class="list-group-item S"> - 아이템 적용</li></a><br>
-      <a class="W" @click="transfer" ><li class="list-group-item W"> - 위시리스트</li></a><br>
-    </ul>
     <div>내 포인트: {{point}}포인트</div>
   </div>
 </template>

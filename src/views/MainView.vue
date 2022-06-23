@@ -15,14 +15,14 @@
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-8">
-                        <h2 class="mb-4"><b style="color: #3B3B3B;">노랑이의 마음 케어 서비스 !</b></h2>
+                        <h2 class="mb-4"><b class="secondary-title">노랑이의 마음 케어 서비스 !</b></h2>
                         <p class="text-black-50">
                             Grayscale is a free Bootstrap theme created by Start Bootstrap. It can be yours right now, simply download the template on
                             The theme is open source, and you can use it for any purpose, personal or commercial.
                         </p>
                     </div>
                 </div>
-                <img class="img-fluid" src="@/assets/common/norang.png" width="300px" style="margin-bottom:10%">
+                <img class="img-fluid img-title" src="@/assets/common/norang.png">
             </div>
         </section>
         <!-- Projects-->
@@ -30,20 +30,20 @@
             <div class="container px-4 px-lg-5">
                 <!-- Featured Project Row-->
                 <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
-                    <div class="col-xl-8 col-lg-7 img-box" style="position: relative">
+                    <div class="col-xl-8 col-lg-7 img-box">
                     <img class="img-fluid mb-3 mb-lg-0 img-up" src="@/assets/miniroom2.png" width="600px">
-                    <div style="position: absolute; top: 10px; left: 10px;">
+                    <div>
                     <img class="img-fluid mb-3 mb-lg-0 img-dn" src="@/assets/miniroom1.png" width="600px">
                     </div>
                     </div>
                     <div class="col-xl-4 col-lg-5">
                         <div class="featured-text text-center text-lg-left">
-                            <h4><b style="color:black">미니룸</b></h4>
+                            <h4><b class="secondary-title">미니룸</b></h4>
                             <p class="text-black-50 mb-0">Grayscale is open source and MIT licensed. This means you can use it for any project - even commercial projects! Download it, customize it, and publish your website!</p>
                         </div>
                     </div>
                 </div>
-                <!-- Project One Row-->
+                <!-- Project 1 Row-->
                 <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
                     <div class="col-lg-6"><img class="img-fluid" src="@/assets/counselorCard.png"></div>
                     <div class="col-lg-6">
@@ -58,7 +58,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Project Two Row-->
+                <!-- Project 2 Row-->
                 <div class="row gx-0 justify-content-center">
                     <div class="col-lg-6"><img class="img-fluid" src="@/assets/dayData.png" alt="..." ></div>
                     <div class="col-lg-6 order-lg-first">
@@ -68,6 +68,21 @@
                                     <h4 class="text-white"><b>매일 체크하는 일기</b></h4>
                                     <p class="mb-0 text-white-50">Another example of a project with its respective description. These sections work well responsively as well, try this theme on a small screen!</p>
                                     <hr class="d-none d-lg-block mb-0 me-0" >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 3 Row-->
+                <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
+                    <div class="col-lg-6"><img class="img-fluid" src="@/assets/counselorCard.png"></div>
+                    <div class="col-lg-6">
+                        <div class="text-center h-100 project">
+                            <div class="d-flex h-100 shadow">
+                                <div class="project-text w-100 my-auto text-center text-lg-left ">
+                                    <h4 class="text-white"><b>검증된 전문가</b></h4>
+                                    <p class="mb-0 text-white-50">An example of where you can put an image of a project, or anything else, along with a description.</p>
+                                    <hr class="d-none d-lg-block mb-0 ms-0" >
                                 </div>
                             </div>
                         </div>
@@ -112,7 +127,7 @@
                 </div>
             </div>
         </section>
-        <div style="position: fixed; bottom: 20px; right: 20px;"><a href="#" style="color:black">
+        <div class="btn-down"><a href="#">
         <i class="fa-solid fa-angle-up fa-2xl"></i></a></div>
         <!-- Footer-->
         <footer class="footer small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; Your Website 2022</div></footer>
@@ -127,8 +142,34 @@ a {
 .img-box{
   background-color: #fff;
   border-radius:20px;
+  position: relative;
 }
 .img-box:hover img:last-child { opacity:0 }
+
+.img-box div {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.img-title {
+   width: 300px;
+   margin-bottom: 10%;
+}
+
+.secondary-title {
+  color: #3B3B3B;
+}
+
+.btn-down {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+.btn-down a {
+  color:black;
+}
 
 .container {
   width: 100%;

@@ -1,6 +1,5 @@
 <template>
-<div>
-<div class="Miniroom">
+<div class="miniroom">
       <div v-if="myRoomDTO.floor !== 0">
         <img  class="zIndex0 HomeImg" :srcset="require(`@/assets/items/${myRoomDTO.floor}.png`)">
       </div>
@@ -24,8 +23,8 @@
       <div v-if="myRoomDTO.chair !== 0">
         <img class="HomeImg" :srcset="require(`@/assets/items/${myRoomDTO.chair}.png`)">
       </div>
-    </div>
-    </div>
+      <button class="btn">ddd</button>
+  </div>
 </template>
 <script>
 import axios from 'axios'
@@ -63,12 +62,21 @@ export default {
 }
 </script>
 <style scoped>
-
+.miniroom {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -270px 0 0 -250px;
+}
+.btn {
+  		position: fixed;
+		right: 5%;
+		bottom: 5%;
+}
     .HomeImg {
       width: 500px;
       height: 500px;
       position: absolute;
-      display: block;
     }
     .zIndex0{
       z-index: 0;

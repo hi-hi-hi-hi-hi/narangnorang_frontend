@@ -2,7 +2,7 @@
   <body class="text-center">
     <main class="form-signin w-100 m-auto">
       <form @submit.prevent="counselorEdit">
-        <h1 class="h3 mb-3 fw-normal">내 정보 수정</h1>
+        <h1 class="h3 mb-3 fw-normal"><b>내 정보 수정</b></h1>
         <div class="form-floating">
           <input type="email" class="form-control" id="email" v-model="email" placeholder="Email" readonly>
           <label for="email" class="">Email address</label>
@@ -19,7 +19,7 @@
           <label for="phone" class="mt-4">휴대전화</label>
         </div>
         <br>
-        <button type="button" class="btn btn-secondary" @click="execDaumPostcode">우편번호 찾기</button>
+        <button type="button" class="btn btn-dark post-btn" @click="execDaumPostcode">우편번호 찾기</button>
          <div class="form-floating">
           <input type="text" class="form-control" id="zipcode" v-model="zipcode" placeholder="zipcode" required>
           <label for="zipcode" class="">우편번호</label>
@@ -47,7 +47,7 @@
           <label for="introduction" class="">소개</label>
         </div>
         <br>
-        <button type="submit" class="w-100 mt-3 btn btn-lg btn-primary">확인</button>
+        <button type="submit" class="w-100 btn btn-outline-dark btn-lg">확인</button>
       </form>
     </main>
   </body>
@@ -173,5 +173,9 @@ body {
 
 .form-signin .form-floating:focus-within {
   z-index: 2;
+}
+
+.post-btn {
+  margin-bottom: 10px;
 }
 </style>

@@ -1,23 +1,24 @@
 <template>
-
-    <div v-if="privilege ===3" class="section">
-      <div class="miniroomSideBar">
-    <MiniroomSideBar v-on:group="groupp" />
+  <div v-if="privilege === 3" class="section">
+    <div class="miniroomSideBar">
+      <MiniroomSideBar v-on:group="groupp" />
     </div>
-      <div class="align">
+    <div class="section-1">
+      <div class="home-img border border-3">
         <HomeImage />
+        <MiniroomButton v-on:group="groupp"></MiniroomButton>
       </div>
-      <div></div>
-      <div v-if="group === 'B'">
-        <HomeBuy ></HomeBuy>
-      </div>
-      <div v-else-if="group === 'S'">
-        <HomeStyle></HomeStyle>
-      </div>
-      <div v-else-if="group === 'W'">
-        <HomeWish></HomeWish>
-      </div>
-   </div>
+    </div>
+    <div v-if="group === 'B'">
+      <HomeBuy></HomeBuy>
+    </div>
+    <div v-else-if="group === 'S'">
+      <HomeStyle></HomeStyle>
+    </div>
+    <div v-else-if="group === 'W'">
+      <HomeWish></HomeWish>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -26,7 +27,8 @@ import MiniroomSideBar from '@/components/miniroom/MiniroomSideBar'
 import HomeBuy from '@/views/miniroom/HomeBuyView'
 import HomeStyle from '@/views/miniroom/HomeStyleView'
 import HomeWish from '@/views/miniroom/HomeWishView'
-import axios from 'axios'
+import MiniroomButton from '@/components/miniroom/MiniroomButton'
+
 export default {
   name: 'HomeView',
   components: {
@@ -34,7 +36,8 @@ export default {
     MiniroomSideBar,
     HomeBuy,
     HomeStyle,
-    HomeWish
+    HomeWish,
+    MiniroomButton
   },
   created () {
     this.getImage()
@@ -48,7 +51,7 @@ export default {
   },
   methods: {
     getImage () {
-      axios({
+      this.axios({
         url: '/api/home',
         method: 'get',
         responseType: 'json'
@@ -70,8 +73,22 @@ export default {
     grid-template-columns: 300px 900px;
     grid-gap: 30px;
     position: absolute;
+    left: 10%;
   }
-.align{
-  margin-left: 200px;
+
+  .section-1 {
+      position: relative;
+  grid-column: 2;
+  grid-row: 1;
+  margin: auto;
+  width: 700px;
+  height: 535px;
+  }
+
+.home-img {
+  border-radius: 8px;
+  width: 700px;
+  height: 500px;
 }
+
 </style>

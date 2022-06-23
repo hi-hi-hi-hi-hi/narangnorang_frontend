@@ -2,7 +2,7 @@
   <body class="text-center">
     <main class="form-signin w-100 m-auto">
       <form @submit.prevent="generalEdit">
-        <h1 class="h3 mb-3 fw-normal">내 정보 수정</h1>
+        <h1 class="h3 mb-3 fw-normal"><b>내 정보 수정</b></h1>
         <div class="form-floating">
           <input type="email" class="form-control" id="email" v-model="email" placeholder="Email" readonly>
           <label for="email" class="">Email address</label>
@@ -11,10 +11,10 @@
         <div class="form-floating">
           <input type="text" class="form-control" id="name" v-model="name" placeholder="NICKNAME" required>
           <label for="name">NICKNAME</label>
-          <span id="nicknameCheckResult" style="color: blue">{{ nicknameCheckResult }}</span>
+          <span id="nicknameCheckResult">{{ nicknameCheckResult }}</span>
         </div>
         <br>
-        <button type="button" class="btn btn-secondary" @click="checkName">중복 체크</button>
+        <button type="button" class="btn btn-dark" @click="checkName">중복 체크</button>
         <br>
         <div class="form-floating">
           <br>
@@ -27,7 +27,7 @@
           <label for="region">지역</label>
         </div>
         <br>
-        <button type="submit" class="w-100 mt-3 btn btn-lg btn-primary">확인</button>
+        <button type="submit" class="w-100 btn btn-outline-dark btn-lg">확인</button>
       </form>
     </main>
   </body>
@@ -128,6 +128,10 @@ export default {
 </script>
 
 <style scoped>
+span {
+  color: blue;
+}
+
 body {
   height: 100%;
 }

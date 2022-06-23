@@ -1,5 +1,5 @@
 <template>
-	<button type="button" v-if="!modal" @click="open" class="btn-norang">
+	<button v-if="!modal" @click="open" class="btn-norang">
 		<img src="@/assets/common/norang.png" width="70">
 	</button>
 	<div v-if="modal" class="black-bg" @click="close">
@@ -16,7 +16,7 @@
 						<input type="file" @change="multipartFile = $event.target.files[0]" id="input-file">
 						<label for="input-file" v-if="multipartFile == null">파일선택</label>
 						<label for="input-file" v-else>{{multipartFile.name}}</label><br>
-						<input type="text" v-model="title" placeholder="제목을 입력하세요">
+						<input type="text" v-model="title" placeholder="제목을 입력하세요" size="14">
 						<button type="button" @click="postChallenge(multipartFile, title)" class="btn btn-outline-dark">업로드</button>
 					</div>
 				</div>
@@ -54,7 +54,7 @@
 			</div>
 			<div v-if="moodStateSend" class="msb-reply text-center">
 				<div>0 ~ 100 점</div>
-				<input type="number" v-model="state" min="0" max="100" required="required">점<br>
+				<input type="range" v-model="state" min="0" max="100" required="required">점<br>
 				<button type="button" @click="postMoodState(state)"><b class="send-button">전송</b></button>
 			</div>
 			<div v-if="messageSend" class="msb-reply">
@@ -70,8 +70,13 @@
 		position: fixed;
 		right: 5%;
 		bottom: 5%;
-		border-radius: 40%;
+		border-radius: 100%;
+		border: none;
 		z-index: 3;
+	}
+
+	.btn-norang:hover {
+		box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 	}
 
     .black-bg {
@@ -85,7 +90,7 @@
     .white-bg {
         position: fixed;
         right: 10%; bottom: 10%;
-        width: 33%; height: 85%;
+        width: 20%; height: 65%;
         padding: 20px;
         border-radius: 10px;
         background: white;
