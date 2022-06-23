@@ -200,15 +200,22 @@ export default {
     // 인증번호 확인
     compare () {
       let mesg = '불일치'
-      if (this.com === this.key) {
-        mesg = '일치'
-        document.getElementById('compare-text').setAttribute('style', 'color: blue')
-        this.isCertification = true
-      } else {
-        document.getElementById('compare-text').setAttribute('style', 'color: red')
-        this.isCertification = false
-      }
-      this.compareText = mesg
+      this.axios({
+        url: '/api/compare',
+        method: 'POST',
+        data: { com: this.com }
+      })
+      .then((response) => {
+        if (response.data === true) {
+          mesg = '일치'
+          document.getElementById('compare-text').setAttribute('style', 'color: blue')
+          this.isCertification = true
+        } else {
+          document.getElementById('compare-text').setAttribute('style', 'color: red')
+          this.isCertification = false
+        }
+        this.compareText = mesg
+      })
     },
     // 다음 지도
     execDaumPostcode () {
@@ -253,14 +260,7 @@ export default {
       } else {
         this.axios
         .post(url, data)
-        .then((response) => {
-          alert('인증메일이 전송되었습니다.')
-          this.key = response.data
-          console.log(response.data)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+        alert('인증메일이 전송되었습니다.')
       }
     }
   }
