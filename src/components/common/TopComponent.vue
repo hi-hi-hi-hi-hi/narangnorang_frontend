@@ -1,20 +1,20 @@
 <template>
-	<div class="top" v-if="privilege === 3" style="">
+	<div class="top" v-if="privilege === 3">
 		<router-link class="top-link" to="/faq">고객문의</router-link>
 		<router-link class="top-link" to="/">알림</router-link>
-		<router-link class="top-link" to="/message"><i class="fa-solid fa-envelope"></i><b>{{ unreads }}</b>쪽지</router-link>
+		<router-link class="top-link" to="/message"><i class="fa-solid fa-envelope"></i>쪽지<span> {{ unreads }}</span></router-link>
 		<router-link class="top-link" to="/myPage">내정보</router-link>
 	</div>
 	<div class="top" v-else-if="privilege === 2">
 		<router-link class="top-link" to="/faq">고객문의</router-link> |
 		<router-link class="top-link" to="/">알림</router-link> |
-		<router-link class="top-link" to="/message"><i class="fa-solid fa-envelope"></i><b>{{ unreads }}</b>쪽지</router-link> |
+		<router-link class="top-link" to="/message"><i class="fa-solid fa-envelope"></i>쪽지<span> {{ unreads }}</span></router-link> |
 		<router-link class="top-link" to="/myPage">내정보</router-link>
 	</div>
 	<div class="top" v-else-if="privilege === 1">
 		<router-link class="top-link" to="/faq">고객문의</router-link> |
 		<router-link class="top-link" to="/">알림</router-link> |
-		<router-link class="top-link" to="/message"><i class="fa-solid fa-envelope"></i><b>{{ unreads }}</b>쪽지</router-link> |
+		<router-link class="top-link" to="/message"><i class="fa-solid fa-envelope"></i>쪽지<span> {{ unreads }}</span></router-link> |
 		<router-link class="top-link" to="/myPage">내정보</router-link>
 	</div>
 	<div class="top" v-else-if="privilege === 0">
@@ -23,7 +23,7 @@
 </template>
 
 <style scoped>
-	b {
+	span {
 		color: red;
 		font-size: 20px;
 	}
@@ -69,9 +69,6 @@ export default {
 	created () {
 		this.getUnreads()
 		this.timer = setInterval(this.getUnreads, 3000)
-	},
-	beforeUnmount () {
-		clearInterval(this.timer)
 	}
 }
 </script>

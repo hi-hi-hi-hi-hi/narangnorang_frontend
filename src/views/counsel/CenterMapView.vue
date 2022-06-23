@@ -1,7 +1,7 @@
 <template>
   <div class="section">
   <CounselSideBar></CounselSideBar>
-  <div class="listSection map-area">
+  <div class="map-area">
     <CenterMap>
     </CenterMap>
   </div>
@@ -26,15 +26,6 @@ export default {
     grid-template-columns: 300px 900px;
     grid-gap: 30px;
     position: absolute;
+    left: 10%;
   }
-
-  .listSection{
-    grid-column: 2;
-    grid-row: 1;
-    margin-right:30%;
-    display: grid;
-    grid-template-columns: 400px 500px;
-    grid-template-rows: 40px 1fr 40px 40px;
-    grid-gap: 5px;
-}
 </style>

@@ -11,7 +11,7 @@
           <input type="password" class="form-control" id="password2" v-model="password2" @input="pwCheck" required="required" placeholder="New Password Check">
           <label for="password2">New Password Check</label>
         </div>
-        <span id="pwCheckResult" style="color: blue">{{ pwCheckResult }}</span><br>
+        <span id="pwCheckResult">{{ pwCheckResult }}</span><br>
         <button class="w-100 btn btn-outline-dark btn-lg" type="submit">완료</button>
       </form>
     </main>
@@ -84,6 +84,9 @@ body {
   background-color: white;
 }
 
+span {
+  color: blue;
+}
 .form-signin {
   max-width: 400px;
   padding: 15px;

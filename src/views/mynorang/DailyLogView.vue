@@ -56,6 +56,7 @@
         grid-template-columns: 300px 1200px;
         grid-gap: 30px;
         position: absolute;
+        left: 10%;
     }
     a {
         text-decoration: none;

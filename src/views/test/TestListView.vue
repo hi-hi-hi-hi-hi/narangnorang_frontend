@@ -1,5 +1,5 @@
 <template>
-    <div class="container w-75">
+    <div class="container w-50">
         <div class="row">
             <div class="col">
                 <div class="card">
