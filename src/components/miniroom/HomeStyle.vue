@@ -84,6 +84,7 @@ export default {
           this.mesg = '적용완료'
         }
         alert(this.mesg)
+        this.$emit('ImgRefresh')
       })
       .catch((err) => {
         console.log(err)

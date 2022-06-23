@@ -29,8 +29,16 @@
 import axios from 'axios'
 
 export default {
+  props: {
+    ImgRefres: Object
+  },
   created () {
     this.getImage()
+  },
+  updated () {
+    if (this.ImgRefres === 1) {
+      this.getImage()
+    }
   },
   name: 'HomeView',
   data () {
