@@ -4,10 +4,13 @@
             <!-- 대화상대 -->
             <div class="action-header clearfix">
                 <div class="pull-left hidden-xs">
-                    <img src="@/assets/common/norang.png" class="img-avatar m-r-10">
                     <div class="lv-avatar pull-left">
                     </div>
-                    <h3><b>{{ messageInfo.recieverName }}</b></h3>
+                    <h3 v-if="messageInfo.recieverName === null"><b class="no-user">탈퇴한 사용자</b></h3>
+                    <h3 v-else><b>{{ messageInfo.recieverName }}</b></h3>
+                    <b class="counselor" v-if="messageInfo.recieverPrivilege == 1 && messageInfo.recieverName !== null">
+            상담사
+          </b>
                 </div>
             </div>
             <!-- 대화내역 부분 -->
@@ -16,7 +19,8 @@
                     <!-- 상대가 보냄 -->
                     <div v-if="message.senderId === otherId" class="message-feed media">
                         <div class="pull-left">
-                            <img :src="require('@/assets/member/' + messageInfo.recieverId + '.jpg')" alt="" class="img-avatar">
+                            <img v-if="messageInfo.recieverName === null" class="img-avatar no-img" src="@/assets/common/norang.png">
+                            <img v-else :src="'/webapp/resources/images/member/' + messageInfo.recieverId + '.png'" class="img-avatar" @error="replaceImg">
                         </div>
                         <div class="media-body">
                             <div class="mf-content">
@@ -38,7 +42,7 @@
                 </div>
             </div>
 
-            <div class="msb-reply" v-if="list[0].senderName === null || list[0].recieverName === null">
+            <div class="msb-reply" v-if="list[0] != null && (list[0].senderName == null || list[0].recieverName == null)">
                 <textarea @keyup.enter="sendMessage" placeholder="내용을 입력하세요" readonly></textarea>
                 <button @click="sendMessage" disabled><b class="send-button">전송</b></button>
             </div>
@@ -51,28 +55,43 @@
 </template>
 
 <script>
+import img from '@/assets/member/noImage.jpg'
+
 export default {
     name: 'MessageHistory',
 	data () {
 		return {
 			showHistory: null,
 			otherId: null,
-			list: {},
+			list: [],
             messageInfo: {
                 recieverId: null,
                 recieverName: '',
                 recieverPrivilege: null,
                 content: ''
             },
-            timer: ''
+            image: null,
+            timer: null
 		}
 	},
-	mounted () {
+	created () {
 		this.getInfoFromSibling()
-        this.timer = setInterval(this.getInfoFromSibling, 3000)
+        this.timer = setInterval(this.getHistory, 3000)
 	},
+    updated () {
+		this.$nextTick(function () {
+			const history = document.querySelector('.history')
+			history.scrollTop = history.scrollHeight
+		})
+    },
 	methods: {
+        replaceImg (e) {
+            e.target.src = img
+        },
 		getHistory () {
+            if (this.otherId == null) {
+                return
+            }
 			this.axios({
 				url: '/api/message/history',
 				method: 'GET',
@@ -115,7 +134,6 @@ export default {
             if (checkContent.length === 0) {
                 alert('내용을 입력해주세요.')
                 this.messageInfo.content = ''
-                this.$refs.content.focus()
             }
             this.axios({
                 url: '/api/message/send',
@@ -141,6 +159,20 @@ body {
     line-height: 1.42857143;
     color: #767676;
     background-color: #edecec;
+}
+
+.no-img {
+    filter: grayscale(100%);
+}
+
+.no-user {
+    font-size: 11px;
+    color: grey;
+}
+
+.counselor {
+    font-size: 15px;
+    color: green;
 }
 
 .message-feed {
@@ -226,7 +258,7 @@ body {
 }
 
 .history {
-	height: 500px;
+	height: 480px;
 	overflow:auto;
 }
 
@@ -236,7 +268,7 @@ body {
 }
 
 .list-outer {
-  height: 750px;
+  height: 700px;
   padding: 12px;
   background-color:#fffce8;
   border-radius: 5px;
@@ -245,7 +277,6 @@ body {
     grid-column: 2;
     grid-row: 1;
     margin-right:30%;
-    margin-top: 30px;
 }
 
 </style>

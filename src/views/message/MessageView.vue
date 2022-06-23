@@ -20,8 +20,9 @@ export default {
 <style scoped>
   .section{
     display: grid;
-    grid-template-columns: 600px 700px;
+    grid-template-columns: 700px 600px;
     grid-gap: 0px;
     position: absolute;
+    left: 15%;
   }
 </style>

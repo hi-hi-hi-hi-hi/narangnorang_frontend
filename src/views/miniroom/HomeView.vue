@@ -1,7 +1,7 @@
 <template>
     <div v-if="privilege ===3" class="section">
       <div class="miniroomSideBar">
-    <MiniroomSideBar v-on:group="groupp" />
+    <!-- <MiniroomSideBar v-on:group="groupp" /> -->
     내 포인트: {{point}}포인트
     </div>
     <div class="section-1">
@@ -9,7 +9,6 @@
         <HomeImage :ImgRefres="ImgRefres"/>
         <MiniroomButton v-on:group="groupp"></MiniroomButton>
       </div>
-      <div></div>
       <div v-if="group === 'B'">
         <HomeBuy v-on:point="getImage"></HomeBuy>
       </div>
@@ -25,7 +24,6 @@
 
 <script>
 import HomeImage from '@/components/miniroom/HomeImage.vue'
-import MiniroomSideBar from '@/components/miniroom/MiniroomSideBar'
 import HomeBuy from '@/components/miniroom/HomeBuy'
 import HomeStyle from '@/components/miniroom/HomeStyle'
 import HomeWish from '@/components/miniroom/HomeWish'
@@ -33,15 +31,16 @@ import MiniroomButton from '@/components/miniroom/MiniroomButton'
 
 export default {
   name: 'HomeView',
+  props: ['member'],
   components: {
     HomeImage,
-    MiniroomSideBar,
     HomeBuy,
     HomeStyle,
     HomeWish,
     MiniroomButton
   },
   created () {
+    console.log(this.member)
     this.getImage()
   },
   data () {
@@ -79,8 +78,29 @@ export default {
     grid-template-columns: 300px 900px;
     grid-gap: 30px;
     position: absolute;
+    left: 10%;
   }
-.align{
-  margin-left: 200px;
+
+  .section-1 {
+      position: relative;
+  grid-column: 2;
+  grid-row: 1;
+  margin: auto;
+  width: 700px;
+  height: 535px;
+  }
+
+.home-img {
+  border-radius: 8px;
+  width: 700px;
+  height: 500px;
 }
+
+  .sideBar{
+    grid-column: 1;
+    grid-row: 1;
+    margin-left: 20%;
+    margin-top: 10%;
+  }
+
 </style>

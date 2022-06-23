@@ -2,18 +2,18 @@
 <div>
 
 <div class="table-res">
-<h1>미니룸에 내 아이템 적용</h1>
+<h3><b>미니룸에 내 아이템 적용</b></h3>
   <table class="table container">
     <thead>
       <tr>
-        <th><button class="w-100 btn btn-outline-dark btn-lg col-sm-6" @click="changeCategory('bed')">침대</button></th>
-        <th><button class="w-100 btn btn-outline-dark btn-lg col-sm-6" @click="changeCategory('closet')">옷장</button></th>
-        <th><button class="w-100 btn btn-outline-dark btn-lg col-sm-6" @click="changeCategory('floor')" >바닥</button></th>
-        <th><button class="w-100 btn btn-outline-dark btn-lg col-sm-6" @click="changeCategory('wallpaper')" >벽지</button></th>
-        <th><button class="w-100 btn btn-outline-dark btn-lg col-sm-6" @click="changeCategory('desk')" >책상</button></th>
-        <th><button class="w-100 btn btn-outline-dark btn-lg col-sm-6" @click="changeCategory('chair')" >의자</button></th>
-        <th><button class="w-100 btn btn-outline-dark btn-lg col-sm-6" @click="changeCategory('walldecoRight')" >오른쪽벽장식</button></th>
-        <th><button class="w-100 btn btn-outline-dark btn-lg col-sm-6" @click="changeCategory('walldecoLeft')" >왼쪽벽장식</button></th>
+        <th><button class="w-100 btn btn-outline-dark col-sm-6" @click="changeCategory('bed')">침대</button></th>
+        <th><button class="w-100 btn btn-outline-dark col-sm-6" @click="changeCategory('closet')">옷장</button></th>
+        <th><button class="w-100 btn btn-outline-dark col-sm-6" @click="changeCategory('floor')" >바닥</button></th>
+        <th><button class="w-100 btn btn-outline-dark col-sm-6" @click="changeCategory('wallpaper')" >벽지</button></th>
+        <th><button class="w-100 btn btn-outline-dark col-sm-6" @click="changeCategory('desk')" >책상</button></th>
+        <th><button class="w-100 btn btn-outline-dark col-sm-6" @click="changeCategory('chair')" >의자</button></th>
+        <th><button class="w-100 btn btn-outline-dark col-sm-6" @click="changeCategory('walldecoRight')" >우장</button></th>
+        <th><button class="w-100 btn btn-outline-dark col-sm-6" @click="changeCategory('walldecoLeft')" >좌장</button></th>
       </tr>
     </thead>
   </table>
@@ -25,7 +25,7 @@
             <tr><td>번호: {{dto.id}}</td></tr>
             <tr><td><img class="imgMini" :srcset="require(`../../assets/items/items/${dto.id}.png`)"></td></tr>
             <tr><td>가격:<span class="red">{{dto.price}}pt</span></td></tr>
-            <tr><td><button class="w-100 btn btn-outline-dark btn-lg" @click="style(dto.id,dto.category)">적용하기</button></td></tr>
+            <tr><td><button class="w-100 btn btn-outline-dark" @click="style(dto.id,dto.category)">적용하기</button></td></tr>
        </table>
        </td>
       </tr>
@@ -104,7 +104,7 @@ export default {
   color: red;
 }
 .table-res{
-  margin-top: 200px;
+  margin-top: 50px;
   border: 5px;
 }
 </style>

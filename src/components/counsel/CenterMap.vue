@@ -1,20 +1,20 @@
 <template>
   <!-- 검색창 -->
-  <div class="searchBox">
-    <div class="searchArea">
+  <div class="search-box">
+    <div class="inner-box">
       <div class="input-group mb-3">
-        <input type="text" class="form-control" ref="keyword" @keyup="searchCenter" placeholder="지역을 입력하세요." />
-      </div>
+        <input type="text" class="form-control" ref="keyword" size="10" @keyup="searchCenter" placeholder="지역을 입력하세요." />
     </div>
     <!-- 카카오 지도 -->
-    <div ref="kakaomap" style="width:700px;height:600px;float:left"></div>
+    <div class="kakaomap" ref="kakaomap"></div>
     <!-- 마커 클릭시 세부정보 -->
-    <div v-if="overlay == true" style="float:left">
-      <h3> {{ centerInfo.place_name }} </h3>
+    <div v-if="overlay == true">
+      <h3> <b>{{ centerInfo.place_name }}</b></h3>
       <div> 연락처: {{ centerInfo.phone }} </div>
       <div> 지번주소: {{ centerInfo.address_name }}</div>
       <div> 도로명주소: {{ centerInfo.road_address_name }} </div>
-      <div> <a target="_blank" :href=centerInfo.place_url> 자세히 </a> </div>
+      <div> <a class="btn btn-outline-dark btn-sm" type="button" target="_blank" :href=centerInfo.place_url> 자세히 </a> </div>
+    </div>
     </div>
   </div>
 </template>
@@ -124,7 +124,22 @@ export default {
 </script>
 
 <style scoped>
-  .searchArea{
+
+  h3 {
+    margin-top: 10px;
+  }
+
+.inner-box {
+  width: 500px;
+  margin-left: 10%
+}
+  .kakaomap {
+    width: 700px;
+    height: 550px;
+    margin-bottom: 10px;
+  }
+
+  .search-box {
     grid-column: 2;
     grid-row: 1;
   }

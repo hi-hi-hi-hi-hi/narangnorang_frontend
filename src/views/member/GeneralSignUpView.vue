@@ -2,23 +2,23 @@
   <body class="text-center">
     <main class="form-signin w-100 m-auto">
       <form @submit.prevent="generalSignUp">
-        <h1 class="h3 mb-3 fw-normal">일반회원가입</h1>
+        <h1 class="h3 mb-3 fw-normal"><b>일반회원가입</b></h1>
         <div class="form-floating">
           <input type="email" class="form-control" id="email" v-model="email" placeholder="Email" required>
           <label for="email" class="">Email address</label>
-          <span id="emailCheckResult" style="color: blue">{{ emailCheckResult }}</span>
+          <span id="emailCheckResult">{{ emailCheckResult }}</span>
         </div>
         <br>
-        <button type="button" class="btn btn-secondary" @click="checkEmail">중복 체크</button>
-        <button type="button" class="btn btn-secondary" @click="sendMail">인증메일보내기</button><br>
+        <button type="button" class="btn btn-dark btn-id" @click="checkEmail">중복 체크</button>
+        <button type="button" class="btn btn-dark" @click="sendMail">인증메일보내기</button><br>
         <br>
         <div class="form-floating">
           <input type="text" class="form-control" id="com" v-model="com" placeholder="인증확인" required>
           <label for="com" class="">인증확인</label>
-          <span id="compare-text" style="color: blue">{{ compareText }}</span>
+          <span id="compare-text">{{ compareText }}</span>
         </div>
         <br>
-        <button type="button" class="btn btn-secondary" @click="compare">인증확인</button>
+        <button type="button" class="btn btn-dark" @click="compare">인증확인</button>
         <br>
         <div class="form-floating">
           <br>
@@ -28,16 +28,16 @@
         <div class="form-floating">
           <input type="text" class="form-control" id="password2" @input="pwCheck" v-model="password2" placeholder="Password Check" required>
           <label for="password2" class="">Password Check</label>
-          <span id="pwCheckResult" style="color: blue">{{ pwCheckResult }}</span>
+          <span id="pwCheckResult">{{ pwCheckResult }}</span>
         </div>
         <br>
         <div class="form-floating">
           <input type="text" class="form-control" id="name" v-model="name" placeholder="NICKNAME" required>
           <label for="name">NICKNAME</label>
-          <span id="nicknameCheckResult" style="color: blue">{{ nicknameCheckResult }}</span>
+          <span id="nicknameCheckResult">{{ nicknameCheckResult }}</span>
         </div>
         <br>
-        <button type="button" class="btn btn-secondary" @click="checkName">중복 체크</button>
+        <button type="button" class="btn btn-dark" @click="checkName">중복 체크</button>
         <br>
         <div class="form-floating">
           <br>
@@ -50,7 +50,7 @@
           <label for="region">지역</label>
         </div>
         <br>
-        <button type="submit" class="w-100 mt-3 btn btn-lg btn-primary">회원가입</button>
+        <button type="submit" class="w-100 btn btn-outline-dark btn-lg">회원가입</button>
       </form>
     </main>
   </body>
@@ -122,15 +122,22 @@ export default {
     // 인증번호 확인
     compare () {
       let mesg = '불일치'
-      if (this.com === this.key) {
-        mesg = '일치'
-        document.getElementById('compare-text').setAttribute('style', 'color: blue')
-        this.isCertification = true
-      } else {
-        document.getElementById('compare-text').setAttribute('style', 'color: red')
-        this.isCertification = false
-      }
-      this.compareText = mesg
+      this.axios({
+        url: '/api/compare',
+        method: 'POST',
+        data: { com: this.com }
+      })
+      .then((response) => {
+        if (response.data === true) {
+          mesg = '일치'
+          document.getElementById('compare-text').setAttribute('style', 'color: blue')
+          this.isCertification = true
+        } else {
+          document.getElementById('compare-text').setAttribute('style', 'color: red')
+          this.isCertification = false
+        }
+        this.compareText = mesg
+      })
     },
     // 비번 재확인
     pwCheck () {
@@ -220,14 +227,7 @@ export default {
       } else {
         this.axios
         .post(url, data)
-        .then((response) => {
-          alert('인증메일이 전송되었습니다.')
-          this.key = response.data
-          console.log(response.data)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+        alert('인증메일이 전송되었습니다.')
       }
     }
   }
@@ -247,6 +247,10 @@ body {
   background-color: white;
 }
 
+span {
+  color: blue;
+}
+
 .form-signin {
   max-width: 330px;
   padding: 15px;
@@ -254,5 +258,12 @@ body {
 
 .form-signin .form-floating:focus-within {
   z-index: 2;
+}
+
+.btn-id {
+  margin-right: 10px;
+}
+.btn-lg {
+  font-weight: bold;
 }
 </style>

@@ -12,6 +12,7 @@
                         </div>
                     </div>
                 </div>
+                <div v-if="challengeList.length == 0" class="col-auto m-2">챌린지를 먼저 진행해주세요</div>
             </div>
         </div>
     </div>
@@ -23,6 +24,7 @@
         grid-template-columns: 300px 1200px;
         grid-gap: 30px;
         position: absolute;
+        left: 10%;
     }
     .card {
         width: 15rem;

@@ -2,7 +2,8 @@
   <body class="text-center">
     <main class="form-signin w-100 m-auto">
       <form @submit.prevent="myPage">
-        <p>정보를 안전하게 보호하기 위하여 비밀번호를 다시 확인 합니다.</p>
+        <p>정보를 안전하게 보호하기 위하여<br>
+          비밀번호를 다시 확인 합니다.</p>
         <div class="form-floating">
           <input type="email" class="form-control" id="email" v-model="email" placeholder="Email" readonly>
           <label for="email" class="">Email address</label>
@@ -13,7 +14,7 @@
           <label for="password">Password</label>
         </div>
         <br>
-        <button type="submit" class="w-100 mt-3 btn btn-lg btn-primary">확인</button>
+        <button type="submit" class="w-100 btn btn-outline-dark btn-lg">확인</button>
       </form>
     </main>
   </body>
