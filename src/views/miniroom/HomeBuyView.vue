@@ -5,14 +5,14 @@
   <table class="table container">
     <thead>
       <tr>
-            <th><button class="btn btn-info col-sm-6" @click="changeCategory('bed')">침대</button></th>
-            <th><button class="btn btn-info col-sm-6" @click="changeCategory('closet')">옷장</button></th>
-            <th><button class="btn btn-info col-sm-6" @click="changeCategory('floor')" >바닥</button></th>
-            <th><button class="btn btn-info col-sm-6" @click="changeCategory('wallpaper')" >벽지</button></th>
-            <th><button class="btn btn-info col-sm-6" @click="changeCategory('desk')" >책상</button></th>
-            <th><button class="btn btn-info col-sm-6" @click="changeCategory('chair')" >의자</button></th>
-            <th><button class="btn btn-info col-sm-6" @click="changeCategory('walldecoRight')" >우장</button></th>
-            <th><button class="btn btn-info col-sm-6" @click="changeCategory('walldecoLeft')" >좌장</button></th>
+            <th><button class="w-100 btn btn-outline-dark btn-lg col-sm-6" @click="changeCategory('bed')">침대</button></th>
+            <th><button class="w-100 btn btn-outline-dark btn-lg col-sm-6" @click="changeCategory('closet')">옷장</button></th>
+            <th><button class="w-100 btn btn-outline-dark btn-lg col-sm-6" @click="changeCategory('floor')" >바닥</button></th>
+            <th><button class="w-100 btn btn-outline-dark btn-lg col-sm-6" @click="changeCategory('wallpaper')" >벽지</button></th>
+            <th><button class="w-100 btn btn-outline-dark btn-lg col-sm-6" @click="changeCategory('desk')" >책상</button></th>
+            <th><button class="w-100 btn btn-outline-dark btn-lg col-sm-6" @click="changeCategory('chair')" >의자</button></th>
+            <th><button class="w-100 btn btn-outline-dark btn-lg col-sm-6" @click="changeCategory('walldecoRight')" >우장</button></th>
+            <th><button class="w-100 btn btn-outline-dark btn-lg col-sm-6" @click="changeCategory('walldecoLeft')" >좌장</button></th>
       </tr>
     </thead>
   </table>
@@ -24,8 +24,8 @@
             <tr><td>번호: {{dto.id}}</td></tr>
             <tr><td><img class="imgMini" :srcset="require(`../../assets/items/items/${dto.id}.png`)"></td></tr>
             <tr><td>가격:<span class="red">{{dto.price}}pt</span></td></tr>
-            <tr><td><button class="btn btn-warning" @click="buy(dto.id,dto.price,dto.name,dto.category)">구매</button></td></tr>
-            <tr><td><button class="btn btn-warning" @click="wish(dto.id,dto.category)">Wish</button></td></tr>
+            <tr><td><button class="w-100 btn btn-outline-dark btn-lg" @click="buy(dto.id,dto.price,dto.name,dto.category)">구매</button></td></tr>
+            <tr><td><button class="w-100 btn btn-outline-dark btn-lg" @click="wish(dto.id,dto.category)">Wish</button></td></tr>
        </table>
        </td>
       </tr>
@@ -36,7 +36,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   name: 'HomeBuy',
   data () {
@@ -51,7 +50,7 @@ export default {
   },
   methods: {
     getList () {
-      axios.get('/api/home/buy', {
+      this.axios.get('/api/home/buy', {
         params: {
           category: this.category
         }
@@ -68,7 +67,7 @@ export default {
       this.getList()
     },
     buy (NitemId, Nprice, name, category) {
-        axios.post('/api/home/buy', {
+        this.axios.post('/api/home/buy', {
         data: {
           id: NitemId,
           category: category,
@@ -80,7 +79,7 @@ export default {
       .then((res) => {
         this.mesg = res.data
         alert(this.mesg)
-        this.$router.go()
+        this.$emit('point')
       })
       .catch((err) => {
         console.log(err)

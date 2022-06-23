@@ -3,13 +3,14 @@
     <div v-if="privilege ===3" class="section">
       <div class="miniroomSideBar">
     <MiniroomSideBar v-on:group="groupp" />
+    내 포인트: {{point}}포인트
     </div>
       <div class="align">
         <HomeImage />
       </div>
       <div></div>
       <div v-if="group === 'B'">
-        <HomeBuy ></HomeBuy>
+        <HomeBuy v-on:point="getImage"></HomeBuy>
       </div>
       <div v-else-if="group === 'S'">
         <HomeStyle></HomeStyle>
@@ -26,7 +27,6 @@ import MiniroomSideBar from '@/components/miniroom/MiniroomSideBar'
 import HomeBuy from '@/views/miniroom/HomeBuyView'
 import HomeStyle from '@/views/miniroom/HomeStyleView'
 import HomeWish from '@/views/miniroom/HomeWishView'
-import axios from 'axios'
 export default {
   name: 'HomeView',
   components: {
@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     getImage () {
-      axios({
+      this.axios({
         url: '/api/home',
         method: 'get',
         responseType: 'json'
