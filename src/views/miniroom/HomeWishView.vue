@@ -4,7 +4,7 @@
   <table class="table">
     <thead>
       <tr>
-        <th colspan="6"><h2>위시리스트 아이템을 구매해보세요!</h2></th>
+        <th colspan="6"><h3><b>위시리스트 아이템을 구매해보세요!</b></h3></th>
       </tr>
     </thead>
     <tbody>
@@ -13,8 +13,8 @@
         <td>아이템 이름: {{dto.name}}</td>
         <td><img class="imgMini" :srcset="require(`../../assets/items/items/${dto.id}.png`)"></td>
         <td>가격:<span class="red">{{dto.price}}pt</span></td>
-        <td><button class="w-100 btn btn-outline-dark btn-lg" @click="buy(dto.id,dto.price,dto.name,dto.category)">구매</button></td>
-        <td><button class="w-100 btn btn-outline-dark btn-lg" @click="wish(dto.id,dto.category)">위시리스트 추가/제거</button></td>
+        <td><button class="w-100 btn btn-outline-dark" @click="buy(dto.id,dto.price,dto.name,dto.category)">구매</button></td>
+        <td><button class="w-100 btn btn-outline-dark" @click="wish(dto.id,dto.category)">위시리스트 추가/제거</button></td>
       </tr>
     </tbody>
   </table>
@@ -103,7 +103,7 @@ export default {
   color: red;
 }
 .table-res{
-  margin-top: 200px;
+  margin-top: 50px;
   border: 5px;
 }
 </style>
