@@ -43,6 +43,11 @@ export default {
   },
   mounted () {
     this.fnGetReplyList()
+  },
+  watch: {
+    id () {
+      this.fnGetReplyList()
+    }
   }
 }
 </script>
