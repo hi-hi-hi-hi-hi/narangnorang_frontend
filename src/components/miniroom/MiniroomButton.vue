@@ -69,7 +69,7 @@ i {
   font-weight: 700;
   letter-spacing: -.01em;
   line-height: 1.3;
-  padding: .875rem 1.125rem;
+  padding: 8px 1.125rem;
   position: relative;
   text-align: left;
   text-decoration: none;
