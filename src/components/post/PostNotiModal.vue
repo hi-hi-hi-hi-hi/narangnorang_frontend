@@ -2,6 +2,8 @@
   <div class="notiModal">
     <div class="black-bg" @click="modalClose">
       <div class="white-bg">
+        <h5>새로운 댓글 목록</h5>
+        <hr>
         <div v-if="notiList.length >= 1">
           <div class="notiListArea" v-for="(row, idx) in notiList" :key="idx">
               <a class="notiContentArea" @click="fnGoRetrievePage(row.postId, row.postCategory);fnDeleteNoti(row.id)"><strong>[{{ row.postTitle }}]</strong> 게시글에 댓글이 등록되었습니다.</a>
@@ -43,7 +45,6 @@ export default {
       })
       .then((res) => {
         this.notiList = res.data
-        this.$emit('lengthOfNoti', this.notiList.length)
       })
       .catch((err) => {
         console.log(err)

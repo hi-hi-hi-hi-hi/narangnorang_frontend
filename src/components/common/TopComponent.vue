@@ -1,9 +1,9 @@
 <template>
-	<PostNotiModal v-if="modalVal" @modalClose="modalClose" @lengthOfNoti="lengthOfNoti" :id="id"/>
+	<PostNotiModal v-if="modalVal" @modalClose="modalClose" :id="id"/>
 	<div class="top" v-if="privilege === 3">
 		<router-link class="top-link" to="/faq">고객문의</router-link>
-		<a class="top-link" @click="modalOpen()" :id="id"><i class="fa fa-bell faa-ring" v-bind:class="{ animated: notiLength >= 1 }"></i> 알림 {{ notiLength }}</a>
-		<router-link class="top-link" to="/message"><i class="fa-solid fa-envelope"></i> 쪽지<span> {{ unreads }}</span></router-link>
+		<a class="top-link" @click="modalOpen()" :id="id"><i class="fa fa-bell faa-ring" v-bind:class="{ animated: notiLength >= 1 }"></i> 알림 <span>{{ notiLength }}</span></a>
+		<router-link class="top-link" to="/message"><i class="fa-solid fa-envelope"></i> 쪽지 <span> {{ unreads }}</span></router-link>
 		<router-link class="top-link" to="/myPage">내정보</router-link>
 	</div>
 	<div class="top" v-else-if="privilege === 2">
@@ -213,8 +213,18 @@ export default {
 				clearInterval(this.timer)
 			})
 		},
-		lengthOfNoti (notiLength) {
-			this.notiLength = notiLength
+		fnGetNotiLength () {
+			this.axios.get('/api/noti', {
+				params: {
+					memberId: this.id
+				}
+			})
+			.then((res) => {
+				this.notiLength = res.data.length
+			})
+			.catch((err) => {
+				console.log(err)
+			})
 		},
 		modalOpen (memberName) {
 			this.modalVal = true
@@ -226,7 +236,9 @@ export default {
 	},
 	created () {
 		this.getUnreads()
+		this.fnGetNotiLength()
 		this.timer = setInterval(this.getUnreads, 3000)
+		this.timer = setInterval(this.fnGetNotiLength, 3000)
 	}
 }
 </script>
