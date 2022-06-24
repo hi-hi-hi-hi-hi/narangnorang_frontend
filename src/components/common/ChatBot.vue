@@ -53,7 +53,7 @@
 				<button type="button" @click="postDailyLog"><b class="send-button">전송</b></button>
 			</div>
 			<div v-if="moodStateSend" class="msb-reply text-center">
-				<div>0 ~ 100 점</div>
+				<div>0 ~ 100</div>
 				<input type="range" v-model="state" min="0" max="100" required="required">점<br>
 				<button type="button" @click="postMoodState"><b class="send-button">전송</b></button>
 			</div>
