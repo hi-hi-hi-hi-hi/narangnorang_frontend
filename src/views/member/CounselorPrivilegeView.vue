@@ -1,6 +1,7 @@
 <template>
-  <br>
-  <h2>상담사 승인 관리</h2>
+    <div class="container">
+    <div class="col-md-12">
+  <h3><b>상담사 승인 관리</b></h3>
   <table class="table" border="1">
     <thead>
       <tr>
@@ -40,8 +41,9 @@
     </tbody>
   </table>
   <br>
-  <button type="button" class="btn btn-primary" @click="privilegeUP">선택 상담사 승인</button>
+  <button type="button" class="w-100 btn btn-outline-dark btn-lg" @click="privilegeUP">선택 상담사 승인</button>
   <br>
+  </div></div>
 </template>
 
 <script>

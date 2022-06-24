@@ -110,6 +110,13 @@ export default {
     fnGoEditPage () {
       this.$router.push({ name: 'postEdit', params: { title: this.title, content: this.content, postId: this.id } })
     }
+  },
+  watch: {
+    '$route' (to, from) {
+      this.id = this.$route.params.id
+      this.category = this.$route.query.category
+      this.fnGetPostRetrieve()
+    }
   }
 }
 </script>
