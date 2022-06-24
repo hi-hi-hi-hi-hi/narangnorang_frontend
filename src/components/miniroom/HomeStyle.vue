@@ -48,9 +48,6 @@ export default {
   mounted () {
     this.getList()
   },
-  updated () {
-    this.getList()
-  },
   methods: {
     getList () {
       this.axios.get('/api/home/style', {
