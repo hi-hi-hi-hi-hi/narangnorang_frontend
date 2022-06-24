@@ -1,6 +1,6 @@
 export default [{
     path: '/faq',
     name: 'faq',
-    component: () => import('../views/faq/FaqView.vue')
+    component: () => import('../views/FAQ/FaqView.vue')
   }
 ]
