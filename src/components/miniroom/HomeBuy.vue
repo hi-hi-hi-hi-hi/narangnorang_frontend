@@ -24,8 +24,8 @@
             <tr><td>번호: {{dto.id}}</td></tr>
             <tr><td><img class="imgMini" :srcset="require(`../../assets/items/items/${dto.id}.png`)"></td></tr>
             <tr><td>가격:<span class="red">{{dto.price}}pt</span></td></tr>
-            <tr><td><button class="w-100 btn btn-outline-dark" @click="buy(dto.id,dto.price,dto.name,dto.category)">구매</button></td></tr>
-            <tr><td><button class="w-100 btn btn-outline-dark" @click="wish(dto.id,dto.category)">Wish</button></td></tr>
+            <tr><td><button class="btn btn-outline-dark" @click="buy(dto.id,dto.price,dto.name,dto.category)">구매</button></td></tr>
+            <tr><td><button class="btn btn-outline-dark" @click="wish(dto.id,dto.category)">Wish</button></td></tr>
        </table>
        </td>
       </tr>
