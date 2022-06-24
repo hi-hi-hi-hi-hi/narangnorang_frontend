@@ -1,13 +1,11 @@
 <template>
-  <h1>관리자 계정</h1>
+<div>
+  <h3><b>관리자 계정 </b><i class="fa-solid fa-screwdriver-wrench"></i></h3>
+  </div>
 </template>
 
-<script>
-
-export default {
-  data () {
-    return {
-    }
-  }
+<style scoped>
+div {
+  margin: auto;
 }
-</script>
+</style>

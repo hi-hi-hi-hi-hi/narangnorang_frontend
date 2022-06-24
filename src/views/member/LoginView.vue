@@ -55,12 +55,11 @@ export default {
 <style scoped>
 
 body {
-  height: 100%;
-  display: flex;
   align-items: center;
   padding-top: 200px;
-  padding-bottom: 200px;
+  padding-bottom: 0px;
   background-color: white;
+  margin: auto;
 }
 
 .logo {

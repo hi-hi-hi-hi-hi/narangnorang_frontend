@@ -1,6 +1,7 @@
 <template>
-  <br>
-  <h2>계정관리</h2>
+  <div class="container">
+    <div class="col-md-12">
+  <h3><b>계정관리</b></h3>
   <table class="table" border="1">
     <thead>
       <tr>
@@ -46,6 +47,8 @@
   <br>
   <button type="button" class="btn btn-danger" @click="delSelected">선택 계정 삭제</button>
   <br>
+  </div>
+  </div>
 </template>
 
 <script>
@@ -101,3 +104,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+table {
+  width: 100%;
+}
+</style>
