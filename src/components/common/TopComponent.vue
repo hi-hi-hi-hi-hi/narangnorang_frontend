@@ -186,7 +186,8 @@ export default {
 	data () {
 		return {
       		unreads: 0,
-      		timer: null,
+      		timer1: null,
+			timer2: null,
 			modalVal: false,
 			notiLength: 0
 		}
@@ -210,7 +211,7 @@ export default {
 			})
 			.catch((err) => {
 				console.log(err)
-				clearInterval(this.timer)
+				clearInterval(this.timer1)
 			})
 		},
 		fnGetNotiLength () {
@@ -224,6 +225,7 @@ export default {
 			})
 			.catch((err) => {
 				console.log(err)
+				clearInterval(this.timer2)
 			})
 		},
 		modalOpen (memberName) {
@@ -237,8 +239,12 @@ export default {
 	created () {
 		this.getUnreads()
 		this.fnGetNotiLength()
-		this.timer = setInterval(this.getUnreads, 3000)
-		this.timer = setInterval(this.fnGetNotiLength, 3000)
+		this.timer1 = setInterval(this.getUnreads, 3000)
+		this.timer2 = setInterval(this.fnGetNotiLength, 3000)
+	},
+	unmounted () {
+		clearInterval(this.timer1)
+		clearInterval(this.timer2)
 	}
 }
 </script>

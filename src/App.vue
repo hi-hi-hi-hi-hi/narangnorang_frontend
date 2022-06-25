@@ -10,10 +10,10 @@
 		<!-- End Header -->
 
 		<!-- Start Main -->
-		<router-view :member="member" class="body-part" />
+		<router-view :member="member" class="body-part" :post="post" @posted="post = false" />
 		<!-- End Main -->
 
-		<ChatBot v-if="getPrivilege" :privilege="member.privilege" @challengeComplete="getSession" />
+		<ChatBot v-if="getPrivilege" :privilege="member.privilege" @post="post = true" />
 
 		<!-- Start Footer -->
 		<footer></footer>
@@ -33,6 +33,7 @@ export default {
 	},
 	data () {
 		return {
+			post: false,
 			pathsNotLoggedIn: [
 				'main',
 				'notFound',

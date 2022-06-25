@@ -47,8 +47,8 @@
 			</div>
 			<div v-if="dailyLogSend" class="msb-reply text-center">
 				<input type="number" v-model="sleep" min="0" max="24" required="required">시간<br>
-				<input type="radio" v-model="medicine" value="0">X
-				<input type="radio" v-model="medicine" value="1">
+				<input type="radio" v-model="medicine" :value="0">X
+				<input type="radio" v-model="medicine" :value="1">
 				<img src="@/assets/mynorang/medicine.png" width="20">
 				<button type="button" @click="postDailyLog"><b class="send-button">전송</b></button>
 			</div>
@@ -124,7 +124,18 @@ export default {
 	methods: {
 		open () {
 			this.modal = true
+			this.challenge = ''
+			this.challengeSend = false
 			this.messageList = []
+			this.multipartFile = null
+			this.title = ''
+			this.dailyLogSend = false
+			this.sleep = 0
+            this.medicine = null
+			this.moodStateSend = false
+			this.state = 0
+			this.messageSend = false
+			this.content = ''
 			this.getChallenge()
 			this.getDailyLog()
 		},
@@ -135,7 +146,7 @@ export default {
 		},
 		getChallenge () {
 			this.axios({
-				url: '/api/norang/challenge',
+				url: '/api/chatbot/challenge',
 				method: 'get',
 				responseType: 'json'
 			}).then((response) => {
@@ -150,7 +161,7 @@ export default {
 		},
 		getDailyLog () {
 			this.axios({
-				url: '/api/norang/dailylog',
+				url: '/api/chatbot/dailylog',
 				method: 'get',
 				responseType: 'json'
 			}).then((response) => {
@@ -167,7 +178,7 @@ export default {
 		},
 		getMoodState () {
 			this.axios({
-				url: '/api/norang/moodstate',
+				url: '/api/chatbot/moodstate',
 				method: 'get',
 				responseType: 'json'
 			}).then((response) => {
@@ -196,7 +207,7 @@ export default {
 			formData.append('multipartFile', this.multipartFile)
 			formData.append('title', this.title)
 			this.axios({
-				url: '/api/norang/challenge',
+				url: '/api/chatbot/challenge',
 				method: 'post',
 				data: formData,
 				responseType: 'json'
@@ -208,7 +219,7 @@ export default {
 					this.messageList.push(message)
 					this.challengeSend = false
 					this.getChallenge()
-					this.$emit('challengeComplete')
+					this.$emit('post')
 				}
 			})
 		},
@@ -218,7 +229,7 @@ export default {
                 return
             }
 			this.axios({
-				url: '/api/norang/dailylog',
+				url: '/api/chatbot/dailylog',
 				method: 'post',
 				data: {
 					sleep: this.sleep,
@@ -231,21 +242,24 @@ export default {
 					let content = this.sleep + '시간잤어'
 					let message = { from, content }
 					this.messageList.push(message)
-					if (this.medicine === 0) {
-						content = '약은 아직 안 먹었어'
-					} else if (this.medicine === 1) {
-						content = '약도 먹었어'
+					if (this.medicine != null) {
+						if (this.medicine === 0) {
+							content = '약은 아직 안 먹었어'
+						} else if (this.medicine === 1) {
+							content = '약도 먹었어'
+						}
+						message = { from, content }
+						this.messageList.push(message)
 					}
-					message = { from, content }
-					this.messageList.push(message)
 					this.dailyLogSend = false
 					this.getMoodState()
+					this.$emit('post')
 				}
 			})
 		},
 		postMoodState () {
 			this.axios({
-				url: '/api/norang/moodstate',
+				url: '/api/chatbot/moodstate',
 				method: 'post',
 				data: {
 					state: this.state
@@ -266,10 +280,11 @@ export default {
 					if (this.state < 50) {
 						content += '안 '
 					}
-					content += '좋은 일 있었어?'
+					content += '좋은 일 있어?'
 					message = { from, content }
 					this.messageList.push(message)
 					this.messageSend = true
+					this.$emit('post')
 				}
 			})
 		},

@@ -28,6 +28,9 @@ export default {
     components: {
         SideBar
     },
+    props: {
+        post: Boolean
+    },
     methods: {
         draw (moodStateList) {
             const d3 = window.d3
@@ -73,11 +76,19 @@ export default {
                 responseType: 'json'
             }).then((response) => {
                 this.draw(response.data)
+                this.$emit('posted')
             })
         }
     },
     mounted () {
         this.getMoodStateList()
+    },
+    watch: {
+        post: function () {
+            if (this.post) {
+			    this.getMoodStateList()
+            }
+		}
     }
 }
 </script>
