@@ -20,7 +20,7 @@
       </div>
       <button class="btn" @click="fnReplyVisibleToggle()">댓글 {{ replies }}</button>
       <hr>
-      <PostReply :id="id" :replies="replies" :replyVisible="replyVisible"/>
+      <PostReply :id="id" :replies="replies" :replyVisible="replyVisible" :member="member" @fnGetPostRetrieve="fnGetPostRetrieve"/>
     </div>
   </div>
 </template>
