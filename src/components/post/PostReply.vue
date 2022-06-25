@@ -51,7 +51,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .postReplyArea{
   margin-top: 10px;
   width: 600px;

@@ -2,7 +2,7 @@
   <div class="userProfileModal">
     <div class="black-bg" @click="modalClose">
       <div class="white-bg">
-        <h4>{{ myRoomDTO.memberName }}의 미니룸</h4>
+        <h4>{{ memberName }}의 미니룸</h4>
         <hr>
         <div class="miniroom">
           <div v-if="myRoomDTO.floor !== 0">
@@ -36,7 +36,7 @@
 
 <script>
 export default {
-  props: ['memberId'],
+  props: ['memberId', 'memberName'],
   data () {
     return {
       myRoomDTO: {
@@ -54,21 +54,22 @@ export default {
   created () {
     this.fnGetUserHome()
   },
-  updated () {
-    this.fnGetUserHome()
-  },
+  // updated () {
+  //   this.fnGetUserHome()
+  // },
   methods: {
     modalClose () {
       this.$emit('modalClose')
     },
     fnGetUserHome () {
-      this.axios.get('/api/post/userhome', {
+      this.axios.get('/api/home/profile', {
         params: {
           id: this.memberId
         }
       })
       .then((res) => {
         this.myRoomDTO = res.data
+        console.log(this.myRoomDTO)
       })
       .catch((err) => {
         console.log(err)
@@ -87,12 +88,23 @@ export default {
   z-index: 9998;
 }
 .white-bg {
-  left: 500px;
+  left: 30%;
   position: fixed;
-  width: 700px; background: white;
+  width: 550px; height:600px; background: white;
   border-radius: 8px;
   padding: 20px;
   margin: 100px;
   box-shadow: 5px 5px 5px gray;
+}
+.HomeImg {
+  width: 500px;
+  height: 500px;
+  position: absolute;
+}
+.zIndex0{
+  z-index: 0;
+}
+.zIndex2{
+  z-index: 2;
 }
 </style>
