@@ -26,7 +26,6 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
 
 export default {
   props: {
@@ -57,7 +56,7 @@ export default {
   },
   methods: {
     getImage () {
-      axios({
+      this.axios({
         url: '/api/home',
         method: 'get',
         responseType: 'json'
