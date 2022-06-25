@@ -72,7 +72,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 body{margin-top:20px;}
 .section_padding_130 {
     padding-top: 130px;

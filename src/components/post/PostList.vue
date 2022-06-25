@@ -1,5 +1,5 @@
 <template>
-  <PostUserProfileModal v-if="modalVal" :memberId="modalMemberId" @modalClose="modalClose"/>
+  <PostUserProfileModal v-if="modalVal" :memberId="modalMemberId" :memberName="modalMemberName" @modalClose="modalClose"/>
   <div class="postListSection">
     <!-- 추천 필터링 버튼 -->
     <div class="postLikeButtons">
@@ -64,7 +64,7 @@
             <strong class="postTitle" v-if="category === '정보게시판' && row.memberPrivilege === 1">{{ row.title }}</strong>
             <span class="postTitle" v-else>{{ row.title }}</span>
             </a><span style="color:red;margin:5px">[{{ row.replies }}]</span></td>
-            <td><a @click="modalOpen(row.memberId)" style="cursor:pointer;">{{ row.memberName }}</a></td>
+            <td><a @click="modalOpen(row.memberId, row.memberName)" style="cursor:pointer;">{{ row.memberName }}</a></td>
             <td>
               <!-- 시간 표시 설정 -->
               <span v-if="row.datetime.substring(0, 10) === todayDate" class="col-4 time text-muted small">
@@ -129,6 +129,7 @@ export default {
       todayDate: '',
       modalVal: false,
       modalMemberId: 0,
+      modalMemberName: '',
       replyVisibleId: 0
     }
   },
@@ -246,9 +247,10 @@ export default {
         console.log(err)
       })
     },
-    modalOpen (memberId) {
+    modalOpen (memberId, memberName) {
       this.modalVal = true
       this.modalMemberId = memberId
+      this.modalMemberName = memberName
     },
     modalClose () {
       this.modalVal = false
