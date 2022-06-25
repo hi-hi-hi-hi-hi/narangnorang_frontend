@@ -7,11 +7,15 @@
               <b>{{ row.memberName }}</b>
               <span class="datetimeArea"> {{ row.datetime }}</span>
               <span class="commentBtnArea" v-if="member.id === row.memberId">
-                <button class="btn btn-sm" @click="fnCommentEdit()">수정</button>
+                <button class="btn btn-sm" @click="fnCommentEdit(row.id)">수정</button>
                 <button class="btn btn-sm" @click="fnCommentDelete(row.id, row.postId)">삭제</button>
               </span>
               <!-- <button class="btn btn-sm">추천 {{ row.likes }}</button> -->
-              <div class="replyContentArea" style="padding:10px">{{ row.content }}</div>
+              <div v-if="!isEditMode[row.id]" class="replyContentArea" style="padding:10px">{{ row.content }}</div>
+              <div v-else>
+                <textarea class="editReplyArea form-control" v-model="row.content"></textarea>
+                <button class="ReplyEditBtn btn">수정</button>
+              </div>
           </div>
         </li>
       </a>
@@ -31,7 +35,8 @@ export default {
   },
   data () {
     return {
-      list: {}
+      list: {},
+      isEditMode: {}
     }
   },
   methods: {
@@ -39,6 +44,10 @@ export default {
       this.axios.get('/api/post/reply/' + this.id)
       .then((res) => {
         this.list = res.data
+        for (var i = 0; i < this.list.length; i++) {
+          this.isEditMode[this.list[i].id] = false
+        }
+        console.log(this.isEditMode)
         this.$emit('fnGetPostRetrieve')
       })
       .catch((err) => {
@@ -61,6 +70,9 @@ export default {
           console.log(err)
         })
       }
+    },
+    fnCommentEdit (id) {
+      this.isEditMode[id] = true
     }
   },
   mounted () {
@@ -89,5 +101,13 @@ export default {
 .commentBtnArea{
   position: absolute;
   right: 20px;
+}
+.editReplyArea{
+  margin-top:20px;
+  width: 100%;
+  resize: none;
+}
+.ReplyEditBtn{
+  float: right;
 }
 </style>

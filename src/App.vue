@@ -105,7 +105,6 @@ button {
 	top: 27px;
 	right: 100px;
 }
-
 .body-part {
 	width: 80%;
 	height: 700px;
