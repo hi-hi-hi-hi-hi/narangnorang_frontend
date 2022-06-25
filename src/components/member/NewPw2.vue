@@ -73,7 +73,7 @@ export default {
 
 <style scoped>
 body {
-  height: 100%;
+  height: 80%;
 }
 
 span {
@@ -83,7 +83,6 @@ span {
 body {
   display: flex;
   align-items: center;
-  padding-top: 40px;
   padding-bottom: 40px;
   background-color: white;
 }

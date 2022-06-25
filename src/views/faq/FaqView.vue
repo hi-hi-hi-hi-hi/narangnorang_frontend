@@ -81,7 +81,8 @@ body{margin-top:20px;}
 .faq_area {
     position: relative;
     z-index: 1;
-    background-color: white;
+    background-color: rgba(234, 234, 234, 0.73);
+    margin: auto;
 }
 
 .faq-accordian {

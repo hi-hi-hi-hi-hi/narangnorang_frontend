@@ -53,7 +53,7 @@
 				<button type="button" @click="postDailyLog"><b class="send-button">전송</b></button>
 			</div>
 			<div v-if="moodStateSend" class="msb-reply text-center">
-				<div>0 ~ 100 점</div>
+				<div>0 ~ 100</div>
 				<input type="range" v-model="state" min="0" max="100" required="required">점<br>
 				<button type="button" @click="postMoodState"><b class="send-button">전송</b></button>
 			</div>
@@ -171,15 +171,17 @@ export default {
 				method: 'get',
 				responseType: 'json'
 			}).then((response) => {
+				const from = '노랑이'
+				let content = ''
 				if (response.data.flag) {
-					this.startChat()
+					content = '나랑노랑!'
+					this.messageSend = true
 				} else {
-					const from = '노랑이'
-					const content = '기분은 좀 어때?'
-					const message = { from, content }
-					this.messageList.push(message)
+					content = '기분은 좀 어때?'
 					this.moodStateSend = true
 				}
+				const message = { from, content }
+				this.messageList.push(message)
 			})
 		},
 		postChallenge () {
@@ -231,13 +233,11 @@ export default {
 					this.messageList.push(message)
 					if (this.medicine === 0) {
 						content = '약은 아직 안 먹었어'
-						message = { from, content }
-						this.messageList.push(message)
 					} else if (this.medicine === 1) {
 						content = '약도 먹었어'
-						message = { from, content }
-						this.messageList.push(message)
 					}
+					message = { from, content }
+					this.messageList.push(message)
 					this.dailyLogSend = false
 					this.getMoodState()
 				}
@@ -253,21 +253,25 @@ export default {
 				responseType: 'json'
 			}).then((response) => {
 				if (response.data.flag) {
-					const from = '나'
-					const content = this.state + '점'
-					const message = { from, content }
+					let from = '나'
+					let content = this.state + '점'
+					let message = { from, content }
 					this.messageList.push(message)
 					this.moodStateSend = false
-					this.startChat()
+					from = '노랑이'
+					content = '지금 기분이 ' + this.state + '점이네?'
+					message = { from, content }
+					this.messageList.push(message)
+					content = '무슨 '
+					if (this.state < 50) {
+						content += '안 '
+					}
+					content += '좋은 일 있었어?'
+					message = { from, content }
+					this.messageList.push(message)
+					this.messageSend = true
 				}
 			})
-		},
-		startChat () {
-			const from = '노랑이'
-			const content = '나랑노랑!'
-			const message = { from, content }
-			this.messageList.push(message)
-			this.messageSend = true
 		},
 		sendMessage () {
 			let from = '나'
