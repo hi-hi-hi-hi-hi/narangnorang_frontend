@@ -2,7 +2,7 @@
   <div class="postReplyArea">
     <ul class="list_comment list-group">
       <a v-for="(row, idx) in list" :key="idx">
-        <li v-if="replyVisible" class="list-group-item border-0">
+        <li class="list-group-item border-0">
           <div class="commentSection">
               <b>{{ row.memberName }}</b>
               <span class="datetimeArea"> {{ row.datetime }}</span>
@@ -29,7 +29,7 @@ import PostWriteReply from '@/components/post/PostWriteReply'
 
 export default {
   name: 'postReply',
-  props: ['id', 'member', 'replies', 'replyVisible', 'replyVisibleId'],
+  props: ['id', 'member', 'replies', 'replyVisible'],
   components: {
     PostWriteReply
   },
