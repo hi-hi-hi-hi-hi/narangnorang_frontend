@@ -8,18 +8,15 @@
 	</div>
 	<div class="top" v-else-if="privilege === 2">
 		<router-link class="top-link" to="/faq">고객문의</router-link>
-		<a class="top-link" @click="modalOpen()" :id="id">알림</a>
-		<router-link class="top-link" to="/message"><i class="fa-solid fa-envelope"></i>쪽지<span> {{ unreads }}</span></router-link>
+		<a class="top-link" @click="modalOpen()" :id="id"><i class="fa fa-bell faa-ring" v-bind:class="{ animated: notiLength >= 1 }"></i> 알림 <span>{{ notiLength }}</span></a>
+		<router-link class="top-link" to="/message"><i class="fa-solid fa-envelope faa-ring" v-bind:class="{ animated: unreads >= 1 }"></i> 쪽지 <span> {{ unreads }}</span></router-link>
 		<router-link class="top-link" to="/myPage">내정보</router-link>
 	</div>
 	<div class="top" v-else-if="privilege === 1">
 		<router-link class="top-link" to="/faq">고객문의</router-link>
-		<a class="top-link" @click="modalOpen()" :id="id">알림</a>
-		<router-link class="top-link" to="/message"><i class="fa-solid fa-envelope"></i>쪽지<span> {{ unreads }}</span></router-link>
+		<a class="top-link" @click="modalOpen()" :id="id"><i class="fa fa-bell faa-ring" v-bind:class="{ animated: notiLength >= 1 }"></i> 알림 <span>{{ notiLength }}</span></a>
+		<router-link class="top-link" to="/message"><i class="fa-solid fa-envelope faa-ring" v-bind:class="{ animated: unreads >= 1 }"></i> 쪽지 <span> {{ unreads }}</span></router-link>
 		<router-link class="top-link" to="/myPage">내정보</router-link>
-	</div>
-	<div class="top" v-else-if="privilege === 0">
-		<router-link class="top-link" to="/faq">고객문의</router-link>
 	</div>
 </template>
 
@@ -186,7 +183,8 @@ export default {
 	data () {
 		return {
       		unreads: 0,
-      		timer: null,
+      		timer1: null,
+			timer2: null,
 			modalVal: false,
 			notiLength: 0
 		}
@@ -210,7 +208,7 @@ export default {
 			})
 			.catch((err) => {
 				console.log(err)
-				clearInterval(this.timer)
+				clearInterval(this.timer1)
 			})
 		},
 		fnGetNotiLength () {
@@ -224,6 +222,7 @@ export default {
 			})
 			.catch((err) => {
 				console.log(err)
+				clearInterval(this.timer2)
 			})
 		},
 		modalOpen (memberName) {
@@ -237,8 +236,12 @@ export default {
 	created () {
 		this.getUnreads()
 		this.fnGetNotiLength()
-		this.timer = setInterval(this.getUnreads, 3000)
-		this.timer = setInterval(this.fnGetNotiLength, 3000)
+		this.timer1 = setInterval(this.getUnreads, 3000)
+		this.timer2 = setInterval(this.fnGetNotiLength, 3000)
+	},
+	unmounted () {
+		clearInterval(this.timer1)
+		clearInterval(this.timer2)
 	}
 }
 </script>
