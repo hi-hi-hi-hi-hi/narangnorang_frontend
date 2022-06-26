@@ -40,8 +40,8 @@
             <div class="contentArea">
               {{ row.content }}
             </div>
-            <button class="btn" @click="fnReplyVisibleToggle(row.id)" >댓글 {{ row.replies }}</button>
-            <PostReply :id="row.id" :replyVisible="replyVisible" :replyVisibleId="replyVisibleId"/>
+            <button class="btn" @click="fnReplyVisibleToggle()" >댓글 {{ row.replies }}</button>
+            <PostReply :id="row.id" :replyVisible="replyVisible"/>
           </td>
         </tr>
       </table>
@@ -129,8 +129,7 @@ export default {
       todayDate: '',
       modalVal: false,
       modalMemberId: 0,
-      modalMemberName: '',
-      replyVisibleId: 0
+      modalMemberName: ''
     }
   },
   components: {
@@ -225,12 +224,11 @@ export default {
     fnGoRetrievePage (id) {
       this.$router.push({ path: '/post/' + id, query: { category: this.category } })
     },
-    fnReplyVisibleToggle (replyVisibleId) {
+    fnReplyVisibleToggle () {
       if (this.replyVisible === true) {
         this.replyVisible = false
       } else {
         this.replyVisible = true
-        this.replyVisibleId = replyVisibleId
       }
     },
     fnLikePost (id) {
