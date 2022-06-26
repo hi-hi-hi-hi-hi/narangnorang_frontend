@@ -24,8 +24,15 @@
             <tr><td>번호: {{dto.id}}</td></tr>
             <tr><td><img class="imgMini" :srcset="require(`../../assets/items/items/${dto.id}.png`)"></td></tr>
             <tr><td>가격:<span class="red">{{dto.price}}pt</span></td></tr>
-            <tr><td><button class="w-100 btn btn-outline-dark" @click="buy(dto.id,dto.price,dto.name,dto.category)">구매</button></td></tr>
-            <tr><td><button class="w-100 btn btn-outline-dark" @click="wish(dto.id,dto.category)">Wish</button></td></tr>
+            <tr>
+              <td v-if="!myItemList.find(v => v.id === dto.id)"><button class="w-100 btn btn-outline-dark" @click="buy(dto.id,dto.price,dto.name,dto.category)">구매</button></td>
+              <td v-else><button disabled>구매완료</button></td>
+            </tr>
+            <tr>
+              <td v-if="!myItemList.find(v => v.id === dto.id)">
+                <button class="w-100 btn btn-outline-dark" @click="wish(dto.id)">Wish</button></td>
+              <td v-else></td>
+            </tr>
        </table>
        </td>
       </tr>
@@ -40,8 +47,9 @@ export default {
   name: 'HomeBuy',
   data () {
     return {
-      itemList: {
-      },
+      itemList: {},
+      myItemList: {},
+      wishItemList: {},
       mesg: ''
     }
   },
@@ -57,6 +65,9 @@ export default {
       })
       .then((res) => {
         this.itemList = res.data.itemList
+        this.myItemList = res.data.myItemList
+        this.wishItemList = res.data.wishItemList
+        console.log(res.data.wishItemList)
       })
       .catch((err) => {
         console.log(err)
@@ -80,6 +91,7 @@ export default {
         this.mesg = res.data
         alert(this.mesg)
         this.$emit('point')
+        this.getList()
       })
       .catch((err) => {
         console.log(err)
