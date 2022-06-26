@@ -2,7 +2,7 @@
 	<div>
 		<!-- Start Header -->
 		<router-link class="header" v-if="getPrivilege" to="/home">
-			<img :src="require('@/assets/header/logo.png')">
+			<img :src="require('@/assets/common/logo.png')">
 		</router-link>
 		<TopComponent v-if="getPrivilege" :privilege="member.privilege" :id="member.id"/>
 		<button type="button" class="btn" v-if="getPrivilege" @click="logout">로그아웃</button>
@@ -10,13 +10,12 @@
 		<!-- End Header -->
 
 		<!-- Start Main -->
-		<router-view :member="member" class="body-part" />
+		<router-view :member="member" :post="post" @posted="post = false" />
 		<!-- End Main -->
 
-		<ChatBot v-if="getPrivilege" :privilege="member.privilege" @challengeComplete="getSession" />
+		<ChatBot v-if="getPrivilege" :privilege="member.privilege" @post="post = true" />
 
 		<!-- Start Footer -->
-		<footer></footer>
 		<!-- End Footer -->
 	</div>
 </template>
@@ -33,6 +32,7 @@ export default {
 	},
 	data () {
 		return {
+			post: false,
 			pathsNotLoggedIn: [
 				'main',
 				'notFound',
@@ -104,26 +104,5 @@ button {
 	position: absolute;
 	top: 27px;
 	right: 100px;
-}
-.body-part {
-	width: 80%;
-	height: 650px;
-	overflow-x: hidden;
-	overflow-y: auto;
-	scrollbar-width: thin;
-}
-
-.body-part::-webkit-scrollbar {
-    width: 5px;  /* 스크롤바의 너비 */
-}
-
-.body-part::-webkit-scrollbar-thumb {
-    height: 30%; /* 스크롤바의 길이 */
-    background: #cdcdcdb1; /* 스크롤바의 색상 */
-    border-radius: 10px;
-}
-
-.body-part::-webkit-scrollbar-track {
-    background: rgba(213, 213, 213, 0.1);  /*스크롤바 뒷 배경 색상*/
 }
 </style>

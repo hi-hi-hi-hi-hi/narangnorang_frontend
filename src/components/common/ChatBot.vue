@@ -1,66 +1,68 @@
 <template>
-	<button v-if="!modal" @click="open" class="btn-norang">
-		<img src="@/assets/common/norang.png" width="70">
-	</button>
-	<div v-if="modal" class="black-bg" @click="close">
-		<div class="white-bg container">
-			<!-- 대화 상대 -->
-			<div class="action-header clearfix">
-				<div class="row">
-					<div class="pull-left hidden-xs col-6">
-						<img src="@/assets/common/norang.png" class="img-avatar m-r-10">
-						<h5><b>오늘의 챌린지</b></h5>
-						<h5><b>{{ challenge }}</b></h5>
-					</div>
-					<div v-show="challengeSend" class="col-6">
-						<input type="file" @change="multipartFile = $event.target.files[0]" id="input-file">
-						<label for="input-file" v-if="multipartFile == null">파일선택</label>
-						<label for="input-file" v-else>{{multipartFile.name}}</label><br>
-						<input type="text" v-model="title" placeholder="제목을 입력하세요" size="14">
-						<button type="button" @click="postChallenge" class="btn btn-outline-dark">업로드</button>
-					</div>
-				</div>
-            </div>
-			<!-- 대화내역 부분 -->
-			<div class="history">
-				<div v-for="(message, i) in messageList" :key="i">
-					<!-- 상대가 보냄 -->
-					<div v-if="message.from === '노랑이'" class="message-feed media">
-						<div class="pull-left">
-							<img src="@/assets/common/norang.png" class="img-avatar">
+	<div v-if="privilege === 3">
+		<button v-if="!modal" @click="open" class="btn-norang">
+			<img src="@/assets/common/norang.png" width="70">
+		</button>
+		<div v-if="modal" class="black-bg" @click="close">
+			<div class="white-bg container">
+				<!-- 대화 상대 -->
+				<div class="action-header clearfix">
+					<div class="row">
+						<div class="pull-left hidden-xs col-6">
+							<img src="@/assets/common/norang.png" class="img-avatar m-r-10">
+							<h5><b>오늘의 챌린지</b></h5>
+							<h5><b>{{ challenge }}</b></h5>
 						</div>
-						<div class="media-body">
-							<div class="mf-content">
-								{{ message.content }}
-							</div>
-						</div>
-					</div>
-					<!-- 내가 보냄 -->
-					<div v-else class="message-feed right">
-						<div class="media-body">
-							<div class="mf-content">
-								{{ message.content }}
-							</div>
+						<div v-show="challengeSend" class="col-6">
+							<input type="file" @change="multipartFile = $event.target.files[0]" id="input-file">
+							<label for="input-file" v-if="multipartFile == null">파일선택</label>
+							<label for="input-file" v-else>{{multipartFile.name}}</label><br>
+							<input type="text" v-model="title" placeholder="제목을 입력하세요" size="14">
+							<button type="button" @click="postChallenge" class="btn btn-outline-dark">업로드</button>
 						</div>
 					</div>
 				</div>
+				<!-- 대화내역 부분 -->
+				<div class="history">
+					<div v-for="(message, i) in messageList" :key="i">
+						<!-- 상대가 보냄 -->
+						<div v-if="message.from === '노랑이'" class="message-feed media">
+							<div class="pull-left">
+								<img src="@/assets/common/norang.png" class="img-avatar">
+							</div>
+							<div class="media-body">
+								<div class="mf-content">
+									{{ message.content }}
+								</div>
+							</div>
+						</div>
+						<!-- 내가 보냄 -->
+						<div v-else class="message-feed right">
+							<div class="media-body">
+								<div class="mf-content">
+									{{ message.content }}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div v-if="dailyLogSend" class="msb-reply text-center">
+					<input type="number" v-model="sleep" min="0" max="24" required="required">시간<br>
+					<input type="radio" v-model="medicine" :value="0">X
+					<input type="radio" v-model="medicine" :value="1">
+					<img src="@/assets/mynorang/medicine.png" width="20">
+					<button type="button" @click="postDailyLog"><b class="send-button">전송</b></button>
+				</div>
+				<div v-if="moodStateSend" class="msb-reply text-center">
+					<div>0 ~ 100</div>
+					<input type="range" v-model="state" min="0" max="100" required="required">점<br>
+					<button type="button" @click="postMoodState"><b class="send-button">전송</b></button>
+				</div>
+				<div v-if="messageSend" class="msb-reply">
+					<textarea v-model="content" @keyup.enter="sendMessage" placeholder="내용을 입력하세요"></textarea>
+					<button type="button" @click="sendMessage"><b class="send-button">전송</b></button>
+				</div>
 			</div>
-			<div v-if="dailyLogSend" class="msb-reply text-center">
-				<input type="number" v-model="sleep" min="0" max="24" required="required">시간<br>
-				<input type="radio" v-model="medicine" value="0">X
-				<input type="radio" v-model="medicine" value="1">
-				<img src="@/assets/mynorang/medicine.png" width="20">
-				<button type="button" @click="postDailyLog"><b class="send-button">전송</b></button>
-			</div>
-			<div v-if="moodStateSend" class="msb-reply text-center">
-				<div>0 ~ 100</div>
-				<input type="range" v-model="state" min="0" max="100" required="required">점<br>
-				<button type="button" @click="postMoodState"><b class="send-button">전송</b></button>
-			</div>
-			<div v-if="messageSend" class="msb-reply">
-                <textarea v-model="content" @keyup.enter="sendMessage" placeholder="내용을 입력하세요"></textarea>
-                <button type="button" @click="sendMessage"><b class="send-button">전송</b></button>
-            </div>
 		</div>
 	</div>
 </template>
@@ -104,6 +106,9 @@
 <script>
 import chatBotAPI from '@/components/common/chatBotAPI'
 export default {
+	props: {
+		privilege: Number
+	},
 	data () {
 		return {
 			modal: false,
@@ -124,7 +129,18 @@ export default {
 	methods: {
 		open () {
 			this.modal = true
+			this.challenge = ''
+			this.challengeSend = false
 			this.messageList = []
+			this.multipartFile = null
+			this.title = ''
+			this.dailyLogSend = false
+			this.sleep = 0
+            this.medicine = null
+			this.moodStateSend = false
+			this.state = 0
+			this.messageSend = false
+			this.content = ''
 			this.getChallenge()
 			this.getDailyLog()
 		},
@@ -135,7 +151,7 @@ export default {
 		},
 		getChallenge () {
 			this.axios({
-				url: '/api/norang/challenge',
+				url: '/api/chatbot/challenge',
 				method: 'get',
 				responseType: 'json'
 			}).then((response) => {
@@ -150,7 +166,7 @@ export default {
 		},
 		getDailyLog () {
 			this.axios({
-				url: '/api/norang/dailylog',
+				url: '/api/chatbot/dailylog',
 				method: 'get',
 				responseType: 'json'
 			}).then((response) => {
@@ -167,7 +183,7 @@ export default {
 		},
 		getMoodState () {
 			this.axios({
-				url: '/api/norang/moodstate',
+				url: '/api/chatbot/moodstate',
 				method: 'get',
 				responseType: 'json'
 			}).then((response) => {
@@ -196,7 +212,7 @@ export default {
 			formData.append('multipartFile', this.multipartFile)
 			formData.append('title', this.title)
 			this.axios({
-				url: '/api/norang/challenge',
+				url: '/api/chatbot/challenge',
 				method: 'post',
 				data: formData,
 				responseType: 'json'
@@ -208,7 +224,7 @@ export default {
 					this.messageList.push(message)
 					this.challengeSend = false
 					this.getChallenge()
-					this.$emit('challengeComplete')
+					this.$emit('post')
 				}
 			})
 		},
@@ -218,7 +234,7 @@ export default {
                 return
             }
 			this.axios({
-				url: '/api/norang/dailylog',
+				url: '/api/chatbot/dailylog',
 				method: 'post',
 				data: {
 					sleep: this.sleep,
@@ -231,21 +247,24 @@ export default {
 					let content = this.sleep + '시간잤어'
 					let message = { from, content }
 					this.messageList.push(message)
-					if (this.medicine === 0) {
-						content = '약은 아직 안 먹었어'
-					} else if (this.medicine === 1) {
-						content = '약도 먹었어'
+					if (this.medicine != null) {
+						if (this.medicine === 0) {
+							content = '약은 아직 안 먹었어'
+						} else if (this.medicine === 1) {
+							content = '약도 먹었어'
+						}
+						message = { from, content }
+						this.messageList.push(message)
 					}
-					message = { from, content }
-					this.messageList.push(message)
 					this.dailyLogSend = false
 					this.getMoodState()
+					this.$emit('post')
 				}
 			})
 		},
 		postMoodState () {
 			this.axios({
-				url: '/api/norang/moodstate',
+				url: '/api/chatbot/moodstate',
 				method: 'post',
 				data: {
 					state: this.state
@@ -266,10 +285,11 @@ export default {
 					if (this.state < 50) {
 						content += '안 '
 					}
-					content += '좋은 일 있었어?'
+					content += '좋은 일 있어?'
 					message = { from, content }
 					this.messageList.push(message)
 					this.messageSend = true
+					this.$emit('post')
 				}
 			})
 		},

@@ -71,6 +71,9 @@ export default {
         SideBar,
         DailyLogModal
     },
+    props: {
+        post: Boolean
+    },
     data () {
         return {
             year: 0,
@@ -107,6 +110,7 @@ export default {
                 this.start = response.data.start
                 this.end = response.data.end
                 this.dailyLogCalendar = response.data.dailyLogCalendar
+                this.$emit('posted')
             })
         },
         open (date) {
@@ -139,7 +143,12 @@ export default {
     watch: {
         '$route' (to, from) {
             this.getDailyLogCalendar()
-        }
+        },
+        post: function () {
+            if (this.post) {
+			    this.getDailyLogCalendar()
+            }
+		}
     }
 }
 </script>

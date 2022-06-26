@@ -40,6 +40,9 @@ export default {
     components: {
         SideBar
     },
+    props: {
+        post: Boolean
+    },
     data () {
         return {
             challengeList: []
@@ -60,11 +63,19 @@ export default {
                 responseType: 'json'
             }).then((response) => {
                 this.challengeList = response.data
+                this.$emit('posted')
             })
         }
     },
     mounted () {
         this.getChallengeList()
+    },
+    watch: {
+        post: function () {
+            if (this.post) {
+			    this.getChallengeList()
+            }
+		}
     }
 }
 </script>

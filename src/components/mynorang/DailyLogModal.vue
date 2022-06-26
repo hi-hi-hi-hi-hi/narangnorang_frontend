@@ -49,15 +49,15 @@
 
 <script>
 export default {
+    props: {
+        datetime: String,
+        dailyLog: Object
+    },
     data () {
         return {
             sleep: 0,
             medicine: null
         }
-    },
-    props: {
-        datetime: String,
-        dailyLog: Object
     },
     methods: {
         close (event) {

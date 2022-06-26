@@ -44,7 +44,6 @@ a {
 
 .container {
   padding-top: 15%;
-  padding-bottom: 200px;
 }
 
 img {
