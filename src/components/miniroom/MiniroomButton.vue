@@ -41,12 +41,13 @@ export default {
   .btn {
   position: absolute;
   right:    0;
-  bottom:   0;
+  bottom:   25%;
   border: none;
 }
 
 .btn button {
  margin-right: 5px;
+ padding: 8px;
 }
 
 i {

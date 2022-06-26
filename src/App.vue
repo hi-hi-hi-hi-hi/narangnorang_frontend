@@ -10,7 +10,7 @@
 		<!-- End Header -->
 
 		<!-- Start Main -->
-		<router-view :member="member" class="body-part" :post="post" @posted="post = false" />
+		<router-view :member="member" :post="post" @posted="post = false" />
 		<!-- End Main -->
 
 		<ChatBot v-if="getPrivilege" :privilege="member.privilege" @post="post = true" />
@@ -104,26 +104,5 @@ button {
 	position: absolute;
 	top: 27px;
 	right: 100px;
-}
-.body-part {
-	width: 80%;
-	height: 700px;
-	overflow-x: hidden;
-	overflow-y: auto;
-	scrollbar-width: thin;
-}
-
-.body-part::-webkit-scrollbar {
-    width: 5px;  /* 스크롤바의 너비 */
-}
-
-.body-part::-webkit-scrollbar-thumb {
-    height: 30%; /* 스크롤바의 길이 */
-    background: #cdcdcdb1; /* 스크롤바의 색상 */
-    border-radius: 10px;
-}
-
-.body-part::-webkit-scrollbar-track {
-    background: rgba(213, 213, 213, 0.1);  /*스크롤바 뒷 배경 색상*/
 }
 </style>

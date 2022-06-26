@@ -19,15 +19,17 @@
   </table>
   <table class="container">
     <tbody>
-      <tr>
+      <tr v-if="itemList.length >=1">
         <td v-for="(dto, idx) in itemList" :key="idx">
         <table class="col-sm-6">
             <tr><td>번호: {{dto.id}}</td></tr>
             <tr><td><img class="imgMini" :srcset="require(`../../assets/items/items/${dto.id}.png`)"></td></tr>
-            <tr><td>가격:<span class="red">{{dto.price}}pt</span></td></tr>
             <tr><td><button class="btn btn-outline-dark" @click="style(dto.id,dto.category)">적용하기</button></td></tr>
        </table>
        </td>
+      </tr>
+      <tr v-else>
+        <td><h4>아이템을 구매해 주세요.</h4></td>
       </tr>
     </tbody>
   </table>
@@ -50,7 +52,7 @@ export default {
   },
   methods: {
     getList () {
-      this.axios.get('/api/home/style', {
+      this.axios.get('/api/home/buy', {
         params: {
           category: this.category
         }

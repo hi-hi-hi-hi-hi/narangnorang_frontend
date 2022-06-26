@@ -9,11 +9,10 @@
     <div class="kakaomap" ref="kakaomap"></div>
     <!-- 마커 클릭시 세부정보 -->
     <div v-if="overlay == true">
-      <h3> <b>{{ centerInfo.place_name }}</b></h3>
+      <h3> <b>{{ centerInfo.place_name }} </b><span> <a class="btn btn-outline-dark btn-sm" type="button" target="_blank" :href=centerInfo.place_url> <i class="fa-solid fa-arrow-up-right-from-square"></i></a> </span></h3>
       <div> 연락처: {{ centerInfo.phone }} </div>
       <div> 지번주소: {{ centerInfo.address_name }}</div>
       <div> 도로명주소: {{ centerInfo.road_address_name }} </div>
-      <div> <a class="btn btn-outline-dark btn-sm" type="button" target="_blank" :href=centerInfo.place_url> 자세히 </a> </div>
     </div>
     </div>
   </div>
@@ -28,7 +27,7 @@ export default {
       userRegion: '',
       results: [],
       overlay: false,
-      infowindow: null,
+      infowindow: [],
       centerInfo: null
     }
   },
@@ -56,7 +55,7 @@ export default {
         })
     },
     // 마커 표시
-    displayMarker (place) {
+    displayMarker (idx, place) {
       const imageSrc = require('@/assets/common/norang.png') // 마커이미지의 주소입니다
       const imageSize = new window.kakao.maps.Size(50, 50) // 마커이미지의 크기입니다
       const imageOption = { offset: new window.kakao.maps.Point(27, 69) }
@@ -77,16 +76,16 @@ export default {
           content: iwContent
       })
 
-      this.infowindow = infowindow
+      this.infowindow[idx] = infowindow
 
       // 마커에 마우스오버 이벤트를 등록합니다
       window.kakao.maps.event.addListener(marker, 'mouseover', () => {
-          this.infowindow.open(this.mapInstance, marker)
+          this.infowindow[idx].open(this.mapInstance, marker)
       })
 
       // 마커에 마우스아웃 이벤트를 등록합니다
       window.kakao.maps.event.addListener(marker, 'mouseout', () => {
-          this.infowindow.close()
+          this.infowindow[idx].close()
       })
 
       // 마커에 마우스아웃 이벤트를 등록합니다
@@ -112,7 +111,7 @@ export default {
         const bounds = new window.kakao.maps.LatLngBounds()
 
         for (let i = 0; i < data.length; i++) {
-          this.displayMarker(data[i])
+          this.displayMarker(i, data[i])
           bounds.extend(new window.kakao.maps.LatLng(data[i].y, data[i].x))
         }
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
@@ -142,5 +141,9 @@ export default {
   .search-box {
     grid-column: 2;
     grid-row: 1;
+  }
+
+  .btn {
+    border: none;
   }
 </style>
