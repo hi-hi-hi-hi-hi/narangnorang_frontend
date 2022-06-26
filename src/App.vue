@@ -40,7 +40,8 @@ export default {
 				'signUp',
 				'generalSignUp',
 				'counselorSignUp',
-				'findPw'
+				'findPw',
+				'newPw'
 			],
 			member: null
 		}
