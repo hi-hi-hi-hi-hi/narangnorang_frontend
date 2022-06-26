@@ -1,5 +1,4 @@
 <template>
-<div>
 <div class="table-res">
   <table class="table">
     <thead>
@@ -8,9 +7,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(dto, idx) in itemList" :key="idx">
+      <tr v-for="(dto, idx) in wishItemList" :key="idx">
         <td>아이템 번호: {{dto.id}}</td>
-        <td>아이템 이름: {{dto.name}}</td>
         <td><img class="imgMini" :srcset="require(`../../assets/items/items/${dto.id}.png`)"></td>
         <td>가격:<span class="red">{{dto.price}}pt</span></td>
         <td><button class="btn btn-outline-dark" @click="buy(dto.id,dto.price,dto.name,dto.category)">구매</button></td>
@@ -20,7 +18,6 @@
   </table>
 
 </div>
-</div>
 </template>
 
 <script>
@@ -28,34 +25,27 @@ export default {
   name: 'HomeBuy',
   data () {
     return {
-      itemList: {
+      wishItemList: {
       },
       mesg: ''
     }
   },
-  mounted () {
-    this.getList()
-  },
-  updated () {
-    this.getList()
+  created () {
+    this.getWishList()
   },
   methods: {
-    getList () {
-      this.axios.get('/api/home/wish', {
+    getWishList () {
+      this.axios.get('/api/home/buy', {
         params: {
           category: this.category
-        }
-      })
-      .then((res) => {
-        this.itemList = res.data.wishItemList
-      })
-      .catch((err) => {
+        },
+        responseType: 'json'
+      }).then((res) => {
+        this.wishItemList = res.data.wishItemList
+        console.log(res.data.wishItemList)
+      }).catch((err) => {
         console.log(err)
       })
-    },
-    changeCategory (nCategory) {
-      this.category = nCategory
-      this.getList()
     },
     buy (NitemId, Nprice, name, category) {
         this.axios.post('/api/home/buy', {
@@ -70,6 +60,7 @@ export default {
       .then((res) => {
         this.mesg = res.data
         alert(this.mesg)
+        this.getWishList()
       })
       .catch((err) => {
         console.log(err)
@@ -85,6 +76,7 @@ export default {
       .then((res) => {
         this.mesg = res.data
         alert(this.mesg)
+        this.getWishList()
       })
       .catch((err) => {
         console.log(err)

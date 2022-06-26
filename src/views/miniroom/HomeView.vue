@@ -41,7 +41,6 @@ export default {
     MiniroomButton
   },
   created () {
-    console.log(this.member)
     this.getImage()
   },
   data () {
