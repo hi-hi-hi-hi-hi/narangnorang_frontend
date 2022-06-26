@@ -2,7 +2,7 @@
 	<div>
 		<!-- Start Header -->
 		<router-link class="header" v-if="getPrivilege" to="/home">
-			<img :src="require('@/assets/header/logo.png')">
+			<img :src="require('@/assets/common/logo.png')">
 		</router-link>
 		<TopComponent v-if="getPrivilege" :privilege="member.privilege" :id="member.id"/>
 		<button type="button" class="btn" v-if="getPrivilege" @click="logout">로그아웃</button>
@@ -16,7 +16,6 @@
 		<ChatBot v-if="getPrivilege" :privilege="member.privilege" @post="post = true" />
 
 		<!-- Start Footer -->
-		<footer></footer>
 		<!-- End Footer -->
 	</div>
 </template>

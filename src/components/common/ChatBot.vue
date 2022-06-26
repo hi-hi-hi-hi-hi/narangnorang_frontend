@@ -1,66 +1,68 @@
 <template>
-	<button v-if="!modal" @click="open" class="btn-norang">
-		<img src="@/assets/common/norang.png" width="70">
-	</button>
-	<div v-if="modal" class="black-bg" @click="close">
-		<div class="white-bg container">
-			<!-- 대화 상대 -->
-			<div class="action-header clearfix">
-				<div class="row">
-					<div class="pull-left hidden-xs col-6">
-						<img src="@/assets/common/norang.png" class="img-avatar m-r-10">
-						<h5><b>오늘의 챌린지</b></h5>
-						<h5><b>{{ challenge }}</b></h5>
-					</div>
-					<div v-show="challengeSend" class="col-6">
-						<input type="file" @change="multipartFile = $event.target.files[0]" id="input-file">
-						<label for="input-file" v-if="multipartFile == null">파일선택</label>
-						<label for="input-file" v-else>{{multipartFile.name}}</label><br>
-						<input type="text" v-model="title" placeholder="제목을 입력하세요" size="14">
-						<button type="button" @click="postChallenge" class="btn btn-outline-dark">업로드</button>
-					</div>
-				</div>
-            </div>
-			<!-- 대화내역 부분 -->
-			<div class="history">
-				<div v-for="(message, i) in messageList" :key="i">
-					<!-- 상대가 보냄 -->
-					<div v-if="message.from === '노랑이'" class="message-feed media">
-						<div class="pull-left">
-							<img src="@/assets/common/norang.png" class="img-avatar">
+	<div v-if="privilege === 3">
+		<button v-if="!modal" @click="open" class="btn-norang">
+			<img src="@/assets/common/norang.png" width="70">
+		</button>
+		<div v-if="modal" class="black-bg" @click="close">
+			<div class="white-bg container">
+				<!-- 대화 상대 -->
+				<div class="action-header clearfix">
+					<div class="row">
+						<div class="pull-left hidden-xs col-6">
+							<img src="@/assets/common/norang.png" class="img-avatar m-r-10">
+							<h5><b>오늘의 챌린지</b></h5>
+							<h5><b>{{ challenge }}</b></h5>
 						</div>
-						<div class="media-body">
-							<div class="mf-content">
-								{{ message.content }}
-							</div>
-						</div>
-					</div>
-					<!-- 내가 보냄 -->
-					<div v-else class="message-feed right">
-						<div class="media-body">
-							<div class="mf-content">
-								{{ message.content }}
-							</div>
+						<div v-show="challengeSend" class="col-6">
+							<input type="file" @change="multipartFile = $event.target.files[0]" id="input-file">
+							<label for="input-file" v-if="multipartFile == null">파일선택</label>
+							<label for="input-file" v-else>{{multipartFile.name}}</label><br>
+							<input type="text" v-model="title" placeholder="제목을 입력하세요" size="14">
+							<button type="button" @click="postChallenge" class="btn btn-outline-dark">업로드</button>
 						</div>
 					</div>
 				</div>
+				<!-- 대화내역 부분 -->
+				<div class="history">
+					<div v-for="(message, i) in messageList" :key="i">
+						<!-- 상대가 보냄 -->
+						<div v-if="message.from === '노랑이'" class="message-feed media">
+							<div class="pull-left">
+								<img src="@/assets/common/norang.png" class="img-avatar">
+							</div>
+							<div class="media-body">
+								<div class="mf-content">
+									{{ message.content }}
+								</div>
+							</div>
+						</div>
+						<!-- 내가 보냄 -->
+						<div v-else class="message-feed right">
+							<div class="media-body">
+								<div class="mf-content">
+									{{ message.content }}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div v-if="dailyLogSend" class="msb-reply text-center">
+					<input type="number" v-model="sleep" min="0" max="24" required="required">시간<br>
+					<input type="radio" v-model="medicine" :value="0">X
+					<input type="radio" v-model="medicine" :value="1">
+					<img src="@/assets/mynorang/medicine.png" width="20">
+					<button type="button" @click="postDailyLog"><b class="send-button">전송</b></button>
+				</div>
+				<div v-if="moodStateSend" class="msb-reply text-center">
+					<div>0 ~ 100</div>
+					<input type="range" v-model="state" min="0" max="100" required="required">점<br>
+					<button type="button" @click="postMoodState"><b class="send-button">전송</b></button>
+				</div>
+				<div v-if="messageSend" class="msb-reply">
+					<textarea v-model="content" @keyup.enter="sendMessage" placeholder="내용을 입력하세요"></textarea>
+					<button type="button" @click="sendMessage"><b class="send-button">전송</b></button>
+				</div>
 			</div>
-			<div v-if="dailyLogSend" class="msb-reply text-center">
-				<input type="number" v-model="sleep" min="0" max="24" required="required">시간<br>
-				<input type="radio" v-model="medicine" :value="0">X
-				<input type="radio" v-model="medicine" :value="1">
-				<img src="@/assets/mynorang/medicine.png" width="20">
-				<button type="button" @click="postDailyLog"><b class="send-button">전송</b></button>
-			</div>
-			<div v-if="moodStateSend" class="msb-reply text-center">
-				<div>0 ~ 100</div>
-				<input type="range" v-model="state" min="0" max="100" required="required">점<br>
-				<button type="button" @click="postMoodState"><b class="send-button">전송</b></button>
-			</div>
-			<div v-if="messageSend" class="msb-reply">
-                <textarea v-model="content" @keyup.enter="sendMessage" placeholder="내용을 입력하세요"></textarea>
-                <button type="button" @click="sendMessage"><b class="send-button">전송</b></button>
-            </div>
 		</div>
 	</div>
 </template>
@@ -104,6 +106,9 @@
 <script>
 import chatBotAPI from '@/components/common/chatBotAPI'
 export default {
+	props: {
+		privilege: Number
+	},
 	data () {
 		return {
 			modal: false,
