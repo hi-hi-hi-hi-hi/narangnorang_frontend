@@ -118,6 +118,11 @@ export default {
     grid-column: 2;
     grid-row: 1;
     margin: auto;
+    width: 80%;
+	height: 700px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	scrollbar-width: thin;
 }
 .btn {
 padding: .2rem;
@@ -126,4 +131,9 @@ font-weight: bold;
 margin-right: 5px;
 float: right;
 }
+
+.listSection::-webkit-scrollbar {
+    display: none;
+}
+
 </style>

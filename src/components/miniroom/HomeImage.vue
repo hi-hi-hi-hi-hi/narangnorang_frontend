@@ -72,7 +72,7 @@ export default {
   position: absolute;
   top: 50%;
   left: 50%;
-  margin: -270px 0 0 -250px;
+  margin: -350px 0 0 -250px;
 }
 .btn {
   		position: fixed;
