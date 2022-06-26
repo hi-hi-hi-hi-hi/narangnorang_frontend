@@ -107,7 +107,7 @@ button {
 }
 .body-part {
 	width: 80%;
-	height: 700px;
+	height: 650px;
 	overflow-x: hidden;
 	overflow-y: auto;
 	scrollbar-width: thin;

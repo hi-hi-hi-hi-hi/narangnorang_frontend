@@ -7,14 +7,14 @@
               <b>{{ row.memberName }}</b>
               <span class="datetimeArea"> {{ row.datetime }}</span>
               <span class="commentBtnArea" v-if="member.id === row.memberId">
-                <button class="btn btn-sm" @click="fnCommentEdit(row.id)">수정</button>
+                <button class="btn btn-sm" @click="fnReplyEditToggle(row.id, row.content)">수정</button>
                 <button class="btn btn-sm" @click="fnCommentDelete(row.id, row.postId)">삭제</button>
               </span>
               <!-- <button class="btn btn-sm">추천 {{ row.likes }}</button> -->
               <div v-if="!isEditMode[row.id]" class="replyContentArea" style="padding:10px">{{ row.content }}</div>
               <div v-else>
-                <textarea class="editReplyArea form-control" v-model="row.content"></textarea>
-                <button class="ReplyEditBtn btn">수정</button>
+                <textarea class="editReplyArea form-control" v-model="editReplyContent"></textarea>
+                <button class="ReplyEditBtn btn" @click="fnReplyEdit(row.id)">수정</button>
               </div>
           </div>
         </li>
@@ -36,7 +36,8 @@ export default {
   data () {
     return {
       list: {},
-      isEditMode: {}
+      isEditMode: {},
+      editReplyContent: ''
     }
   },
   methods: {
@@ -47,7 +48,6 @@ export default {
         for (var i = 0; i < this.list.length; i++) {
           this.isEditMode[this.list[i].id] = false
         }
-        console.log(this.isEditMode)
         this.$emit('fnGetPostRetrieve')
       })
       .catch((err) => {
@@ -71,8 +71,31 @@ export default {
         })
       }
     },
-    fnCommentEdit (id) {
-      this.isEditMode[id] = true
+    fnReplyEditToggle (id, content) {
+      this.editReplyContent = content
+      if (this.isEditMode[id]) {
+        this.isEditMode[id] = false
+      } else {
+        this.isEditMode[id] = true
+      }
+    },
+    fnReplyEdit (id) {
+      this.axios({
+        method: 'put',
+        url: '/api/post/reply',
+        data: {
+          id: id,
+          content: this.editReplyContent
+        }
+      })
+      .then((res) => {
+        alert('댓글을 수정하였습니다.')
+        this.isEditMode[id] = false
+        this.fnGetReplyList()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     }
   },
   mounted () {
