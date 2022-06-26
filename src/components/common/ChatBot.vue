@@ -17,7 +17,7 @@
 						<label for="input-file" v-if="multipartFile == null">파일선택</label>
 						<label for="input-file" v-else>{{multipartFile.name}}</label><br>
 						<input type="text" v-model="title" placeholder="제목을 입력하세요" size="14">
-						<button type="button" @click="postChallenge(multipartFile, title)" class="btn btn-outline-dark">업로드</button>
+						<button type="button" @click="postChallenge" class="btn btn-outline-dark">업로드</button>
 					</div>
 				</div>
             </div>
@@ -50,12 +50,12 @@
 				<input type="radio" v-model="medicine" value="0">X
 				<input type="radio" v-model="medicine" value="1">
 				<img src="@/assets/mynorang/medicine.png" width="20">
-				<button type="button" @click="postDailyLog(sleep, medicine)"><b class="send-button">전송</b></button>
+				<button type="button" @click="postDailyLog"><b class="send-button">전송</b></button>
 			</div>
 			<div v-if="moodStateSend" class="msb-reply text-center">
-				<div>0 ~ 100 점</div>
+				<div>0 ~ 100</div>
 				<input type="range" v-model="state" min="0" max="100" required="required">점<br>
-				<button type="button" @click="postMoodState(state)"><b class="send-button">전송</b></button>
+				<button type="button" @click="postMoodState"><b class="send-button">전송</b></button>
 			</div>
 			<div v-if="messageSend" class="msb-reply">
                 <textarea v-model="content" @keyup.enter="sendMessage" placeholder="내용을 입력하세요"></textarea>
@@ -102,6 +102,7 @@
 </style>
 
 <script>
+import chatBotAPI from '@/components/common/chatBotAPI'
 export default {
 	data () {
 		return {
@@ -158,7 +159,7 @@ export default {
 				} else {
 					const from = '노랑이'
 					const content = '수면 시간이랑, 약 먹었는지 알려줄 수 있어?'
-					const message = { from: from, content: content }
+					const message = { from, content }
 					this.messageList.push(message)
 					this.dailyLogSend = true
 				}
@@ -170,21 +171,30 @@ export default {
 				method: 'get',
 				responseType: 'json'
 			}).then((response) => {
+				const from = '노랑이'
+				let content = ''
 				if (response.data.flag) {
-					this.startChat()
+					content = '나랑노랑!'
+					this.messageSend = true
 				} else {
-					const from = '노랑이'
-					const content = '기분은 좀 어때?'
-					const message = { from: from, content: content }
-					this.messageList.push(message)
+					content = '기분은 좀 어때?'
 					this.moodStateSend = true
 				}
+				const message = { from, content }
+				this.messageList.push(message)
 			})
 		},
-		postChallenge (multipartFile, title) {
+		postChallenge () {
+			if (this.multipartFile == null) {
+				alert('파일을 선택해주세요')
+                return
+            } else if (this.title === '') {
+				alert('제목을 입력해주세요')
+				return
+			}
 			const formData = new FormData()
-			formData.append('multipartFile', multipartFile)
-			formData.append('title', title)
+			formData.append('multipartFile', this.multipartFile)
+			formData.append('title', this.title)
 			this.axios({
 				url: '/api/norang/challenge',
 				method: 'post',
@@ -193,8 +203,8 @@ export default {
 			}).then((response) => {
 				if (response.data.flag) {
 					const from = '나'
-					const content = title + '.png'
-					const message = { from: from, content: content }
+					const content = this.title + '.png'
+					const message = { from, content }
 					this.messageList.push(message)
 					this.challengeSend = false
 					this.getChallenge()
@@ -202,66 +212,76 @@ export default {
 				}
 			})
 		},
-		postDailyLog (sleep, medicine) {
+		postDailyLog () {
+			if (this.sleep < 0 || this.sleep > 24 || !Number.isInteger(this.sleep)) {
+                alert('0 이상 24 이하의 자연수로 입력해주세요')
+                return
+            }
 			this.axios({
 				url: '/api/norang/dailylog',
 				method: 'post',
 				data: {
-					sleep: sleep,
-					medicine: medicine
+					sleep: this.sleep,
+					medicine: this.medicine
 				},
 				responseType: 'json'
 			}).then((response) => {
 				if (response.data.flag) {
 					const from = '나'
-					let content = sleep + '시간잤어'
-					let message = { from: from, content: content }
+					let content = this.sleep + '시간잤어'
+					let message = { from, content }
 					this.messageList.push(message)
-					if (medicine === 0) {
+					if (this.medicine === 0) {
 						content = '약은 아직 안 먹었어'
-						message = { from: from, content: content }
-						this.messageList.push(message)
-					} else if (medicine === 1) {
+					} else if (this.medicine === 1) {
 						content = '약도 먹었어'
-						message = { from: from, content: content }
-						this.messageList.push(message)
 					}
+					message = { from, content }
+					this.messageList.push(message)
 					this.dailyLogSend = false
 					this.getMoodState()
 				}
 			})
 		},
-		postMoodState (state) {
+		postMoodState () {
 			this.axios({
 				url: '/api/norang/moodstate',
 				method: 'post',
 				data: {
-					state: state
+					state: this.state
 				},
 				responseType: 'json'
 			}).then((response) => {
 				if (response.data.flag) {
-					const from = '나'
-					const content = state + '점'
-					const message = { from: from, content: content }
+					let from = '나'
+					let content = this.state + '점'
+					let message = { from, content }
 					this.messageList.push(message)
 					this.moodStateSend = false
-					this.startChat()
+					from = '노랑이'
+					content = '지금 기분이 ' + this.state + '점이네?'
+					message = { from, content }
+					this.messageList.push(message)
+					content = '무슨 '
+					if (this.state < 50) {
+						content += '안 '
+					}
+					content += '좋은 일 있었어?'
+					message = { from, content }
+					this.messageList.push(message)
+					this.messageSend = true
 				}
 			})
 		},
-		startChat () {
-			const from = '노랑이'
-			const content = '나랑노랑!'
-			const message = { from: from, content: content }
-			this.messageList.push(message)
-			this.messageSend = true
-		},
 		sendMessage () {
-			const from = '나'
-			const content = this.content
+			let from = '나'
+			let content = this.content
+			let message = { from, content }
+			this.messageList.push(message)
 			this.content = ''
-			const message = { from: from, content: content }
+			from = '노랑이'
+			content = chatBotAPI(content)
+			message = { from, content }
 			this.messageList.push(message)
 		}
 	},

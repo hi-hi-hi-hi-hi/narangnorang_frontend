@@ -121,9 +121,12 @@ export default {
             if (date.length === 1) {
                 date = '0' + date
             }
-            this.datetime = String(this.year) + '-' + month + '-' + date
-            this.dailyLog = this.dailyLogCalendar[date - 1]
-            this.modal = true
+            const datetime = String(this.year) + '-' + month + '-' + date
+            if (new Date() > new Date(datetime + 'T00:00:00')) {
+                this.datetime = datetime
+                this.dailyLog = this.dailyLogCalendar[date - 1]
+                this.modal = true
+            }
         },
         close () {
             this.modal = false

@@ -24,7 +24,7 @@
         <table class="col-sm-6">
             <tr><td>번호: {{dto.id}}</td></tr>
             <tr><td><img class="imgMini" :srcset="require(`../../assets/items/items/${dto.id}.png`)"></td></tr>
-            <tr><td><button class="w-100 btn btn-outline-dark" @click="style(dto.id,dto.category)">적용하기</button></td></tr>
+            <tr><td><button class="btn btn-outline-dark" @click="style(dto.id,dto.category)">적용하기</button></td></tr>
        </table>
        </td>
       </tr>

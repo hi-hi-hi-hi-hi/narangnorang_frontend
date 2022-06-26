@@ -25,12 +25,12 @@
             <tr><td><img class="imgMini" :srcset="require(`../../assets/items/items/${dto.id}.png`)"></td></tr>
             <tr><td>가격:<span class="red">{{dto.price}}pt</span></td></tr>
             <tr>
-              <td v-if="!myItemList.find(v => v.id === dto.id)"><button class="w-100 btn btn-outline-dark" @click="buy(dto.id,dto.price,dto.name,dto.category)">구매</button></td>
+              <td v-if="!myItemList.find(v => v.id === dto.id)"><button class="btn btn-outline-dark" @click="buy(dto.id,dto.price,dto.name,dto.category)">구매</button></td>
               <td v-else><button disabled>구매완료</button></td>
             </tr>
             <tr>
               <td v-if="!myItemList.find(v => v.id === dto.id)">
-                <button class="w-100 btn btn-outline-dark" @click="wish(dto.id)">Wish</button></td>
+                <button class="btn btn-outline-dark" @click="wish(dto.id)">Wish</button></td>
               <td v-else></td>
             </tr>
        </table>

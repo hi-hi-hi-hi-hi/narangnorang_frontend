@@ -20,7 +20,7 @@
       </div>
       <button class="btn" @click="fnReplyVisibleToggle()">댓글 {{ replies }}</button>
       <hr>
-      <PostReply :id="id" :replies="replies" :replyVisible="replyVisible"/>
+      <PostReply :id="id" :replies="replies" :replyVisible="replyVisible" :member="member" @fnGetPostRetrieve="fnGetPostRetrieve"/>
     </div>
   </div>
 </template>
@@ -110,6 +110,13 @@ export default {
     fnGoEditPage () {
       this.$router.push({ name: 'postEdit', params: { title: this.title, content: this.content, postId: this.id } })
     }
+  },
+  watch: {
+    '$route' (to, from) {
+      this.id = this.$route.params.id
+      this.category = this.$route.query.category
+      this.fnGetPostRetrieve()
+    }
   }
 }
 </script>
@@ -117,15 +124,16 @@ export default {
 <style scoped>
 .postRetrieveSection{
   display: grid;
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: 300px 800px;
   grid-gap: 30px;
   position: absolute;
   left: 10%;
 }
 .postRetrieveArea{
-  width: 600px;
+  width: 500px;
   grid-column: 2;
   grid-row: 1;
+  margin: auto;
 }
 .postContentArea{
   margin-top: 30px;

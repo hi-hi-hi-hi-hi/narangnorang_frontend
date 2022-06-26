@@ -41,12 +41,13 @@ export default {
   .btn {
   position: absolute;
   right:    0;
-  bottom:   0;
+  bottom:   25%;
   border: none;
 }
 
 .btn button {
  margin-right: 5px;
+ padding: 8px;
 }
 
 i {
@@ -69,7 +70,7 @@ i {
   font-weight: 700;
   letter-spacing: -.01em;
   line-height: 1.3;
-  padding: .875rem 1.125rem;
+  padding: 8px 1.125rem;
   position: relative;
   text-align: left;
   text-decoration: none;

@@ -1,9 +1,10 @@
 <template>
     <div v-if="privilege ===3" class="section">
-      <div class="miniroomSideBar">
-    <!-- <MiniroomSideBar v-on:group="groupp" /> -->
-    내 포인트: {{point}}포인트
-    </div>
+      <div class="sideBar">
+      <h5><b>미니룸</b></h5>
+      <hr>
+      <div>내 포인트: {{point}}포인트</div>
+  </div>
     <div class="section-1">
       <div class="home-img border border-3">
         <HomeImage :ImgRefres="ImgRefres"/>
@@ -78,15 +79,22 @@ export default {
     grid-gap: 30px;
     position: absolute;
     left: 10%;
+
   }
+.section-1::-webkit-scrollbar {
+    display: none;
+}
 
   .section-1 {
-      position: relative;
-  grid-column: 2;
-  grid-row: 1;
-  margin: auto;
-  width: 700px;
-  height: 535px;
+    position: relative;
+    grid-column: 2;
+    grid-row: 1;
+    margin: auto;
+    width: 700px;
+    height: 700px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-width: thin;
   }
 
 .home-img {

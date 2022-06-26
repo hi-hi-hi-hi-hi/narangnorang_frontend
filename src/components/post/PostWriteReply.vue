@@ -33,7 +33,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .writeReplyArea{
   width: 600px;
 }

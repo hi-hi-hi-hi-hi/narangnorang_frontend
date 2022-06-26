@@ -72,7 +72,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 body{margin-top:20px;}
 .section_padding_130 {
     padding-top: 130px;
@@ -81,7 +81,8 @@ body{margin-top:20px;}
 .faq_area {
     position: relative;
     z-index: 1;
-    background-color: rgb(234, 234, 234);
+    background-color: rgba(234, 234, 234, 0.73);
+    margin: auto;
 }
 
 .faq-accordian {

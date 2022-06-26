@@ -4,18 +4,19 @@
 		<router-link class="header" v-if="getPrivilege" to="/home">
 			<img :src="require('@/assets/header/logo.png')">
 		</router-link>
-		<TopComponent v-if="getPrivilege" :privilege="member.privilege" />
+		<TopComponent v-if="getPrivilege" :privilege="member.privilege" :id="member.id"/>
 		<button type="button" class="btn" v-if="getPrivilege" @click="logout">로그아웃</button>
 		<NavBarComponent v-if="getPrivilege" :privilege="member.privilege" />
 		<!-- End Header -->
 
 		<!-- Start Main -->
-		<router-view :member="member" />
+		<router-view :member="member"/>
 		<!-- End Main -->
 
 		<ChatBot v-if="getPrivilege" :privilege="member.privilege" @challengeComplete="getSession" />
 
 		<!-- Start Footer -->
+		<footer></footer>
 		<!-- End Footer -->
 	</div>
 </template>

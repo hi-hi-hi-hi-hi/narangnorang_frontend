@@ -89,6 +89,10 @@ export default {
             })
         },
         postDailyLog () {
+            if (this.sleep < 0 || this.sleep > 24 || !Number.isInteger(this.sleep)) {
+                alert('0 이상 24 이하의 자연수로 입력해주세요')
+                return
+            }
             this.axios({
                 url: '/api/mynorang/dailylog',
                 method: 'post',
