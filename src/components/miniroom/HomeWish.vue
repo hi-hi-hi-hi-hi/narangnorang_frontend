@@ -35,14 +35,10 @@ export default {
   },
   methods: {
     getWishList () {
-      this.axios.get('/api/home/buy', {
-        params: {
-          category: this.category
-        },
+      this.axios.get('/api/home/wish', {
         responseType: 'json'
       }).then((res) => {
         this.wishItemList = res.data.wishItemList
-        console.log(res.data.wishItemList)
       }).catch((err) => {
         console.log(err)
       })
