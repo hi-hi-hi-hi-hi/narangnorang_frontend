@@ -30,7 +30,7 @@ export default {
       mesg: ''
     }
   },
-  created () {
+  mounted () {
     this.getWishList()
   },
   methods: {
@@ -56,6 +56,7 @@ export default {
       .then((res) => {
         this.mesg = res.data
         alert(this.mesg)
+        this.$emit('point')
         this.getWishList()
       })
       .catch((err) => {
