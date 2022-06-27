@@ -45,7 +45,7 @@ export default {
       this.axios.get('/api/post/reply/' + this.id)
       .then((res) => {
         this.list = res.data
-        for (var i = 0; i < this.list.length; i++) {
+        for (let i = 0; i < this.list.length; i++) {
           this.isEditMode[this.list[i].id] = false
         }
         this.$emit('fnGetPostRetrieve')
