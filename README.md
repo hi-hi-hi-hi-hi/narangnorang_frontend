@@ -1,8 +1,7 @@
 # NarangNorang_frontend
 ##### _[Backend사이트는 여기!](https://github.com/hi-hi-hi-hi-hi/narangnorang_backend)_  
-#
-#
-#
+
+
 ## 나랑노랑 웹 프로젝트는
 
 - 우울증을 앓고있지만, 치료를 받지 못하고 있는 2030세대를 위한 멘탈케어 서비스입니다.
@@ -17,7 +16,7 @@
 - FrontEnd
  Language: HTML5, &nbsp;CSS, &nbsp;JavaScript(ES6)
 Framework: Vue.js 3, BootStrap5
-##    
+
 - BackEnd
 Language: Java
 Framework: Spring Boot 2.6.7
