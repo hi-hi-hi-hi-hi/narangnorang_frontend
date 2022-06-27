@@ -17,7 +17,7 @@
         <HomeStyle v-on:ImgRefresh="ImgRefresh"></HomeStyle>
       </div>
       <div v-else-if="group === 'W'">
-        <HomeWish></HomeWish>
+        <HomeWish v-on:point="getImage"></HomeWish>
       </div>
    </div>
     </div>
