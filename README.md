@@ -2,7 +2,7 @@
 
 ## Project setup
 ```
-[백엔드 바로가기](https://github.com/hi-hi-hi-hi-hi/narangnorang_backend)/)
+[백엔드 바로가기](https://github.com/hi-hi-hi-hi-hi/narangnorang_backend)
 ```
 
 ### Compiles and hot-reloads for development
