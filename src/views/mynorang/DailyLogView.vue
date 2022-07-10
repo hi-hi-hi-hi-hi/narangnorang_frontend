@@ -71,9 +71,6 @@ export default {
         SideBar,
         DailyLogModal
     },
-    props: {
-        post: Boolean
-    },
     data () {
         return {
             year: 0,
@@ -110,7 +107,7 @@ export default {
                 this.start = response.data.start
                 this.end = response.data.end
                 this.dailyLogCalendar = response.data.dailyLogCalendar
-                this.$emit('posted')
+                this.$store.commit('upToDate', true)
             })
         },
         open (date) {
@@ -144,8 +141,8 @@ export default {
         '$route' (to, from) {
             this.getDailyLogCalendar()
         },
-        post: function () {
-            if (this.post) {
+        '$store.state.upToDate': function () {
+            if (!this.$store.getters.upToDate) {
 			    this.getDailyLogCalendar()
             }
 		}

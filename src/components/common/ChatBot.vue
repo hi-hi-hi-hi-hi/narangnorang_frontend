@@ -224,7 +224,7 @@ export default {
 					this.messageList.push(message)
 					this.challengeSend = false
 					this.getChallenge()
-					this.$emit('post')
+					this.$store.commit('upToDate', false)
 				}
 			})
 		},
@@ -258,7 +258,7 @@ export default {
 					}
 					this.dailyLogSend = false
 					this.getMoodState()
-					this.$emit('post')
+					this.$store.commit('upToDate', false)
 				}
 			})
 		},
@@ -289,7 +289,7 @@ export default {
 					message = { from, content }
 					this.messageList.push(message)
 					this.messageSend = true
-					this.$emit('post')
+					this.$store.commit('upToDate', false)
 				}
 			})
 		},
