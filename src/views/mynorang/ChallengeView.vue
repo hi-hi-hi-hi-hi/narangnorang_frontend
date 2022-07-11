@@ -40,9 +40,6 @@ export default {
     components: {
         SideBar
     },
-    props: {
-        post: Boolean
-    },
     data () {
         return {
             challengeList: []
@@ -63,7 +60,7 @@ export default {
                 responseType: 'json'
             }).then((response) => {
                 this.challengeList = response.data
-                this.$emit('posted')
+                this.$store.commit('upToDate', true)
             })
         }
     },
@@ -71,8 +68,8 @@ export default {
         this.getChallengeList()
     },
     watch: {
-        post: function () {
-            if (this.post) {
+        '$store.state.upToDate': function () {
+            if (!this.$store.getters.upToDate) {
 			    this.getChallengeList()
             }
 		}
