@@ -12,6 +12,9 @@
           <label for="floatingPassword">Password</label>
         </div>
         <button class="w-100 btn btn-outline-dark btn-lg" type="button" @click="login">로그인</button>
+        <div>
+          <div id="google-signin-btn"></div>
+        </div>
         <router-link class="mt-5 text-black" to="/findPw">Forgot Password?</router-link><br>
         <p class="mt-5 text-muted">아직 계정이 없으신가요?</p>
         <p class="text-muted">지금 바로 <router-link to="/signUp" class="text-black">회원 가입</router-link> 해보세요.</p>
@@ -28,6 +31,12 @@ export default {
       email: '',
       password: ''
     }
+  },
+  mounted () {
+    window.gapi.signin2.render('google-signin-btn', {
+      onsuccess: this.onSignIn,
+      onfailure: console.log('fail')
+      })
   },
   methods: {
     login () {
@@ -47,6 +56,18 @@ export default {
           alert('이메일 및 비밀번호를 확인해주세요')
         }
       })
+    },
+    onSignIn (googleUser) {
+      const profile = googleUser.getBasicProfile()
+      console.log('ID: ' + profile.getId())
+      console.log('Full Name: ' + profile.getName())
+      console.log('Given Name: ' + profile.getGivenName())
+      console.log('Family Name: ' + profile.getFamilyName())
+      console.log('Image URL: ' + profile.getImageUrl())
+      console.log('Email: ' + profile.getEmail())
+
+      const idToken = googleUser.getAuthResponse().id_token
+      console.log('ID Token: ' + idToken)
     }
   }
 }
