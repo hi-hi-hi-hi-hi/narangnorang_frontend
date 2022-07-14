@@ -47,6 +47,7 @@ export default {
         responseType: 'json'
       }).then((response) => {
         if (response.data !== '') {
+          this.$store.commit('member', response.data)
           if (response.data.privilege === 0) {
             this.$router.push('/admin')
           } else {

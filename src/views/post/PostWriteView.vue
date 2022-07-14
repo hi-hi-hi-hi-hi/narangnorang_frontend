@@ -63,7 +63,7 @@ export default {
   grid-column: 2;
   grid-row: 1;
   position: relative;
-  left: 25%;
+  left: 30%;
 }
 .writeTitle{
   width: 600px;

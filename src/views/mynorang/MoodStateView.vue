@@ -28,9 +28,6 @@ export default {
     components: {
         SideBar
     },
-    props: {
-        post: Boolean
-    },
     methods: {
         draw (moodStateList) {
             const d3 = window.d3
@@ -76,7 +73,7 @@ export default {
                 responseType: 'json'
             }).then((response) => {
                 this.draw(response.data)
-                this.$emit('posted')
+                this.$store.commit('upToDate', true)
             })
         }
     },
@@ -84,8 +81,8 @@ export default {
         this.getMoodStateList()
     },
     watch: {
-        post: function () {
-            if (this.post) {
+        '$store.state.upToDate': function () {
+            if (!this.$store.getters.upToDate) {
 			    this.getMoodStateList()
             }
 		}

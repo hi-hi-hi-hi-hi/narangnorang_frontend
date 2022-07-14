@@ -2,12 +2,12 @@
   <PostUserProfileModal v-if="modalVal" :memberId="modalMemberId" :memberName="modalMemberName" @modalClose="modalClose"/>
   <div class="postListSection">
     <!-- 추천 필터링 버튼 -->
-    <div class="postLikeButtons">
+    <div v-if="category !== '대나무숲'" class="postLikeButtons">
       <button class="btn btn-default btn" @click="fnUpdateLikes(0)">전체글</button>
       <button class="btn btn-default btn" @click="fnUpdateLikes(10)">추천 10개 이상</button>
       <button class="btn btn-default btn" @click="fnUpdateLikes(30)">추천 30개 이상</button>
     </div>
-    <!-- category가 대나무숲일 때 -->
+    <!-- category가 대나무숲이 아닐 때 -->
     <div v-if="category !== '대나무숲'" class="postSearchArea">
       <div class="input-group mb-3">
         <div class="input-group-text p-0">
@@ -20,7 +20,7 @@
     </div>
     </div>
     <div class="postTableArea">
-      <table v-if="category === '대나무숲'" class="table table-bordered">
+      <table v-if="category === '대나무숲'" class="table table-bordered" style="margin-left:150px;">
         <tr v-for="(row, idx) in list" :key="idx">
           <td style="padding:20px;">
             <img :src="require('@/assets/post/profile.png')" style="max-width:50px;heigth:auto;">
@@ -50,7 +50,7 @@
         <thead>
           <tr>
             <th style="width:100px;">번호</th>
-            <th style="width:300px;">제목</th>
+            <th style="width:450px;">제목</th>
             <th style="width:100px;">글쓴이</th>
             <th style="width:200px;">작성일</th>
             <th style="width:100px;">조회</th>
@@ -288,7 +288,7 @@ export default {
     grid-row: 1;
     margin-right:30%;
     display: grid;
-    grid-template-columns: 400px 500px;
+    grid-template-columns: 400px 600px;
     grid-template-rows: 40px 1fr 40px 40px;
     grid-gap: 5px;
   }
@@ -299,6 +299,8 @@ export default {
   .postSearchArea{
     grid-column: 2;
     grid-row: 1;
+    position: relative;
+    float: right;
   }
   .postTableArea{
     grid-column: 1/3;
