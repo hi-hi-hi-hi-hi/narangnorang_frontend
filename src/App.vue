@@ -1,23 +1,16 @@
 <template>
 	<div>
-		<!-- Start Header -->
-		<router-link class="header" v-if="getPrivilege" to="/home">
-			<img :src="require('@/assets/header/logo.png')">
-		</router-link>
-		<TopComponent v-if="getPrivilege" :privilege="member.privilege" :id="member.id"/>
-		<button type="button" class="btn" v-if="getPrivilege" @click="logout">로그아웃</button>
-		<NavBarComponent v-if="getPrivilege" :privilege="member.privilege" />
-		<!-- End Header -->
+		<!-- Header & ChatBot -->
+		<div v-if="!pathNotLoggedIn && member != null">
+			<router-link to="/home" class="home"><img :src="require('@/assets/common/logo.png')"></router-link>
+			<TopComponent :privilege="member.privilege" :id="member.id"/>
+			<button type="button" @click="logout" class="btn">로그아웃</button>
+			<NavBarComponent :privilege="member.privilege" />
+			<ChatBot :privilege="member.privilege" />
+		</div>
+		<!-- Header & ChatBot -->
 
-		<!-- Start Main -->
-		<router-view :member="member"/>
-		<!-- End Main -->
-
-		<ChatBot v-if="getPrivilege" :privilege="member.privilege" @challengeComplete="getSession" />
-
-		<!-- Start Footer -->
-		<footer></footer>
-		<!-- End Footer -->
+		<router-view :member="member" />
 	</div>
 </template>
 
@@ -31,58 +24,29 @@ export default {
 		NavBarComponent,
 		ChatBot
 	},
-	data () {
-		return {
-			pathsNotLoggedIn: [
-				'main',
-				'notFound',
-				'login',
-				'signUp',
-				'generalSignUp',
-				'counselorSignUp',
-				'findPw'
-			],
-			member: null
-		}
-	},
 	computed: {
-		getPrivilege () {
-            return this.member != null && !this.pathsNotLoggedIn.includes(this.$route.name)
+		pathNotLoggedIn () {
+			return this.$store.getters.pathsNotLoggedIn.includes(this.$route.name)
+		},
+		member () {
+            return this.$store.getters.member
         }
 	},
 	methods: {
-		// 세션 얻어오기
-		getSession () {
-			this.axios({
-				url: '/api/loginSession',
-				method: 'get',
-				responseType: 'json'
-			}).then((response) => {
-				if (response.data === '') {
-					this.member = null
-					this.$router.push('/login')
-				} else {
-					this.member = response.data
-				}
-			})
-		},
-		// 로그아웃
 		logout () {
 			this.axios({
 				url: '/api/logout',
 				method: 'GET'
 			}).then((response) => {
-				this.member = null
+				this.$store.commit('member', null)
 				this.$router.push('/')
 			})
 		}
 	},
 	watch: {
         '$route' (to, from) {
-			if (!this.pathsNotLoggedIn.includes(this.$route.name)) {
-            	this.getSession()
-			} else if (this.member != null) {
-				this.logout()
+			if (!this.pathNotLoggedIn && this.member == null) {
+				// this.logout()
 			}
         }
     }
@@ -90,7 +54,7 @@ export default {
 </script>
 
 <style scoped>
-.header {
+.home {
 	position: absolute;
 	top: 20px;
 	left: 100px;

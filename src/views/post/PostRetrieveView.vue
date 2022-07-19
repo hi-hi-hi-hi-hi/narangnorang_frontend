@@ -124,16 +124,18 @@ export default {
 <style scoped>
 .postRetrieveSection{
   display: grid;
-  grid-template-columns: 300px 800px;
+  grid-template-columns: 300px 600px;
   grid-gap: 30px;
   position: absolute;
   left: 10%;
 }
 .postRetrieveArea{
-  width: 500px;
+  width: 600px;
   grid-column: 2;
   grid-row: 1;
   margin: auto;
+  position: relative;
+  left: 30%;
 }
 .postContentArea{
   margin-top: 30px;

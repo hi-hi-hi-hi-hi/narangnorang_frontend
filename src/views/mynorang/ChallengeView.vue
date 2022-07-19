@@ -60,11 +60,19 @@ export default {
                 responseType: 'json'
             }).then((response) => {
                 this.challengeList = response.data
+                this.$store.commit('upToDate', true)
             })
         }
     },
-    mounted () {
+    created () {
         this.getChallengeList()
+    },
+    watch: {
+        '$store.state.upToDate': function () {
+            if (!this.$store.getters.upToDate) {
+			    this.getChallengeList()
+            }
+		}
     }
 }
 </script>

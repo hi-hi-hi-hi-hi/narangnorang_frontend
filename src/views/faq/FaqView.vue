@@ -58,7 +58,7 @@
               </div>
                 <!-- Support Button-->
                 <div class="support-button text-center d-flex align-items-center justify-content-center mt-4" style="visibility: visible;">
-                    <p class="mb-0 px-2">충분한 답이 되지 못했다면, 추가 문의 사항을 메일로 보내 주세요. aaa@bbb.com</p>
+                    <p class="mb-0 px-2">충분한 답이 되지 못했다면, 추가 문의 사항을 메일로 보내 주세요. narangnorang5@gmail.com</p>
                 </div>
             </div>
         </div>
@@ -81,7 +81,7 @@ body{margin-top:20px;}
 .faq_area {
     position: relative;
     z-index: 1;
-    background-color: rgba(234, 234, 234, 0.73);
+    background-color: white;
     margin: auto;
 }
 

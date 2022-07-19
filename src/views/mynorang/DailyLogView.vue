@@ -107,6 +107,7 @@ export default {
                 this.start = response.data.start
                 this.end = response.data.end
                 this.dailyLogCalendar = response.data.dailyLogCalendar
+                this.$store.commit('upToDate', true)
             })
         },
         open (date) {
@@ -133,13 +134,18 @@ export default {
             this.getDailyLogCalendar()
         }
     },
-    mounted () {
+    created () {
         this.getDailyLogCalendar()
     },
     watch: {
         '$route' (to, from) {
             this.getDailyLogCalendar()
-        }
+        },
+        '$store.state.upToDate': function () {
+            if (!this.$store.getters.upToDate) {
+			    this.getDailyLogCalendar()
+            }
+		}
     }
 }
 </script>

@@ -13,6 +13,9 @@
         </div>
         <button class="w-100 btn btn-outline-dark btn-lg" type="button" @click="login">로그인</button>
         <router-link class="mt-5 text-black" to="/findPw">Forgot Password?</router-link><br>
+        <a @click="kakaologin()">
+          <img :src="require('@/assets/member/kakao_login_medium_wide.png')"/>
+        </a>
         <p class="mt-5 text-muted">아직 계정이 없으신가요?</p>
         <p class="text-muted">지금 바로 <router-link to="/signUp" class="text-black">회원 가입</router-link> 해보세요.</p>
       </form>
@@ -43,6 +46,9 @@
         <div id="naverIdLogin"></div>
         <button type="button" @click="logout">로그아웃</button>
       </div>
+      <router-link class="mt-5 text-black" to="/findPw">Forgot Password?</router-link><br>
+      <p class="mt-5 text-muted">아직 계정이 없으신가요?</p>
+      <p class="text-muted">지금 바로 <router-link to="/signUp" class="text-black">회원 가입</router-link> 해보세요.</p>
     </main>
   </body>
 </template>
@@ -108,6 +114,7 @@ export default {
         responseType: 'json'
       }).then((response) => {
         if (response.data !== '') {
+          this.$store.commit('member', response.data)
           if (response.data.privilege === 0) {
             this.$router.push('/admin')
           } else {
@@ -127,9 +134,47 @@ export default {
       })
 
       // https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=zFcLWPMTcDQTNTB6iIOy&client_secret=bUW7FZMpS9&access_token=AAAAOOCeX4fAa_NxKPAmJW8C1UeLxGT3nM0wRV33irhyHyRua1JJrfrp0jZwfbOD0r502Id9mbhb0YiA9_NvCXGAwws&service_provider=NAVER
+
+    kakaologin () {
+      window.location.replace(
+        'https://kauth.kakao.com/oauth/authorize?client_id=94007325c197e3be03e0c5690a45abdb&redirect_uri=http://localhost:8091/generalSignUp&response_type=code'
+      )
     }
+    // myCallbackFunction (googleUser) {
+    //   const profile = googleUser.getBasicProfile()
+    //   console.log('ID: ' + profile.getId())
+    //   console.log('Full Name: ' + profile.getName())
+    //   console.log('Given Name: ' + profile.getGivenName())
+    //   console.log('Family Name: ' + profile.getFamilyName())
+    //   console.log('Image URL: ' + profile.getImageUrl())
+    //   console.log('Email: ' + profile.getEmail())
+
+    //   const idToken = googleUser.getAuthResponse().id_token
+    //   console.log('ID Token: ' + idToken)
+    // }
   }
 }
+function handleCredentialResponse (response) {
+  console.log('Encoded JWT ID token: ' + response.credential)
+  // const responsePayload = decodeJwtResponse(response.credential)
+  // console.log('ID: ' + responsePayload.sub)
+  // console.log('Full Name: ' + responsePayload.name)
+  // console.log('Given Name: ' + responsePayload.given_name)
+  // console.log('Family Name: ' + responsePayload.family_name)
+  // console.log('Image URL: ' + responsePayload.picture)
+  // console.log('Email: ' + responsePayload.email)
+  }
+window.onload = function () {
+  this.google.accounts.id.initialize({
+    client_id: '692746488529-gnq1ndn5r679jt57q15d8h7f4dqr9a6l.apps.googleusercontent.com',
+    callback: handleCredentialResponse
+  })
+  this.google.accounts.id.renderButton(
+    document.getElementById('buttonDiv'),
+    { theme: 'outline', size: 'large' } // customization attributes
+  )
+  this.google.accounts.id.prompt() // also display the One Tap dialog
+  }
 </script>
 
 <style scoped>

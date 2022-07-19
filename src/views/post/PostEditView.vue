@@ -61,6 +61,8 @@ export default {
 .postWriteArea{
   grid-column: 2;
   grid-row: 1;
+  position: relative;
+  left: 20%;
 }
 .writeTitle{
   width: 600px;

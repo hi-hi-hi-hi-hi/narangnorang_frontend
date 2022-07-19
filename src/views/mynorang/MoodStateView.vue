@@ -73,11 +73,19 @@ export default {
                 responseType: 'json'
             }).then((response) => {
                 this.draw(response.data)
+                this.$store.commit('upToDate', true)
             })
         }
     },
     mounted () {
         this.getMoodStateList()
+    },
+    watch: {
+        '$store.state.upToDate': function () {
+            if (!this.$store.getters.upToDate) {
+			    this.getMoodStateList()
+            }
+		}
     }
 }
 </script>

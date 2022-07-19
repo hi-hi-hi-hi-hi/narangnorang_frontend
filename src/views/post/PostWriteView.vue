@@ -3,12 +3,12 @@
     <PostSideBar :category="category" @categoryFromSideBar="fnUpdateCategory"/>
     <div v-if="category === '대나무숲'" class="postWrtieArea">
       <textarea class="writeContent form-control" v-model="content" placeholder="내용을 입력하세요."/><br>
-      <button class="btn" style="text-align:right;" @click="fnWritePost()">등록</button>
+      <button class="btn" style="float:right;" @click="fnWritePost()">등록</button>
     </div>
     <div v-else class="postWriteArea">
       <input class="writeTitle form-control" type="text" v-model="title" placeholder="제목을 입력하세요."/><br>
       <textarea class="writeContent form-control" v-model="content" placeholder="내용을 입력하세요."/><br>
-      <button class="btn" style="text-align:right;" @click="fnWritePost()">등록</button>
+      <button class="btn" style="float:right;" @click="fnWritePost()">등록</button>
     </div>
   </div>
 </template>
@@ -56,10 +56,14 @@ export default {
   display: grid;
   grid-template-columns: 300px 1fr;
   grid-gap: 30px;
+  position: absolute;
+  left: 10%;
 }
 .postWriteArea{
   grid-column: 2;
   grid-row: 1;
+  position: relative;
+  left: 30%;
 }
 .writeTitle{
   width: 600px;
