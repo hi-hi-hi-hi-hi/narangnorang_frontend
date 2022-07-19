@@ -44,11 +44,11 @@ export default {
 		}
 	},
 	watch: {
-        // '$route' (to, from) {
-		// 	if (!this.pathNotLoggedIn && this.member == null) {
-		// 		this.logout()
-		// 	}
-        // }
+        '$route' (to, from) {
+			if (!this.pathNotLoggedIn && this.member == null) {
+				// this.logout()
+			}
+        }
     }
 }
 </script>

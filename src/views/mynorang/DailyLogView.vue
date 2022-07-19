@@ -134,7 +134,7 @@ export default {
             this.getDailyLogCalendar()
         }
     },
-    mounted () {
+    created () {
         this.getDailyLogCalendar()
     },
     watch: {
