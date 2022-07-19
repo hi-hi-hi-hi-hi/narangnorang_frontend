@@ -12,10 +12,33 @@
           <label for="floatingPassword">Password</label>
         </div>
         <button class="w-100 btn btn-outline-dark btn-lg" type="button" @click="login">로그인</button>
-        <router-link class="mt-5 text-black" to="/findPw">Forgot Password?</router-link><br>
-        <p class="mt-5 text-muted">아직 계정이 없으신가요?</p>
-        <p class="text-muted">지금 바로 <router-link to="/signUp" class="text-black">회원 가입</router-link> 해보세요.</p>
       </form>
+      <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
+      <!-- <div>
+        <div id="google-signin-btn"></div>
+      </div> -->
+      <!-- <div id="g_id_onload"
+        data-client_id="692746488529-gnq1ndn5r679jt57q15d8h7f4dqr9a6l.apps.googleusercontent.com"
+        data-callback="handleCredentialResponse">
+      </div> -->
+      <!-- <div id="g_id_onload"
+         data-client_id="692746488529-gnq1ndn5r679jt57q15d8h7f4dqr9a6l.apps.googleusercontent.com"
+         data-callback=myCallbackFunction
+         data-auto_prompt="false">
+      </div>
+      <div class="g_id_signin"
+           data-type="standard"
+           data-size="large"
+           data-theme="outline"
+           data-text="sign_in_with"
+           data-shape="rectangular"
+           data-logo_alignment="left">
+      </div> -->
+      <!-- <div class="g_id_signin" data-type="standard"></div> -->
+      <div id="buttonDiv"></div>
+      <router-link class="mt-5 text-black" to="/findPw">Forgot Password?</router-link><br>
+      <p class="mt-5 text-muted">아직 계정이 없으신가요?</p>
+      <p class="text-muted">지금 바로 <router-link to="/signUp" class="text-black">회원 가입</router-link> 해보세요.</p>
     </main>
   </body>
 </template>
@@ -29,6 +52,20 @@ export default {
       password: ''
     }
   },
+  // mounted () {
+  //   window.google.accounts.id.initialize({
+  //     client_id:
+  //     '692746488529-gnq1ndn5r679jt57q15d8h7f4dqr9a6l.apps.googleusercontent.com',
+  //     callback: this.handleCredentialResponse
+  //   })
+  //   window.google.accounts.id.prompt()
+  // },
+  // mounted () {
+  //   window.gapi.signin2.render('google-signin-btn', {
+  //     onsuccess: this.onSignIn,
+  //     onfailure: console.log('fail')
+  //     })
+  // },
   methods: {
     login () {
       this.axios({
@@ -49,8 +86,41 @@ export default {
         }
       })
     }
+    // myCallbackFunction (googleUser) {
+    //   const profile = googleUser.getBasicProfile()
+    //   console.log('ID: ' + profile.getId())
+    //   console.log('Full Name: ' + profile.getName())
+    //   console.log('Given Name: ' + profile.getGivenName())
+    //   console.log('Family Name: ' + profile.getFamilyName())
+    //   console.log('Image URL: ' + profile.getImageUrl())
+    //   console.log('Email: ' + profile.getEmail())
+
+    //   const idToken = googleUser.getAuthResponse().id_token
+    //   console.log('ID Token: ' + idToken)
+    // }
   }
 }
+function handleCredentialResponse (response) {
+  console.log('Encoded JWT ID token: ' + response.credential)
+  // const responsePayload = decodeJwtResponse(response.credential)
+  // console.log('ID: ' + responsePayload.sub)
+  // console.log('Full Name: ' + responsePayload.name)
+  // console.log('Given Name: ' + responsePayload.given_name)
+  // console.log('Family Name: ' + responsePayload.family_name)
+  // console.log('Image URL: ' + responsePayload.picture)
+  // console.log('Email: ' + responsePayload.email)
+  }
+window.onload = function () {
+  this.google.accounts.id.initialize({
+    client_id: '692746488529-gnq1ndn5r679jt57q15d8h7f4dqr9a6l.apps.googleusercontent.com',
+    callback: handleCredentialResponse
+  })
+  this.google.accounts.id.renderButton(
+    document.getElementById('buttonDiv'),
+    { theme: 'outline', size: 'large' } // customization attributes
+  )
+  this.google.accounts.id.prompt() // also display the One Tap dialog
+  }
 </script>
 
 <style scoped>
