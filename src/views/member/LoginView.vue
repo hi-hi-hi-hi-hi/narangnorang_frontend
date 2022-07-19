@@ -16,6 +16,33 @@
         <p class="mt-5 text-muted">아직 계정이 없으신가요?</p>
         <p class="text-muted">지금 바로 <router-link to="/signUp" class="text-black">회원 가입</router-link> 해보세요.</p>
       </form>
+      <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
+      <!-- <div>
+        <div id="google-signin-btn"></div>
+      </div> -->
+      <!-- <div id="g_id_onload"
+        data-client_id="692746488529-gnq1ndn5r679jt57q15d8h7f4dqr9a6l.apps.googleusercontent.com"
+        data-callback="handleCredentialResponse">
+      </div> -->
+      <!-- <div id="g_id_onload"
+         data-client_id="692746488529-gnq1ndn5r679jt57q15d8h7f4dqr9a6l.apps.googleusercontent.com"
+         data-callback=myCallbackFunction
+         data-auto_prompt="false">
+      </div>
+      <div class="g_id_signin"
+           data-type="standard"
+           data-size="large"
+           data-theme="outline"
+           data-text="sign_in_with"
+           data-shape="rectangular"
+           data-logo_alignment="left">
+      </div> -->
+      <!-- <div class="g_id_signin" data-type="standard"></div> -->
+      <div id="buttonDiv"></div>
+      <div>
+        <div id="naverIdLogin"></div>
+        <button type="button" @click="logout">로그아웃</button>
+      </div>
     </main>
   </body>
 </template>
@@ -26,9 +53,52 @@ export default {
   data () {
     return {
       email: '',
-      password: ''
+      password: '',
+      naverLogin: null
     }
   },
+  mounted () {
+  this.naverLogin = new window.naver.LoginWithNaverId({
+      clientId: 'q62CGUZilQWmYEkefBnR', // 개발자센터에 등록한 ClientID
+      callbackUrl: 'http://localhost:8092/home', // 개발자센터에 등록한 callback Url
+      isPopup: false, // 팝업을 통한 연동처리 여부
+      loginButton: { color: 'green', type: 3, height: 60 } // 로그인 버튼의 타입을 지정
+    })
+
+    // 설정정보를 초기화하고 연동을 준비
+    this.naverLogin.init()
+
+    this.naverLogin.getLoginStatus((status) => {
+      if (status) {
+        console.log(status)
+        console.log(this.naverLogin.user)
+
+        // 필수적으로 받아야하는 프로필 정보가 있다면 callback처리 시점에 체크
+        const email = this.naverLogin.user.getEmail()
+        if (email === undefined || email === null) {
+          alert('이메일은 필수정보입니다. 정보제공을 동의해주세요.')
+          // 사용자 정보 재동의를 위하여 다시 네아로 동의페이지로 이동함
+          this.naverLogin.reprompt()
+        }
+      } else {
+        console.log('callback 처리에 실패하였습니다.')
+      }
+    })
+  },
+  // mounted () {
+  //   window.google.accounts.id.initialize({
+  //     client_id:
+  //     '692746488529-gnq1ndn5r679jt57q15d8h7f4dqr9a6l.apps.googleusercontent.com',
+  //     callback: this.handleCredentialResponse
+  //   })
+  //   window.google.accounts.id.prompt()
+  // },
+  // mounted () {
+  //   window.gapi.signin2.render('google-signin-btn', {
+  //     onsuccess: this.onSignIn,
+  //     onfailure: console.log('fail')
+  //     })
+  // },
   methods: {
     login () {
       this.axios({
@@ -47,6 +117,16 @@ export default {
           alert('이메일 및 비밀번호를 확인해주세요')
         }
       })
+    },
+    logout () {
+      const accessToken = this.naverLogin.accessToken.accessToken
+      const url = `/oauth2.0/token?grant_type=delete&client_id=zFcLWPMTcDQTNTB6iIOy&client_secret=bUW7FZMpS9&access_token=${accessToken}&service_provider=NAVER`
+
+      axios.get(url).then((res) => {
+        console.log(res.data)
+      })
+
+      // https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=zFcLWPMTcDQTNTB6iIOy&client_secret=bUW7FZMpS9&access_token=AAAAOOCeX4fAa_NxKPAmJW8C1UeLxGT3nM0wRV33irhyHyRua1JJrfrp0jZwfbOD0r502Id9mbhb0YiA9_NvCXGAwws&service_provider=NAVER
     }
   }
 }
