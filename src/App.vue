@@ -3,7 +3,7 @@
 		<!-- Header & ChatBot -->
 		<div v-if="!pathNotLoggedIn && member != null">
 			<router-link to="/home" class="home"><img :src="require('@/assets/common/logo.png')"></router-link>
-			<TopComponent :privilege="member.privilege" :id="member.id"/>
+			<TopComponent />
 			<button type="button" @click="logout" class="btn">로그아웃</button>
 			<NavBarComponent :privilege="member.privilege" />
 			<ChatBot :privilege="member.privilege" />
