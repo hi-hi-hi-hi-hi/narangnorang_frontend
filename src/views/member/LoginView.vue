@@ -12,6 +12,12 @@
           <label for="floatingPassword">Password</label>
         </div>
         <button class="w-100 btn btn-outline-dark btn-lg" type="button" @click="login">로그인</button>
+        <router-link class="mt-5 text-black" to="/findPw">Forgot Password?</router-link><br>
+        <a @click="kakaologin()">
+          <img :src="require('@/assets/member/kakao_login_medium_wide.png')"/>
+        </a>
+        <p class="mt-5 text-muted">아직 계정이 없으신가요?</p>
+        <p class="text-muted">지금 바로 <router-link to="/signUp" class="text-black">회원 가입</router-link> 해보세요.</p>
       </form>
       <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
       <!-- <div>
@@ -85,6 +91,11 @@ export default {
           alert('이메일 및 비밀번호를 확인해주세요')
         }
       })
+    },
+    kakaologin () {
+      window.location.replace(
+        'https://kauth.kakao.com/oauth/authorize?client_id=94007325c197e3be03e0c5690a45abdb&redirect_uri=http://localhost:8091/generalSignUp&response_type=code'
+      )
     }
     // myCallbackFunction (googleUser) {
     //   const profile = googleUser.getBasicProfile()
