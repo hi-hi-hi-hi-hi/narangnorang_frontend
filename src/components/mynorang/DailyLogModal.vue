@@ -107,7 +107,7 @@ export default {
             })
         }
     },
-    mounted () {
+    created () {
         if (this.dailyLog) {
             this.sleep = this.dailyLog.sleep
             this.medicine = this.dailyLog.medicine
