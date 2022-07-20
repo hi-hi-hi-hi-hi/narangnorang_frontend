@@ -55,16 +55,28 @@ export default {
     replaceImg (e) {
       e.target.src = img
     },
+    getUnreads () {
+			this.axios({
+				url: '/api/message/unreads',
+				method: 'GET'
+			})
+			.then((res) => {
+				this.$store.commit('unreads', res.data.unreads)
+			})
+			.catch((err) => {
+				console.log(err)
+			})
+		},
     getList () {
-      this.axios.get('/api/message/list', {})
-      .then((res) => {
-        this.$store.commit('messageList', res.data.messageList)
-        this.todayDate = res.data.todayDate
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-    },
+			this.axios.get('/api/message/list', {})
+			.then((res) => {
+				this.$store.commit('messageList', res.data.messageList)
+				this.todayDate = res.data.todayDate
+			})
+			.catch((err) => {
+				console.log(err)
+			})
+		},
     getHistory () {
 			this.axios({
 				url: '/api/message/history',
@@ -72,6 +84,8 @@ export default {
 				params: { otherId: this.other.id }
 			}).then((res) => {
 				this.$store.commit('messageHistory', res.data.messageHistory)
+        this.getUnreads()
+        this.getList()
 			}).catch((err) => {
 				console.log(err)
 			})
@@ -95,11 +109,7 @@ export default {
       this.getHistory()
     }
   },
-  created () {
-    this.getList()
-  },
   unmounted () {
-    this.$store.commit('messageList', [])
     this.$store.commit('other', null)
     this.$store.commit('messageHistory', [])
   }

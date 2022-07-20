@@ -6,7 +6,7 @@
 			<TopComponent />
 			<button type="button" @click="logout" class="btn">로그아웃</button>
 			<NavBarComponent :privilege="member.privilege" />
-			<ChatBot :privilege="member.privilege" />
+			<ChatBot />
 		</div>
 		<!-- Header & ChatBot -->
 
@@ -38,7 +38,6 @@ export default {
 				url: '/api/logout',
 				method: 'GET'
 			}).then((response) => {
-				this.$store.commit('member', null)
 				this.$router.push('/')
 			})
 		}

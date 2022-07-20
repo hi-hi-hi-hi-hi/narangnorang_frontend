@@ -16,6 +16,7 @@ export default createStore({
     member: null,
     upToDate: true,
     stompClient: null,
+    unreads: 0,
     messageList: [],
     other: null,
     messageHistory: []
@@ -32,6 +33,9 @@ export default createStore({
     },
     stompClient (state) {
       return state.stompClient
+    },
+    unreads (state) {
+      return state.unreads
     },
     messageList (state) {
       return state.messageList
@@ -52,6 +56,9 @@ export default createStore({
     },
     stompClient (state, stompClient) {
       state.stompClient = stompClient
+    },
+    unreads (state, unreads) {
+      state.unreads = unreads
     },
     messageList (state, messageList) {
       state.messageList = messageList

@@ -72,6 +72,16 @@ export default {
         replaceImg (e) {
             e.target.src = img
         },
+        getList () {
+			this.axios.get('/api/message/list', {})
+			.then((res) => {
+				this.$store.commit('messageList', res.data.messageList)
+				this.todayDate = res.data.todayDate
+			})
+			.catch((err) => {
+				console.log(err)
+			})
+		},
         sendMessage () {
             if (this.stompClient && this.stompClient.connected) {
                 const message = {
@@ -84,12 +94,19 @@ export default {
                     recieverPrivilege: this.other.privilege,
                     content: this.content
                 }
-                this.stompClient.send('/api/receive', JSON.stringify(message), {})
+                this.stompClient.send('/ws/message', JSON.stringify(message), {})
 				this.$store.commit('pushIntoMessageHistory', message)
                 this.content = ''
+                this.getList()
             }
         }
 	},
+    mounted () {
+		this.$nextTick(function () {
+			const history = document.querySelector('.history')
+			history.scrollTop = history.scrollHeight
+		})
+    },
     updated () {
 		this.$nextTick(function () {
 			const history = document.querySelector('.history')
