@@ -76,6 +76,7 @@ export default {
             e.target.src = img
         },
         sendMessage () {
+            this.$store.commit('currentDatetime')
             if (this.stompClient && this.stompClient.connected) {
                 const message = {
                     type: 'message',
@@ -91,11 +92,9 @@ export default {
                 }
                 this.stompClient.send('/ws/message', JSON.stringify(message), {})
                 message.read = 1
-                this.$store.commit('currentDatetime')
                 this.$store.commit('updateMessageList', message)
 				this.$store.commit('pushMessageIntoMessageHistory', message)
                 this.content = ''
-                console.log(message)
             }
         }
 	},

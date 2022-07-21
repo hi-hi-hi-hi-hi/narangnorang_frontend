@@ -91,7 +91,7 @@ export default createStore({
       } else {
         state.messageList[index] = message
       }
-      state.messageList.sort((a, b) => b.datetime - a.datetime)
+      state.messageList.sort((a, b) => new Date(b.datetime) - new Date(a.datetime))
     },
     other (state, other) {
       state.other = other

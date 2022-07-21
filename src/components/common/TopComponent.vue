@@ -128,9 +128,12 @@ export default {
 	},
 	unmounted () {
 		this.$store.commit('member', null)
+		this.$store.commit('upToDate', true)
 		this.$store.commit('stompClient', null)
-		this.$store.commit('unreads', 0)
+		this.$store.commit('unreads', [])
 		this.$store.commit('messageList', [])
+		this.$store.commit('other', null)
+		this.$store.commit('messageHistory', [])
 		clearInterval(this.timer2)
 	}
 }

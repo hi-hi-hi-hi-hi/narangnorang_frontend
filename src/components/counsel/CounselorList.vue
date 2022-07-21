@@ -1,10 +1,10 @@
 <template>
     <!-- 모달창 -->
-    <div class="black-bg" v-if="modal == true">
+    <div class="black-bg" v-if="modal">
         <div class="white-bg form-group">
 	    <h3><b>상담신청</b></h3>
-		받는사람: <b> {{ messageInfo.recieverName }} </b> 상담사
-		<textarea class="form-control" ref="content" v-model="messageInfo.content" rows="20" cols="50" placeholder="이 곳에 고민을 작성해주세요."></textarea>
+		받는사람: <b> {{ recieverName }} </b> 상담사
+		<textarea class="form-control" ref="content" v-model="content" rows="20" cols="50" placeholder="이 곳에 고민을 작성해주세요."></textarea>
         <br>
         <button type="submit" class="btn btn-outline-dark" @click="requestCounsel">보내기</button>
         <button type="button" class="btn btn-outline-dark" @click="modal = false">닫기</button>
@@ -20,24 +20,28 @@
 import CounselorCard from '@/components/counsel/CounselorCard'
 
 export default {
-    name: 'CounselorList',
+    components: {
+        CounselorCard
+    },
     data () {
         return {
             list: {},
             modal: false,
-            messageInfo: {
-                recieverId: null,
-                recieverName: '',
-                recieverPrivilege: null,
-                content: ''
-            }
+            recieverId: 0,
+            recieverName: '',
+            content: ''
         }
     },
-    components: {
-        CounselorCard
-    },
-    mounted () {
-        this.getList()
+    computed: {
+        member () {
+            return this.$store.getters.member
+        },
+		stompClient () {
+			return this.$store.getters.stompClient
+		},
+        currentDatetime () {
+            return this.$store.getters.currentDatetime
+        }
     },
     methods: {
         getList () {
@@ -51,39 +55,41 @@ export default {
                 console.log(err)
             })
         },
-        viewModal (id, name, privilege) {
-            this.messageInfo.recieverId = id
-            this.messageInfo.recieverName = name
-            this.messageInfo.recieverPrivilege = privilege
+        viewModal (id, name) {
+            this.recieverId = id
+            this.recieverName = name
             this.modal = true
         },
         clearAll () {
-            this.messageInfo.recieverId = null
-            this.messageInfo.recieverName = ''
-            this.messageInfo.recieverPrivilege = null
-            this.messageInfo.content = ''
+            this.recieverId = 0
+            this.recieverName = ''
+            this.content = ''
         },
         requestCounsel () {
-            const checkContent = this.messageInfo.content.replace(/ /g, '')
-            if (checkContent.length === 0) {
-                alert('내용을 입력해주세요.')
-                this.messageInfo.content = ''
-                this.$refs.content.focus()
+            this.$store.commit('currentDatetime')
+            if (this.stompClient && this.stompClient.connected) {
+                const message = {
+                    type: 'message',
+                    senderId: this.member.id,
+                    senderName: this.member.name,
+                    senderPrivilege: this.member.privilege,
+                    recieverId: this.recieverId,
+                    recieverName: this.recieverName,
+                    recieverPrivilege: 1,
+                    content: this.content,
+                    datetime: this.currentDatetime,
+                    read: 0
+                }
+                this.stompClient.send('/ws/message', JSON.stringify(message), {})
+                message.read = 1
+                this.$store.commit('updateMessageList', message)
+				this.$store.commit('pushMessageIntoMessageHistory', message)
+                this.content = ''
             }
-            this.axios({
-                url: '/api/message/send',
-                method: 'POST',
-                params: this.messageInfo
-            })
-            .then((res) => {
-                this.clearAll()
-                this.modal = false
-                alert('상담신청 완료')
-            })
-            .catch((error) => {
-                console.log(error)
-            })
         }
+    },
+    created () {
+        this.getList()
     }
 }
 </script>

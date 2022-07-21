@@ -469,3 +469,17 @@ a {
 }
 
 </style>
+
+<script>
+export default {
+  created () {
+    this.$store.commit('member', null)
+		this.$store.commit('upToDate', true)
+		this.$store.commit('stompClient', null)
+		this.$store.commit('unreads', [])
+		this.$store.commit('messageList', [])
+		this.$store.commit('other', null)
+		this.$store.commit('messageHistory', [])
+  }
+}
+</script>
