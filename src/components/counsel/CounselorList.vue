@@ -65,7 +65,6 @@ export default {
         },
         requestCounsel () {
             const checkContent = this.messageInfo.content.replace(/ /g, '')
-            console.log(this.messageInfo.content)
             if (checkContent.length === 0) {
                 alert('내용을 입력해주세요.')
                 this.messageInfo.content = ''

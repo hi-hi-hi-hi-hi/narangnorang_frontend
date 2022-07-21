@@ -25,7 +25,7 @@
         </p>
       </div>
       <!-- 최근 시간 -->
-      <div v-if="message.datetime.substring(0, 10) === todayDate" class="col-4 time text-muted small">{{ message.datetime.substring(10, 19) }}</div>
+      <div v-if="message.datetime.substring(0, 10) === currentDatetime.substring(0, 10)" class="col-4 time text-muted small">{{ message.datetime.substring(10, 19) }}</div>
       <div v-else class="col-4 time text-muted small">{{ message.datetime.substring(2, 10) }}</div>
     </div>
   </div>
@@ -35,14 +35,12 @@
 import img from '@/assets/member/noImage.jpg'
 
 export default {
-  data () {
-    return {
-      todayDate: ''
-    }
-  },
   computed: {
     member () {
       return this.$store.getters.member
+    },
+    currentDatetime () {
+      return this.$store.getters.currentDatetime
     },
     messageList () {
       return this.$store.getters.messageList
@@ -55,28 +53,6 @@ export default {
     replaceImg (e) {
       e.target.src = img
     },
-    getUnreads () {
-			this.axios({
-				url: '/api/message/unreads',
-				method: 'GET'
-			})
-			.then((res) => {
-				this.$store.commit('unreads', res.data.unreads)
-			})
-			.catch((err) => {
-				console.log(err)
-			})
-		},
-    getList () {
-			this.axios.get('/api/message/list', {})
-			.then((res) => {
-				this.$store.commit('messageList', res.data.messageList)
-				this.todayDate = res.data.todayDate
-			})
-			.catch((err) => {
-				console.log(err)
-			})
-		},
     getHistory () {
 			this.axios({
 				url: '/api/message/history',
@@ -84,13 +60,12 @@ export default {
 				params: { otherId: this.other.id }
 			}).then((res) => {
 				this.$store.commit('messageHistory', res.data.messageHistory)
-        this.getUnreads()
-        this.getList()
 			}).catch((err) => {
 				console.log(err)
 			})
 		},
     showMessageHistory (message) {
+      message.read = 1
       let other = null
       if (this.member.id === message.senderId) {
         other = {
@@ -106,8 +81,14 @@ export default {
         }
       }
       this.$store.commit('other', other)
+      this.$store.commit('updateUnreads')
+      this.$store.commit('currentDatetime')
+      this.$store.commit('updateMessageList', message)
       this.getHistory()
     }
+  },
+  created () {
+    this.$store.commit('currentDatetime')
   },
   unmounted () {
     this.$store.commit('other', null)
