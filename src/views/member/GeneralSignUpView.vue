@@ -241,10 +241,6 @@ export default {
     getToken () {
       this.axios
         .get('http://localhost:8091/kakaologin?authorize_code=' + this.codes)
-        .then((res) => {
-          this.email = res.data.email
-          this.name = res.data.nickname
-        })
     }
   }
 }
