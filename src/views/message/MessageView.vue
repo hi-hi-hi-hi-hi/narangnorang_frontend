@@ -1,7 +1,7 @@
 <template>
     <div class="section">
         <MessageList></MessageList>
-        <MessageHistory></MessageHistory>
+        <MessageHistory v-if="other != null"></MessageHistory>
     </div>
 </template>
 
@@ -13,7 +13,12 @@ export default {
     components: {
         MessageList,
         MessageHistory
-    }
+    },
+    computed: {
+        other () {
+          return this.$store.getters.other
+        }
+	  }
 }
 </script>
 
