@@ -1,53 +1,44 @@
 <template>
-    <div v-if="showHistory === true" class="history-section list-outer">
+    <div class="history-section list-outer">
         <div class="ms-body">
             <!-- 대화상대 -->
             <div class="action-header clearfix">
                 <div class="pull-left hidden-xs">
-                    <div class="lv-avatar pull-left">
-                    </div>
-                    <h3 v-if="messageInfo.recieverName === null"><b class="no-user">탈퇴한 사용자</b></h3>
-                    <h3 v-else><b>{{ messageInfo.recieverName }}</b></h3>
-                    <b class="counselor" v-if="messageInfo.recieverPrivilege == 1 && messageInfo.recieverName !== null">
-            상담사
-          </b>
+                    <div class="lv-avatar pull-left"></div>
+                    <h3 v-if="other.name == null"><b class="no-user">탈퇴한 사용자</b></h3>
+                    <h3 v-else><b>{{ other.name }}</b></h3>
+                    <b class="counselor" v-if="other.privilege === 1 && other.name != null">상담사</b>
                 </div>
             </div>
             <!-- 대화내역 부분 -->
             <div class="history">
-                <div v-for="(message, idx) in list" :key="idx" ref="history">
+                <div v-for="(message, idx) in messageHistory" :key="idx" ref="history">
                     <!-- 상대가 보냄 -->
-                    <div v-if="message.senderId === otherId" class="message-feed media">
+                    <div v-if="message.senderId === other.id" class="message-feed media">
                         <div class="pull-left">
-                            <img v-if="messageInfo.recieverName === null" class="img-avatar no-img" src="@/assets/common/norang.png">
-                            <img v-else :src="'/webapp/resources/images/member/' + messageInfo.recieverId + '.png'" class="img-avatar" @error="replaceImg">
+                            <img v-if="other.name == null" class="img-avatar no-img" src="@/assets/common/norang.png">
+                            <img v-else :src="'/webapp/resources/images/member/' + other.id + '.png'" class="img-avatar" @error="replaceImg">
                         </div>
                         <div class="media-body">
-                            <div class="mf-content">
-                                {{ message.content }}
-                            </div>
+                            <div class="mf-content">{{ message.content }}</div>
                             <small class="mf-date">{{ message.datetime }}</small>
                         </div>
                     </div>
-
                     <!-- 내가 보냄 -->
                     <div v-else class="message-feed right">
                         <div class="media-body">
-                            <div class="mf-content">
-                                {{ message.content }}
-                            </div>
+                            <div class="mf-content">{{ message.content }}</div>
                             <small class="mf-date">{{ message.datetime }}</small>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="msb-reply" v-if="list[0] != null && (list[0].senderName == null || list[0].recieverName == null)">
+            <div class="msb-reply" v-if="messageHistory[0] != null && (messageHistory[0].senderName == null || messageHistory[0].recieverName == null)">
                 <textarea @keyup.enter="sendMessage" placeholder="내용을 입력하세요" readonly></textarea>
                 <button @click="sendMessage" disabled><b class="send-button">전송</b></button>
             </div>
             <div class="msb-reply" v-else>
-                <textarea v-model="messageInfo.content" @keyup.enter="sendMessage" placeholder="내용을 입력하세요"></textarea>
+                <textarea v-model="content" @keyup.enter="sendMessage" placeholder="내용을 입력하세요"></textarea>
                 <button @click="sendMessage"><b class="send-button">전송</b></button>
             </div>
         </div>
@@ -58,97 +49,70 @@
 import img from '@/assets/member/noImage.jpg'
 
 export default {
-    name: 'MessageHistory',
 	data () {
 		return {
-			showHistory: null,
-			otherId: null,
-			list: [],
-            messageInfo: {
-                recieverId: null,
-                recieverName: '',
-                recieverPrivilege: null,
-                content: ''
-            },
-            image: null,
-            timer: null
+            content: ''
 		}
 	},
-	created () {
-		this.getInfoFromSibling()
-        this.timer = setInterval(this.getHistory, 3000)
+    computed: {
+        member () {
+            return this.$store.getters.member
+        },
+		stompClient () {
+			return this.$store.getters.stompClient
+		},
+        other () {
+            return this.$store.getters.other
+        },
+        messageHistory () {
+            return this.$store.getters.messageHistory
+        }
 	},
-    updated () {
-		this.$nextTick(function () {
-			const history = document.querySelector('.history')
-			history.scrollTop = history.scrollHeight
-		})
-    },
 	methods: {
         replaceImg (e) {
             e.target.src = img
         },
-		getHistory () {
-            if (this.otherId == null) {
-                return
-            }
-			this.axios({
-				url: '/api/message/history',
-				method: 'GET',
-				params: {
-					otherId: this.otherId
-				}
-			})
+        getList () {
+			this.axios.get('/api/message/list', {})
 			.then((res) => {
-				this.list = res.data.messageHistory
-                this.getRecieverInfo()
+				this.$store.commit('messageList', res.data.messageList)
+				this.todayDate = res.data.todayDate
 			})
 			.catch((err) => {
 				console.log(err)
 			})
 		},
-		getInfoFromSibling () {
-			this.emitter.on('showHistory', showHistory => {
-			this.showHistory = showHistory
-			}
-			)
-			this.emitter.on('otherId', otherId => {
-				this.otherId = otherId
-				this.getHistory()
-			}
-			)
-		},
-        getRecieverInfo () {
-            if (this.list[0].recieverId === this.otherId) {
-                this.messageInfo.recieverId = this.list[0].recieverId
-                this.messageInfo.recieverName = this.list[0].recieverName
-                this.messageInfo.recieverPrivilege = this.list[0].recieverPrivilege
-            } else {
-                this.messageInfo.recieverId = this.list[0].senderId
-                this.messageInfo.recieverName = this.list[0].senderName
-                this.messageInfo.recieverPrivilege = this.list[0].senderPrivilege
-            }
-        },
         sendMessage () {
-            const checkContent = this.messageInfo.content.replace(/ /g, '')
-            if (checkContent.length === 0) {
-                alert('내용을 입력해주세요.')
-                this.messageInfo.content = ''
+            if (this.stompClient && this.stompClient.connected) {
+                const message = {
+                    type: 'message',
+                    senderId: this.member.id,
+                    senderName: this.member.name,
+                    senderPrivilege: this.member.privilege,
+                    recieverId: this.other.id,
+                    recieverName: this.other.name,
+                    recieverPrivilege: this.other.privilege,
+                    content: this.content
+                }
+                this.stompClient.send('/ws/message', JSON.stringify(message), {})
+				this.$store.commit('pushIntoMessageHistory', message)
+                this.content = ''
+                this.getList()
             }
-            this.axios({
-                url: '/api/message/send',
-                method: 'POST',
-                params: this.messageInfo
-            })
-            .then((res) => {
-                this.messageInfo.content = ''
-                this.getHistory()
-            })
-            .catch((error) => {
-                console.log(error)
-            })
         }
-	}
+	},
+    mounted () {
+		this.$nextTick(function () {
+			const history = document.querySelector('.history')
+			history.scrollTop = history.scrollHeight
+		})
+    },
+    updated () {
+		this.$nextTick(function () {
+			const history = document.querySelector('.history')
+			history.scrollTop = history.scrollHeight
+		})
+    }
 }
 </script>
 

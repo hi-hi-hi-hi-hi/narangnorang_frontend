@@ -1,20 +1,20 @@
 <template>
-	<PostNotiModal v-if="modalVal" @modalClose="modalClose" :id="id"/>
-	<div class="top" v-if="privilege === 3">
+	<PostNotiModal v-if="modalVal" @modalClose="modalClose" :id="member.id"/>
+	<div class="top" v-if="member.privilege === 3">
 		<router-link class="top-link" to="/faq">고객문의</router-link>
-		<a class="top-link" @click="modalOpen()" :id="id"><i class="fa fa-bell faa-ring" v-bind:class="{ animated: notiLength >= 1 }"></i> 알림 <span>{{ notiLength }}</span></a>
+		<a class="top-link" @click="modalOpen()" :id="member.id"><i class="fa fa-bell faa-ring" v-bind:class="{ animated: notiLength >= 1 }"></i> 알림 <span>{{ notiLength }}</span></a>
 		<router-link class="top-link" to="/message"><i class="fa-solid fa-envelope faa-ring" v-bind:class="{ animated: unreads >= 1 }"></i> 쪽지 <span> {{ unreads }}</span></router-link>
 		<router-link class="top-link" to="/myPage">내정보</router-link>
 	</div>
-	<div class="top" v-else-if="privilege === 2">
+	<div class="top" v-else-if="member.privilege === 2">
 		<router-link class="top-link" to="/faq">고객문의</router-link>
-		<a class="top-link" @click="modalOpen()" :id="id"><i class="fa fa-bell faa-ring" v-bind:class="{ animated: notiLength >= 1 }"></i> 알림 <span>{{ notiLength }}</span></a>
+		<a class="top-link" @click="modalOpen()" :id="member.id"><i class="fa fa-bell faa-ring" v-bind:class="{ animated: notiLength >= 1 }"></i> 알림 <span>{{ notiLength }}</span></a>
 		<router-link class="top-link" to="/message"><i class="fa-solid fa-envelope faa-ring" v-bind:class="{ animated: unreads >= 1 }"></i> 쪽지 <span> {{ unreads }}</span></router-link>
 		<router-link class="top-link" to="/myPage">내정보</router-link>
 	</div>
-	<div class="top" v-else-if="privilege === 1">
+	<div class="top" v-else-if="member.privilege === 1">
 		<router-link class="top-link" to="/faq">고객문의</router-link>
-		<a class="top-link" @click="modalOpen()" :id="id"><i class="fa fa-bell faa-ring" v-bind:class="{ animated: notiLength >= 1 }"></i> 알림 <span>{{ notiLength }}</span></a>
+		<a class="top-link" @click="modalOpen()" :id="member.id"><i class="fa fa-bell faa-ring" v-bind:class="{ animated: notiLength >= 1 }"></i> 알림 <span>{{ notiLength }}</span></a>
 		<router-link class="top-link" to="/message"><i class="fa-solid fa-envelope faa-ring" v-bind:class="{ animated: unreads >= 1 }"></i> 쪽지 <span> {{ unreads }}</span></router-link>
 		<router-link class="top-link" to="/myPage">내정보</router-link>
 	</div>
@@ -178,12 +178,12 @@
 </style>
 
 <script>
+import Stomp from 'webstomp-client'
+import SockJS from 'sockjs-client'
 import PostNotiModal from '@/components/post/PostNotiModal.vue'
 export default {
 	data () {
 		return {
-      		unreads: 0,
-      		timer1: null,
 			timer2: null,
 			modalVal: false,
 			notiLength: 0
@@ -192,29 +192,54 @@ export default {
 	components: {
 		PostNotiModal
 	},
-	props: {
-		privilege: Number,
-		id: Number
+	computed: {
+		member () {
+            return this.$store.getters.member
+        },
+		unreads () {
+            return this.$store.getters.unreads
+        },
+		other () {
+			return this.$store.getters.other
+		}
 	},
 	methods: {
 		// 쪽지 알람
 		getUnreads () {
 			this.axios({
-				url: '/api/message/unread',
+				url: '/api/message/unreads',
 				method: 'GET'
 			})
 			.then((res) => {
-				this.unreads = res.data.unreadCounts
+				this.$store.commit('unreads', res.data.unreads)
 			})
 			.catch((err) => {
 				console.log(err)
-				clearInterval(this.timer1)
+			})
+		},
+		getList () {
+			this.axios.get('/api/message/list', {})
+			.then((res) => {
+				this.$store.commit('messageList', res.data.messageList)
+				this.todayDate = res.data.todayDate
+			})
+			.catch((err) => {
+				console.log(err)
+			})
+		},
+		getHistory () {
+			this.axios({
+				url: '/api/message/history',
+				method: 'GET',
+				params: { otherId: this.other.id }
+			}).catch((err) => {
+				console.log(err)
 			})
 		},
 		fnGetNotiLength () {
 			this.axios.get('/api/noti', {
 				params: {
-					memberId: this.id
+					memberId: this.member.id
 				}
 			})
 			.then((res) => {
@@ -231,16 +256,46 @@ export default {
 		},
 		modalClose () {
 			this.modalVal = false
+		},
+		connect () {
+			const socket = new SockJS('/ws')
+			this.stompClient = Stomp.over(socket)
+			this.stompClient.connect(
+				{},
+				frame => {
+					this.$store.commit('stompClient', this.stompClient)
+					this.stompClient.subscribe('/ws/member/' + this.member.id, response => {
+						console.log('구독으로 받은 메시지 입니다.', response.body)
+						const message = JSON.parse(response.body)
+						if (message.type === 'message') {
+							if (this.other != null && this.other.id === message.senderId) {
+								this.$store.commit('pushIntoMessageHistory', message)
+								this.getHistory()
+							} else {
+								this.$store.commit('unreads', this.unreads + 1)
+							}
+							this.getList()
+						}
+					})
+				},
+				error => {
+					console.log('소켓 연결 실패', error)
+				}
+			)
 		}
 	},
 	created () {
 		this.getUnreads()
+		this.getList()
 		this.fnGetNotiLength()
-		this.timer1 = setInterval(this.getUnreads, 3000)
 		this.timer2 = setInterval(this.fnGetNotiLength, 3000)
+		this.connect()
 	},
 	unmounted () {
-		clearInterval(this.timer1)
+		this.$store.commit('member', null)
+		this.$store.commit('stompClient', null)
+		this.$store.commit('unreads', 0)
+		this.$store.commit('messageList', [])
 		clearInterval(this.timer2)
 	}
 }

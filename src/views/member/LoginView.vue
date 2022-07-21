@@ -64,13 +64,14 @@ export default {
     }
   },
   mounted () {
-  this.naverLogin = new window.naver.LoginWithNaverId({
+    this.responseNaver()
+    this.createInstance()
+    this.naverLogin = new window.naver.LoginWithNaverId({
       clientId: 'q62CGUZilQWmYEkefBnR', // 개발자센터에 등록한 ClientID
-      callbackUrl: 'http://localhost:8092/login', // 개발자센터에 등록한 callback Url
+      callbackUrl: 'http://localhost:8091/login', // 개발자센터에 등록한 callback Url
       isPopup: false, // 팝업을 통한 연동처리 여부
       loginButton: { color: 'green', type: 3, height: 60 } // 로그인 버튼의 타입을 지정
     })
-
     // 설정정보를 초기화하고 연동을 준비
     this.naverLogin.init()
 
@@ -106,6 +107,36 @@ export default {
   //     })
   // },
   methods: {
+    // jwt Token//
+    responseNaver () {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8'
+              }
+                  }
+                  // eslint-disable-next-line
+         async (response) => {
+          const jwtToken = this.axios.post(
+              'http://localhost:8091/login/oauth/jwt/naver',
+              JSON.stringify(response),
+              config
+            )
+            if (jwtToken.status === 200) {
+              console.log(2, jwtToken.data)
+              localStorage.setItem('jwtToken', jwtToken.data)
+            }
+         }
+        },
+        // jwt Token//
+    createInstance () {
+      this.axios.create({
+      baseURL: 'http://localhost:8091/login/oauth/jwt/naver',
+      headers: {
+        Authrozation: 'Bearer '
+      }
+    })
+    },
+
     login () {
       this.axios({
         url: '/api/login',

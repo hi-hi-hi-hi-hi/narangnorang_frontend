@@ -1,5 +1,5 @@
 <template>
-	<div v-if="privilege === 3">
+	<div v-if="member.privilege === 3">
 		<button v-if="!modal" @click="open" class="btn-norang">
 			<img src="@/assets/common/norang.png" width="70">
 		</button>
@@ -106,9 +106,6 @@
 <script>
 import chatBotAPI from '@/components/common/chatBotAPI'
 export default {
-	props: {
-		privilege: Number
-	},
 	data () {
 		return {
 			modal: false,
@@ -125,6 +122,11 @@ export default {
 			messageSend: false,
 			content: ''
 		}
+	},
+	computed: {
+		member () {
+            return this.$store.getters.member
+        }
 	},
 	methods: {
 		open () {
