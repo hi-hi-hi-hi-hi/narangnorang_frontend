@@ -65,10 +65,13 @@ export default createStore({
       state.unreads = unreads
     },
     updateUnreads (state) {
-      state.unreads = state.unreads.filter(message => message.senderId !== state.other.id)
+      state.unreads.forEach(m => {
+        console.log(m)
+      })
+      state.unreads = state.unreads.filter(senderId => senderId !== state.other.id)
     },
-    pushMessageIntoUnreads (state, message) {
-      state.unreads.push(message)
+    pushSenderIdIntoUnreads (state, senderId) {
+      state.unreads.push(senderId)
     },
     currentDatetime (state) {
       const now = new Date()

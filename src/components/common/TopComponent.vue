@@ -111,8 +111,9 @@ export default {
 								this.readMessages()
 								message.read = 1
 								this.$store.commit('pushMessageIntoMessageHistory', message)
+							} else {
+								this.$store.commit('pushSenderIdIntoUnreads', message.senderId)
 							}
-							this.$store.commit('pushMessageIntoUnreads', message)
 							this.$store.commit('currentDatetime')
                 			this.$store.commit('updateMessageList', message)
 						}
