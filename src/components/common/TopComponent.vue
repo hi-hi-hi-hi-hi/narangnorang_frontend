@@ -102,6 +102,8 @@ export default {
 				{},
 				frame => {
 					this.$store.commit('stompClient', this.stompClient)
+					this.getUnreads()
+					this.getList()
 					this.stompClient.subscribe('/ws/member/' + this.member.id, response => {
 						const message = JSON.parse(response.body)
 						if (message.type === 'message') {
@@ -120,8 +122,6 @@ export default {
 		}
 	},
 	created () {
-		this.getUnreads()
-		this.getList()
 		this.fnGetNotiLength()
 		this.timer2 = setInterval(this.fnGetNotiLength, 3000)
 		this.connect()
