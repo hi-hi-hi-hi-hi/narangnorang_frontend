@@ -10,7 +10,7 @@
                 <button class="btn btn-sm" @click="fnReplyEditToggle(row.id, row.content)">수정</button>
                 <button class="btn btn-sm" @click="fnCommentDelete(row.id, row.postId)">삭제</button>
               </span>
-              <!-- <button class="btn btn-sm">추천 {{ row.likes }}</button> -->
+              <button class="btn btn-sm" @click="fnLikeReply(row.id)">추천 {{ row.likes }}</button>
               <div v-if="!isEditMode[row.id]" class="replyContentArea" style="padding:10px">{{ row.content }}</div>
               <div v-else>
                 <textarea class="editReplyArea form-control" v-model="editReplyContent"></textarea>
@@ -91,6 +91,20 @@ export default {
       .then((res) => {
         alert('댓글을 수정하였습니다.')
         this.isEditMode[id] = false
+        this.fnGetReplyList()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },
+    fnLikeReply (replyId) {
+      this.axios.post('/api/post/reply/like/' + replyId)
+      .then((res) => {
+        if (res.data === 1) {
+          alert('댓글을 추천했습니다.')
+        } else if (res.data === -1) {
+          alert('추천을 취소하였습니다.')
+        }
         this.fnGetReplyList()
       })
       .catch((err) => {

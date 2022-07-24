@@ -1,8 +1,8 @@
 <template>
   <body class="text-center">
     <main class="form-signin w-100 m-auto">
-      <form @submit.prevent="generalSignUp">
-        <h1 class="h3 mb-3 fw-normal"><b>일반회원가입</b></h1>
+      <form @submit.prevent="kakaoSignUp">
+        <h1 class="h3 mb-3 fw-normal"><b>카카오 회원가입</b></h1>
         <br>
         <div class="form-floating">
           <input type="text" class="form-control" id="name" v-model="name" placeholder="NICKNAME" required>
@@ -37,22 +37,13 @@ export default {
   },
   data () {
     return {
-      email: '',
-      com: '',
-      password: '',
-      password2: '',
-      name: '',
+      nicknameCheckResult: '',
+      nicknameDuplication: false,
       phone: '',
       region: '',
-      emailCheckResult: '',
-      pwCheckResult: '',
-      nicknameCheckResult: '',
-      idDuplication: false,
-      pwCompare: false,
-      nicknameDuplication: false,
-      compareText: '',
-      key: '',
-      isCertification: false,
+      email: '',
+      kakaoId: '',
+      name: '',
       codes: ''
     }
   },
@@ -80,33 +71,16 @@ export default {
         console.log(error)
       })
     },
-    // 회원 가입 처리
-    generalSignUp (event) {
-      if (!this.email_check(this.email)) {
-        alert('이메일 형식에 맞게 입력해주세요')
-        event.preventDefault()
-      } else if (this.idDuplication === false) {
-        alert('아이디 중복검사를 해주세요')
-        event.preventDefault()
-      } else if (this.isCertification === false) {
-        alert('인증 확인이 필요합니다')
-        event.preventDefault()
-      } else if (this.pwCompare === false) {
-        alert('비밀번호가 일치하지 않습니다')
-        event.preventDefault()
-      } else if (this.nicknameDuplication === false) {
-        alert('닉네임 중복검사를 해주세요')
-        event.preventDefault()
-      } else {
-        this.axios({
-        url: '/api/generalSignUp',
+    kakaoSignUp (event) {
+      this.axios({
+        url: '/api/kakaoSignUp',
         method: 'POST',
         params: {
           email: this.email,
-          password: this.password,
           name: this.name,
           phone: this.phone,
-          region: this.region
+          region: this.region,
+          kakaoId: this.kakaoId
         }
         })
         .then((response) => {
@@ -116,15 +90,6 @@ export default {
         .catch((error) => {
           console.log(error)
         })
-      }
-    },
-    create () {
-      this.codes = this.$route.query.code
-      this.getToken()
-    },
-    getToken () {
-      this.axios
-        .get('http://localhost:8091/kakaologin?authorize_code=' + this.codes)
     }
   }
 }

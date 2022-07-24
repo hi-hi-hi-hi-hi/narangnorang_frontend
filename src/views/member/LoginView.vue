@@ -168,7 +168,7 @@ export default {
     },
     kakaologin () {
       window.location.replace(
-        'https://kauth.kakao.com/oauth/authorize?client_id=94007325c197e3be03e0c5690a45abdb&redirect_uri=http://localhost:8091/kakaologin&response_type=code'
+        'https://kauth.kakao.com/oauth/authorize?client_id=94007325c197e3be03e0c5690a45abdb&redirect_uri=http://localhost:8091/kakaoLogin&response_type=code'
       )
     }
     // myCallbackFunction (googleUser) {
