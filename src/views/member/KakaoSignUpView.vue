@@ -32,19 +32,15 @@
 <script>
 
 export default {
-  created () {
-    this.create()
-  },
   data () {
     return {
       nicknameCheckResult: '',
       nicknameDuplication: false,
+      idDuplication: false,
       phone: '',
       region: '',
-      email: '',
-      kakaoId: '',
-      name: '',
-      codes: ''
+      kakaoId: this.$route.params.kakaoId,
+      name: this.$route.params.name
     }
   },
   methods: {
@@ -72,11 +68,14 @@ export default {
       })
     },
     kakaoSignUp (event) {
-      this.axios({
+      if (this.nicknameDuplication === false) {
+        alert('닉네임 중복검사를 해주세요')
+        event.preventDefault()
+      } else {
+        this.axios({
         url: '/api/kakaoSignUp',
         method: 'POST',
         params: {
-          email: this.email,
           name: this.name,
           phone: this.phone,
           region: this.region,
@@ -90,6 +89,7 @@ export default {
         .catch((error) => {
           console.log(error)
         })
+      }
     }
   }
 }
