@@ -61,6 +61,9 @@ export default {
 		stompClient () {
 			return this.$store.getters.stompClient
 		},
+        currentDatetime () {
+            return this.$store.getters.currentDatetime
+        },
         other () {
             return this.$store.getters.other
         },
@@ -72,17 +75,8 @@ export default {
         replaceImg (e) {
             e.target.src = img
         },
-        getList () {
-			this.axios.get('/api/message/list', {})
-			.then((res) => {
-				this.$store.commit('messageList', res.data.messageList)
-				this.todayDate = res.data.todayDate
-			})
-			.catch((err) => {
-				console.log(err)
-			})
-		},
         sendMessage () {
+            this.$store.commit('currentDatetime')
             if (this.stompClient && this.stompClient.connected) {
                 const message = {
                     type: 'message',
@@ -92,12 +86,15 @@ export default {
                     recieverId: this.other.id,
                     recieverName: this.other.name,
                     recieverPrivilege: this.other.privilege,
-                    content: this.content
+                    content: this.content,
+                    datetime: this.currentDatetime,
+                    read: 0
                 }
                 this.stompClient.send('/ws/message', JSON.stringify(message), {})
-				this.$store.commit('pushIntoMessageHistory', message)
+                message.read = 1
+                this.$store.commit('updateMessageList', message)
+				this.$store.commit('pushMessageIntoMessageHistory', message)
                 this.content = ''
-                this.getList()
             }
         }
 	},

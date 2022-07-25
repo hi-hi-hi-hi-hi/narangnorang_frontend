@@ -20,7 +20,7 @@
         <h4>{{ counselor.address2 }}, <br>{{ counselor.address3 }}</h4>
       </li>
     </ul>
-    <button @click="this.$parent.viewModal(counselor.id, counselor.name, counselor.privilege)" type="button" class="btn btn-outline-dark btn-lg">상담하기</button>
+    <button @click="this.$parent.viewModal(counselor.id, counselor.name)" type="button" class="btn btn-outline-dark btn-lg">상담하기</button>
     </div>
   </div>
   </div>
@@ -28,17 +28,6 @@
 
 <script>
 export default {
-  data () {
-    return {
-      childInfo: {
-        modal: null,
-        recieverId: null,
-        recieverName: null,
-        recieverPrivilege: null
-      }
-
-    }
-  },
   props: {
     counselor: Object
   }
