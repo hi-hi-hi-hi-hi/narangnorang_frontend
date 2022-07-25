@@ -59,9 +59,6 @@
 <script>
 
 export default {
-  created () {
-    this.create()
-  },
   data () {
     return {
       email: '',
@@ -79,8 +76,7 @@ export default {
       nicknameDuplication: false,
       compareText: '',
       key: '',
-      isCertification: false,
-      codes: ''
+      isCertification: false
     }
   },
   methods: {
@@ -233,18 +229,6 @@ export default {
         .post(url, data)
         alert('인증메일이 전송되었습니다.')
       }
-    },
-    create () {
-      this.codes = this.$route.query.code
-      this.getToken()
-    },
-    getToken () {
-      this.axios
-        .get('http://localhost:8091/kakaologin?authorize_code=' + this.codes)
-        .then((res) => {
-          this.email = res.data.email
-          this.name = res.data.nickname
-        })
     }
   }
 }

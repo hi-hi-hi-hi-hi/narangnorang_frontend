@@ -29,6 +29,11 @@ export default [{
     component: () => import('../views/member/CounselorSignUpView.vue')
   },
   {
+    path: '/kakaoSignUp',
+    name: 'kakaoSignUp',
+    component: () => import('../views/member/KakaoSignUpView.vue')
+  },
+  {
     path: '/findPw',
     name: 'findPw',
     component: () => import('../views/member/FindPwView.vue')
