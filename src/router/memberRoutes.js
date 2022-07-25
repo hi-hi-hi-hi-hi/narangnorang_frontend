@@ -4,9 +4,14 @@ export default [{
     component: () => import('../views/member/LoginView.vue')
   },
   {
-    path: '/kakaoLogin',
-    name: 'kakaoLogin',
+    path: '/kakaologin',
+    name: 'kakaologin',
     component: () => import('../views/member/KakaoLoginView.vue')
+  },
+  {
+    path: '/naverLogin',
+    name: 'naverlogin',
+    component: () => import('../views/member/NaverLoginView.vue')
   },
   {
     path: '/signUp',
