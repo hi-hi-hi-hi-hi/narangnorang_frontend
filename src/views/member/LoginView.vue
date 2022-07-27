@@ -14,7 +14,7 @@
         <button class="w-100 btn btn-outline-dark btn-lg" type="button" @click="login">로그인</button>
         <router-link class="mt-5 text-black" to="/findPw">Forgot Password?</router-link><br>
         <a @click="kakaologin()">
-          <img :src="require('@/assets/member/kakao_login_medium_wide.png')"/>
+          <img class="oauthButton" :src="require('@/assets/member/kakao_login_medium_wide.png')"/>
         </a>
         <a @click="googleLogin()">
           <img class="oauthButton" :src="require('@/assets/member/googleLogin.png')"/>
@@ -22,8 +22,6 @@
         <p class="mt-5 text-muted">아직 계정이 없으신가요?</p>
         <p class="text-muted">지금 바로 <router-link to="/signUp" class="text-black">회원 가입</router-link> 해보세요.</p>
       </form>
-      <div id="googleButton" @click="googleLogin"></div>
-      <a href="http://localhost:8091/oauth2/authorization/google">구글 아이디로 로그인</a>
       <div>
         <!-- <div id="naverIdLogin"></div>
         <button type="button" @click="logout">로그아웃</button> -->
@@ -72,23 +70,6 @@ export default {
         console.log('callback 처리에 실패하였습니다.')
       }
     })
-
-    // function handleCredentialResponse (response) {
-    //   console.log('Encoded JWT ID token: ' + response.credential)
-    // }
-    window.onload = function () {
-      this.google.accounts.id.initialize({
-        client_id: '692746488529-gnq1ndn5r679jt57q15d8h7f4dqr9a6l.apps.googleusercontent.com',
-        ux_mode: 'redirect',
-        login_uri: 'http://localhost:8091/googleLogin'
-        // callback: handleCredentialResponse
-      })
-      this.google.accounts.id.renderButton(
-        document.getElementById('googleButton'),
-        { theme: 'filled_blue', size: 'large', width: 300 } // customization attributes
-      )
-      // this.google.accounts.id.prompt() // also display the One Tap dialog
-      }
   },
   methods: {
     login () {
@@ -123,6 +104,11 @@ export default {
     kakaologin () {
       window.location.replace(
         'https://kauth.kakao.com/oauth/authorize?client_id=94007325c197e3be03e0c5690a45abdb&redirect_uri=http://localhost:8091/kakaoLogin&response_type=code'
+      )
+    },
+    googleLogin () {
+      window.location.replace(
+        'http://localhost:8091/oauth2/authorization/google'
       )
     }
   }
@@ -176,5 +162,11 @@ body {
   text-decoration: none;
   color: black;
   font-weight: bold;
+}
+
+.oauthButton {
+  width: 300px;
+  height: 45px;
+  margin-top: 10px;
 }
 </style>
