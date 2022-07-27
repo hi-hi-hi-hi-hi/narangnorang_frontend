@@ -16,14 +16,18 @@
         <a @click="kakaologin()">
           <img :src="require('@/assets/member/kakao_login_medium_wide.png')"/>
         </a>
+        <a @click="googleLogin()">
+          <img class="oauthButton" :src="require('@/assets/member/googleLogin.png')"/>
+        </a>
         <p class="mt-5 text-muted">아직 계정이 없으신가요?</p>
         <p class="text-muted">지금 바로 <router-link to="/signUp" class="text-black">회원 가입</router-link> 해보세요.</p>
       </form>
       <div id="googleButton" @click="googleLogin"></div>
       <a href="http://localhost:8091/oauth2/authorization/google">구글 아이디로 로그인</a>
       <div>
-        <div id="naverIdLogin"></div>
-        <button type="button" @click="logout">로그아웃</button>
+        <!-- <div id="naverIdLogin"></div>
+        <button type="button" @click="logout">로그아웃</button> -->
+        <a href="http://localhost:8091/oauth2/authorization/naver">네이버 로그인</a>
       </div>
       <router-link class="mt-5 text-black" to="/findPw">Forgot Password?</router-link><br>
       <p class="mt-5 text-muted">아직 계정이 없으신가요?</p>
