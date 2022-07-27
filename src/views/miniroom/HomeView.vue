@@ -42,6 +42,7 @@ export default {
   },
   created () {
     this.getImage()
+    this.getLoginSession()
   },
   data () {
     return {
@@ -52,6 +53,16 @@ export default {
     }
   },
   methods: {
+    getLoginSession () {
+      this.axios({
+        url: '/api/loginSession',
+        method: 'get',
+        responseType: 'json'
+      })
+      .then((response) => {
+        this.$store.commit('member', response.data)
+      })
+    },
     getImage () {
       this.axios({
         url: '/api/home',
