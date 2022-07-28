@@ -23,9 +23,9 @@
         <p class="text-muted">지금 바로 <router-link to="/signUp" class="text-black">회원 가입</router-link> 해보세요.</p>
       </form>
       <div>
-        <!-- <div id="naverIdLogin"></div>
-        <button type="button" @click="logout">로그아웃</button> -->
-        <a href="http://localhost:8091/oauth2/authorization/naver">네이버 로그인</a>
+        <a href="http://localhost:8091/oauth2/authorization/naver">
+        <img class="oauthButton" :src="require('@/assets/member/naverLogin.png')"/>
+        </a>
       </div>
       <router-link class="mt-5 text-black" to="/findPw">Forgot Password?</router-link><br>
       <p class="mt-5 text-muted">아직 계정이 없으신가요?</p>
@@ -43,33 +43,6 @@ export default {
       password: '',
       naverLogin: null
     }
-  },
-  mounted () {
-    this.naverLogin = new window.naver.LoginWithNaverId({
-      clientId: 'q62CGUZilQWmYEkefBnR', // 개발자센터에 등록한 ClientID
-      callbackUrl: 'http://localhost:8091/naverLogin', // 개발자센터에 등록한 callback Url
-      isPopup: false, // 팝업을 통한 연동처리 여부
-      loginButton: { color: 'green', type: 3, height: 60 } // 로그인 버튼의 타입을 지정
-    })
-    // 설정정보를 초기화하고 연동을 준비
-    this.naverLogin.init()
-
-    this.naverLogin.getLoginStatus((status) => {
-      if (status) {
-        console.log(status)
-        console.log(this.naverLogin.user)
-
-        // 필수적으로 받아야하는 프로필 정보가 있다면 callback처리 시점에 체크
-        const email = this.naverLogin.user.getEmail()
-        if (email === undefined || email === null) {
-          alert('이메일은 필수정보입니다. 정보제공을 동의해주세요.')
-          // 사용자 정보 재동의를 위하여 다시 네아로 동의페이지로 이동함
-          this.naverLogin.reprompt()
-        }
-      } else {
-        console.log('callback 처리에 실패하였습니다.')
-      }
-    })
   },
   methods: {
     login () {
