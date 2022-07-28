@@ -16,15 +16,16 @@
         <a @click="kakaologin()">
           <img class="oauthButton" :src="require('@/assets/member/kakao_login_medium_wide.png')"/>
         </a>
-        <button @click="googleLogin()">
+        <a @click="googleLogin()">
           <img class="oauthButton" :src="require('@/assets/member/googleLogin.png')"/>
-        </button>
+        </a>
         <p class="mt-5 text-muted">아직 계정이 없으신가요?</p>
         <p class="text-muted">지금 바로 <router-link to="/signUp" class="text-black">회원 가입</router-link> 해보세요.</p>
       </form>
       <div>
-        <div id="naverIdLogin"></div>
-        <button type="button" @click="logout">로그아웃</button>
+        <!-- <div id="naverIdLogin"></div>
+        <button type="button" @click="logout">로그아웃</button> -->
+        <a href="http://localhost:8091/oauth2/authorization/naver">네이버 로그인</a>
       </div>
       <router-link class="mt-5 text-black" to="/findPw">Forgot Password?</router-link><br>
       <p class="mt-5 text-muted">아직 계정이 없으신가요?</p>
@@ -102,7 +103,7 @@ export default {
     },
     kakaologin () {
       window.location.replace(
-        'https://kauth.kakao.com/oauth/authorize?client_id=94007325c197e3be03e0c5690a45abdb&redirect_uri=http://localhost:8091/kakaoLogin&response_type=code'
+        'http://localhost:8091/oauth2/authorization/kakao'
       )
     },
     googleLogin () {

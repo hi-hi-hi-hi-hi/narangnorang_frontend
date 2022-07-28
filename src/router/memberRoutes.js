@@ -4,16 +4,6 @@ export default [{
     component: () => import('../views/member/LoginView.vue')
   },
   {
-    path: '/kakaologin',
-    name: 'kakaologin',
-    component: () => import('../views/member/KakaoLoginView.vue')
-  },
-  {
-    path: '/naverLogin',
-    name: 'naverlogin',
-    component: () => import('../views/member/NaverLoginView.vue')
-  },
-  {
     path: '/signUp',
     name: 'signUp',
     component: () => import('../views/member/SignUpView.vue')
@@ -27,11 +17,6 @@ export default [{
     path: '/counselorSignUp',
     name: 'counselorSignUp',
     component: () => import('../views/member/CounselorSignUpView.vue')
-  },
-  {
-    path: '/kakaoSignUp',
-    name: 'kakaoSignUp',
-    component: () => import('../views/member/KakaoSignUpView.vue')
   },
   {
     path: '/findPw',
