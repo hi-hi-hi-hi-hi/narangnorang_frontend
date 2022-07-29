@@ -60,8 +60,6 @@ export default {
 				params: { otherId: this.other.id }
 			}).then((res) => {
 				this.$store.commit('messageHistory', res.data.messageHistory)
-			}).catch((err) => {
-				console.log(err)
 			})
 		},
     showMessageHistory (message) {

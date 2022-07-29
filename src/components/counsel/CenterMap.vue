@@ -43,16 +43,11 @@ export default {
   methods: {
     // 사용자 지역 가져오기
     getRegion () {
-      this.axios.get('/api/counsel/userRegion', {
-
+      this.axios.get('/api/counsel/userRegion', {})
+      .then((res) => {
+        this.userRegion = res.data.userRegion
+        this.searchCenter()
       })
-        .then((res) => {
-          this.userRegion = res.data.userRegion
-          this.searchCenter()
-        })
-        .catch((err) => {
-          console.log(err)
-        })
     },
     // 마커 표시
     displayMarker (idx, place) {
