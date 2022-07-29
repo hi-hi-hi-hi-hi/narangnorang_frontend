@@ -45,14 +45,9 @@ export default {
     },
     methods: {
         getList () {
-            this.axios.get('/api/counsel/list', {
-
-            })
+            this.axios.get('/api/counsel/list', {})
             .then((res) => {
                 this.list = res.data.counselorList
-            })
-            .catch((err) => {
-                console.log(err)
             })
         },
         viewModal (id, name) {
