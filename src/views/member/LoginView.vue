@@ -16,9 +16,9 @@
         <a @click="kakaologin()">
           <img class="oauthButton" :src="require('@/assets/member/kakao_login_medium_wide.png')"/>
         </a>
-        <button @click="googleLogin()">
+        <a @click="googleLogin()">
           <img class="oauthButton" :src="require('@/assets/member/googleLogin.png')"/>
-        </button>
+        </a>
         <p class="mt-5 text-muted">아직 계정이 없으신가요?</p>
         <p class="text-muted">지금 바로 <router-link to="/signUp" class="text-black">회원 가입</router-link> 해보세요.</p>
       </form>
