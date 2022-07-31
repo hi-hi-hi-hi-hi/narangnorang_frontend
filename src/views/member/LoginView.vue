@@ -19,17 +19,12 @@
         <a @click="googleLogin()">
           <img class="oauthButton" :src="require('@/assets/member/googleLogin.png')"/>
         </a>
+        <a href="http://localhost:5000/oauth2/authorization/naver">
+          <img class="oauthButton" :src="require('@/assets/member/naverLogin.png')"/>
+        </a>
         <p class="mt-5 text-muted">아직 계정이 없으신가요?</p>
         <p class="text-muted">지금 바로 <router-link to="/signUp" class="text-black">회원 가입</router-link> 해보세요.</p>
       </form>
-      <div>
-        <a href="http://localhost:8091/oauth2/authorization/naver">
-        <img class="oauthButton" :src="require('@/assets/member/naverLogin.png')"/>
-        </a>
-      </div>
-      <router-link class="mt-5 text-black" to="/findPw">Forgot Password?</router-link><br>
-      <p class="mt-5 text-muted">아직 계정이 없으신가요?</p>
-      <p class="text-muted">지금 바로 <router-link to="/signUp" class="text-black">회원 가입</router-link> 해보세요.</p>
     </main>
   </body>
 </template>
@@ -64,24 +59,14 @@ export default {
         }
       })
     },
-    logout () {
-      const accessToken = this.naverLogin.accessToken.accessToken
-      const url = `/oauth2.0/token?grant_type=delete&client_id=zFcLWPMTcDQTNTB6iIOy&client_secret=bUW7FZMpS9&access_token=${accessToken}&service_provider=NAVER`
-
-      this.axios.get(url).then((res) => {
-        console.log(res.data)
-      })
-
-      // https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=zFcLWPMTcDQTNTB6iIOy&client_secret=bUW7FZMpS9&access_token=AAAAOOCeX4fAa_NxKPAmJW8C1UeLxGT3nM0wRV33irhyHyRua1JJrfrp0jZwfbOD0r502Id9mbhb0YiA9_NvCXGAwws&service_provider=NAVER
-    },
     kakaologin () {
       window.location.replace(
-        'http://localhost:8091/oauth2/authorization/kakao'
+        'http://localhost:5000/oauth2/authorization/kakao'
       )
     },
     googleLogin () {
       window.location.replace(
-        'http://localhost:8091/oauth2/authorization/google'
+        'http://localhost:5000/oauth2/authorization/google'
       )
     }
   }
