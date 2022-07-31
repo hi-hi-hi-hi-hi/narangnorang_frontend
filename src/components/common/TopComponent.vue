@@ -76,24 +76,15 @@ export default {
 			.then((res) => {
 				this.$store.commit('unreads', res.data.unreads)
 			})
-			.catch((err) => {
-				console.log(err)
-			})
 		},
 		getList () {
 			this.axios.get('/api/message/list', {})
 			.then((res) => {
 				this.$store.commit('messageList', res.data.messageList)
 			})
-			.catch((err) => {
-				console.log(err)
-			})
 		},
 		readMessages () {
 			this.axios.get('/api/message/read?otherId=' + this.other.id, {})
-			.catch((err) => {
-				console.log(err)
-			})
 		},
 		connect () {
 			const socket = new SockJS('/ws')
