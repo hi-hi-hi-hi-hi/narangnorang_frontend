@@ -23,7 +23,7 @@
         <p class="text-muted">지금 바로 <router-link to="/signUp" class="text-black">회원 가입</router-link> 해보세요.</p>
       </form>
       <div>
-        <a href="http://localhost:8091/oauth2/authorization/naver">
+        <a href="http://localhost:5000/oauth2/authorization/naver">
         <img class="oauthButton" :src="require('@/assets/member/naverLogin.png')"/>
         </a>
       </div>
@@ -76,12 +76,12 @@ export default {
     },
     kakaologin () {
       window.location.replace(
-        'http://localhost:8091/oauth2/authorization/kakao'
+        'http://localhost:5000/oauth2/authorization/kakao'
       )
     },
     googleLogin () {
       window.location.replace(
-        'http://localhost:8091/oauth2/authorization/google'
+        'http://localhost:5000/oauth2/authorization/google'
       )
     }
   }
