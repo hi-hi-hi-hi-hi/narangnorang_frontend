@@ -3,7 +3,7 @@
     <div class="box">
       <h3>변경 전</h3>
       <div>
-        <img :src="'/webapp/resources/images/member/' + id + '.png'" width="250" height="250" @error="replaceImg">
+        <img :src="'/upload/member/' + id + '.png'" width="250" height="250" @error="replaceImg">
       </div>
     </div>
     <div class="box">
