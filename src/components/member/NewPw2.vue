@@ -62,7 +62,7 @@ export default {
         .then((response) => {
           if (response.data === 1) {
             alert('비밀번호가 변경되었습니다.')
-            this.$router.push('home')
+            this.$router.push('/home')
           }
         })
       }

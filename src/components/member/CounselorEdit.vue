@@ -4,11 +4,6 @@
       <form @submit.prevent="counselorEdit">
         <h1 class="h3 mb-3 fw-normal"><b>내 정보 수정</b></h1>
         <div class="form-floating">
-          <input type="email" class="form-control" id="email" v-model="email" placeholder="Email" readonly>
-          <label for="email" class="">Email address</label>
-        </div>
-        <br>
-        <div class="form-floating">
           <input type="text" class="form-control" id="name" v-model="name" placeholder="NAME" readonly>
           <label for="name">NAME</label>
         </div>
