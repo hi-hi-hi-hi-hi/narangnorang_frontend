@@ -3,13 +3,15 @@
         <h5><b>내정보</b></h5>
         <hr>
         <ul class="list-group">
-            <li class="list-group-item" v-if="privilege === 3">
+            <li class="list-group-item" v-if="member.privilege === 3">
               <router-link class="text" to="/generalEdit"> - 정보 수정</router-link>
             </li>
-            <li class="list-group-item" v-else-if="privilege === 1 || privilege === 2">
+            <li class="list-group-item" v-else-if="member.privilege === 1 || member.privilege === 2">
               <router-link class="text" to="/counselorEdit"> - 정보 수정</router-link>
             </li>
-            <li class="list-group-item"><router-link class="text" to="/myPage/newPw"> - 새 비밀번호</router-link></li>
+            <li class="list-group-item" v-if="member.kakaoId === null">
+              <router-link class="text" to="/myPage/newPw"> - 새 비밀번호</router-link>
+            </li>
             <li class="list-group-item"><router-link class="text" to="/photoUpdate"> - 프로필사진 수정</router-link></li>
          </ul>
     </div>
@@ -19,14 +21,11 @@
 <script>
 export default ({
   name: 'MyPageSideBar',
-  data () {
-    return {
-      privilege: this.member.privilege
-    }
-  },
-  props: {
-    member: Object
-  }
+  computed: {
+		member () {
+            return this.$store.getters.member
+        }
+	}
 })
 </script>
 
