@@ -17,7 +17,7 @@
                     <div v-if="message.senderId === other.id" class="message-feed media">
                         <div class="pull-left">
                             <img v-if="other.name == null" class="img-avatar no-img" src="@/assets/common/norang.png">
-                            <img v-else :src="'/webapp/resources/images/member/' + other.id + '.png'" class="img-avatar" @error="replaceImg">
+                            <img v-else :src="'/upload/member/' + other.id + '.png'" class="img-avatar" @error="replaceImg">
                         </div>
                         <div class="media-body">
                             <div class="mf-content">{{ message.content }}</div>
