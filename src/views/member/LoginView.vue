@@ -67,16 +67,6 @@ export default {
         }
       })
     },
-    logout () {
-      const accessToken = this.naverLogin.accessToken.accessToken
-      const url = `/oauth2.0/token?grant_type=delete&client_id=zFcLWPMTcDQTNTB6iIOy&client_secret=bUW7FZMpS9&access_token=${accessToken}&service_provider=NAVER`
-
-      this.axios.get(url).then((res) => {
-        console.log(res.data)
-      })
-
-      // https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=zFcLWPMTcDQTNTB6iIOy&client_secret=bUW7FZMpS9&access_token=AAAAOOCeX4fAa_NxKPAmJW8C1UeLxGT3nM0wRV33irhyHyRua1JJrfrp0jZwfbOD0r502Id9mbhb0YiA9_NvCXGAwws&service_provider=NAVER
-    },
     kakaologin () {
       window.location.replace(
         'https://kauth.kakao.com/oauth/authorize?client_id=94007325c197e3be03e0c5690a45abdb&redirect_uri=http://localhost:8091/kakaoLogin&response_type=code'
