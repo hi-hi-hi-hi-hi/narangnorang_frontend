@@ -19,7 +19,7 @@
         <a @click="googleLogin()">
           <img class="oauthButton" :src="require('@/assets/member/googleLogin.png')"/>
         </a>
-        <a href="http://localhost:5000/oauth2/authorization/naver">
+        <a href="http://3.39.187.14/oauth2/authorization/naver">
           <img class="oauthButton" :src="require('@/assets/member/naverLogin.png')"/>
         </a>
         <p class="mt-5 text-muted">아직 계정이 없으신가요?</p>
