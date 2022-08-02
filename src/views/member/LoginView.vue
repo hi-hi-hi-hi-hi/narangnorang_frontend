@@ -25,14 +25,6 @@
         <p class="mt-5 text-muted">아직 계정이 없으신가요?</p>
         <p class="text-muted">지금 바로 <router-link to="/signUp" class="text-black">회원 가입</router-link> 해보세요.</p>
       </form>
-      <div>
-        <a href="http://localhost:8091/oauth2/authorization/naver">
-        <img class="oauthButton" :src="require('@/assets/member/naverLogin.png')"/>
-        </a>
-      </div>
-      <router-link class="mt-5 text-black" to="/findPw">Forgot Password?</router-link><br>
-      <p class="mt-5 text-muted">아직 계정이 없으신가요?</p>
-      <p class="text-muted">지금 바로 <router-link to="/signUp" class="text-black">회원 가입</router-link> 해보세요.</p>
     </main>
   </body>
 </template>
@@ -69,12 +61,12 @@ export default {
     },
     kakaologin () {
       window.location.replace(
-        'https://kauth.kakao.com/oauth/authorize?client_id=94007325c197e3be03e0c5690a45abdb&redirect_uri=http://localhost:8091/kakaoLogin&response_type=code'
+        'http://localhost:5000/oauth2/authorization/kakao'
       )
     },
     googleLogin () {
       window.location.replace(
-        'http://localhost:8091/oauth2/authorization/google'
+        'http://localhost:5000/oauth2/authorization/google'
       )
     }
   }

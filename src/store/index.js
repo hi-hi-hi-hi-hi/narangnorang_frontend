@@ -65,9 +65,6 @@ export default createStore({
       state.unreads = unreads
     },
     updateUnreads (state) {
-      state.unreads.forEach(m => {
-        console.log(m)
-      })
       state.unreads = state.unreads.filter(senderId => senderId !== state.other.id)
     },
     pushSenderIdIntoUnreads (state, senderId) {

@@ -3,8 +3,8 @@
   <div class="list-outer list-section">
     <div v-for="(message, idx) in messageList" :key="idx" class="friend-drawer friend-drawer list-inner">
       <img v-if="message.senderName == null || message.recieverName == null" class="col-3 profile-image no-img" src="@/assets/common/norang.png">
-      <img v-else-if="message.senderId === member.id" class="col-3 profile-image" :src="'/webapp/resources/images/member/' + message.recieverId + '.png'" @error="replaceImg">
-      <img v-else class="col-3 profile-image" :src="'/webapp/resources/images/member/' + message.senderId + '.png'">
+      <img v-else-if="message.senderId === member.id" class="col-3 profile-image" :src="'/upload/member/' + message.recieverId + '.png'" @error="replaceImg">
+      <img v-else class="col-3 profile-image" :src="'/upload/member/' + message.senderId + '.png'">
       <!-- 대화 상대 -->
       <div class="col-5 text">
         <h6 v-if="message.senderName == null || message.recieverName == null">
@@ -60,8 +60,6 @@ export default {
 				params: { otherId: this.other.id }
 			}).then((res) => {
 				this.$store.commit('messageHistory', res.data.messageHistory)
-			}).catch((err) => {
-				console.log(err)
 			})
 		},
     showMessageHistory (message) {

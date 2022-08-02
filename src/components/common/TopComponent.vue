@@ -4,19 +4,19 @@
 		<router-link class="top-link" to="/faq">고객문의</router-link>
 		<a class="top-link" @click="modalOpen()" :id="member.id"><i class="fa fa-bell faa-ring" v-bind:class="{ animated: notiLength >= 1 }"></i> 알림 <span>{{ notiLength }}</span></a>
 		<router-link class="top-link" to="/message"><i class="fa-solid fa-envelope faa-ring" v-bind:class="{ animated: unreads.length >= 1 }"></i> 쪽지 <span> {{ unreads.length }}</span></router-link>
-		<router-link class="top-link" to="/myPage">내정보</router-link>
+		<router-link class="top-link" to="/generalEdit">내정보</router-link>
 	</div>
 	<div class="top" v-else-if="member.privilege === 2">
 		<router-link class="top-link" to="/faq">고객문의</router-link>
 		<a class="top-link" @click="modalOpen()" :id="member.id"><i class="fa fa-bell faa-ring" v-bind:class="{ animated: notiLength >= 1 }"></i> 알림 <span>{{ notiLength }}</span></a>
 		<router-link class="top-link" to="/message"><i class="fa-solid fa-envelope faa-ring" v-bind:class="{ animated: unreads.length >= 1 }"></i> 쪽지 <span> {{ unreads.length }}</span></router-link>
-		<router-link class="top-link" to="/myPage">내정보</router-link>
+		<router-link class="top-link" to="/counselorEdit">내정보</router-link>
 	</div>
 	<div class="top" v-else-if="member.privilege === 1">
 		<router-link class="top-link" to="/faq">고객문의</router-link>
 		<a class="top-link" @click="modalOpen()" :id="member.id"><i class="fa fa-bell faa-ring" v-bind:class="{ animated: notiLength >= 1 }"></i> 알림 <span>{{ notiLength }}</span></a>
 		<router-link class="top-link" to="/message"><i class="fa-solid fa-envelope faa-ring" v-bind:class="{ animated: unreads.length >= 1 }"></i> 쪽지 <span> {{ unreads.length }}</span></router-link>
-		<router-link class="top-link" to="/myPage">내정보</router-link>
+		<router-link class="top-link" to="/counselorEdit">내정보</router-link>
 	</div>
 </template>
 
@@ -76,24 +76,15 @@ export default {
 			.then((res) => {
 				this.$store.commit('unreads', res.data.unreads)
 			})
-			.catch((err) => {
-				console.log(err)
-			})
 		},
 		getList () {
 			this.axios.get('/api/message/list', {})
 			.then((res) => {
 				this.$store.commit('messageList', res.data.messageList)
 			})
-			.catch((err) => {
-				console.log(err)
-			})
 		},
 		readMessages () {
 			this.axios.get('/api/message/read?otherId=' + this.other.id, {})
-			.catch((err) => {
-				console.log(err)
-			})
 		},
 		connect () {
 			const socket = new SockJS('/ws')

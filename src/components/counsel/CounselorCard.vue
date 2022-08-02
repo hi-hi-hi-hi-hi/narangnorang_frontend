@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="infos">
-      <img class="img-area" :src="'/webapp/resources/images/member/' + counselor.id + '.png'">
+      <img class="img-area" :src="'/upload/member/' + counselor.id + '.png'">
       <div class="name-area">
         <h2>{{ counselor.name }}</h2>
         <h4>{{ counselor.job }}</h4>

@@ -48,7 +48,7 @@ export default {
     computed: {
         getImgSrc () {
             return (memberId, datetime) => {
-                return '/webapp/resources/images/challenge/' + memberId + '_' + datetime + '.png'
+                return '/upload/challenge/' + memberId + '_' + datetime + '.png'
             }
         }
     },
