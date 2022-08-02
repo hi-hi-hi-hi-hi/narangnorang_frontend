@@ -20,6 +20,7 @@
     </div>
     </div>
     <div class="postTableArea">
+      <!-- 대나무숲 게시글 list -->
       <table v-if="category === '대나무숲'" class="table table-bordered" style="margin-left:150px;">
         <tr v-for="(row, idx) in list" :key="idx">
           <td style="padding:20px;">
@@ -40,12 +41,12 @@
             <div class="contentArea">
               {{ row.content }}
             </div>
-            <button class="btn" @click="fnReplyVisibleToggle()" >댓글 {{ row.replies }}</button>
-            <PostReply :id="row.id" :replyVisible="replyVisible"/>
+            <button class="btn" @click="fnToggleReplyVisible(row.id)" >댓글 {{ row.replies }}</button>
+            <PostReply v-if="this.replyVisible[row.id]" :id="row.id"/>
           </td>
         </tr>
       </table>
-      <!-- 대나무숲 외 category -->
+      <!-- 대나무숲 외 category 게시글 list -->
       <table v-else class="nomalPostTable table table-hover">
         <thead>
           <tr>
@@ -125,7 +126,7 @@ export default {
       prev: 0,
       next: 0,
       pageNumbers: [],
-      replyVisible: false,
+      replyVisible: {},
       todayDate: '',
       modalVal: false,
       modalMemberId: 0,
@@ -154,7 +155,10 @@ export default {
         this.list = res.data.postDto
         this.todayDate = res.data.todayDate
         this.fnPagingOp(res.data.pageDto.totalRows, res.data.pageDto.limit, res.data.pageDto.currentPage)
-        })
+        for (let i = 0; i < this.list.length; i++) {
+          this.replyVisible[this.list[i].id] = false
+        }
+      })
       .catch((err) => {
         console.log(err)
       })
@@ -224,13 +228,6 @@ export default {
     fnGoRetrievePage (id) {
       this.$router.push({ path: '/post/' + id, query: { category: this.category } })
     },
-    fnReplyVisibleToggle () {
-      if (this.replyVisible === true) {
-        this.replyVisible = false
-      } else {
-        this.replyVisible = true
-      }
-    },
     fnLikePost (id) {
       this.axios.post('/api/post/like/' + id)
       .then((res) => {
@@ -267,6 +264,17 @@ export default {
     },
     fnGoEditPage (thisContent, thisId) {
       this.$router.push({ name: 'postEdit', params: { content: thisContent, postId: thisId, category: this.category } })
+    },
+    fnCreateReplyVisibleList (postId) {
+      this.replyVisible[postId] = false
+    },
+    fnToggleReplyVisible (postId) {
+      if (this.replyVisible[postId] === true) {
+        this.replyVisible[postId] = false
+      } else if (this.replyVisible[postId] === false) {
+        this.replyVisible[postId] = true
+      }
+      console.log(this.replyVisible)
     }
   },
   watch: {

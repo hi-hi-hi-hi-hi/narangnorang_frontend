@@ -29,7 +29,7 @@ import PostWriteReply from '@/components/post/PostWriteReply'
 
 export default {
   name: 'postReply',
-  props: ['id', 'member', 'replies', 'replyVisible'],
+  props: ['id', 'replies'],
   components: {
     PostWriteReply
   },
