@@ -42,7 +42,7 @@
               {{ row.content }}
             </div>
             <button class="btn" @click="fnToggleReplyVisible(row.id)" >댓글 {{ row.replies }}</button>
-            <PostReply v-if="this.replyVisible[row.id]" :id="row.id"/>
+            <PostReply :id="row.id" :replyVisible="replyVisible" :member="member"/>
           </td>
         </tr>
       </table>
@@ -274,7 +274,6 @@ export default {
       } else if (this.replyVisible[postId] === false) {
         this.replyVisible[postId] = true
       }
-      console.log(this.replyVisible)
     }
   },
   watch: {

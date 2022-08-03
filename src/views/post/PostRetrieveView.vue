@@ -18,7 +18,7 @@
       <div class="postContentArea">
         {{ content }}
       </div>
-      <button class="btn" @click="fnReplyVisibleToggle()">댓글 {{ replies }}</button>
+      <button class="btn" @click="fnReplyVisibleToggle(id)">댓글 {{ replies }}</button>
       <hr>
       <PostReply :id="id" :replies="replies" :replyVisible="replyVisible" :member="member" @fnGetPostRetrieve="fnGetPostRetrieve"/>
     </div>
@@ -42,7 +42,7 @@ export default {
       likes: 0,
       replies: 0,
       category: this.$route.query.category,
-      replyVisible: true
+      replyVisible: {}
     }
   },
   components: {
@@ -51,6 +51,7 @@ export default {
   },
   created () {
     this.id = this.$route.params.id
+    this.replyVisible[this.id] = true
     this.fnGetPostRetrieve()
   },
   methods: {
@@ -96,11 +97,11 @@ export default {
         })
       }
     },
-    fnReplyVisibleToggle () {
-      if (this.replyVisible === true) {
-        this.replyVisible = false
+    fnReplyVisibleToggle (postId) {
+      if (this.replyVisible[postId] === true) {
+        this.replyVisible[postId] = false
       } else {
-        this.replyVisible = true
+        this.replyVisible[postId] = true
       }
     },
     fnUpdateCategory (category) {
