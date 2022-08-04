@@ -13,14 +13,14 @@
         </div>
         <button class="w-100 btn btn-outline-dark btn-lg" type="button" @click="login">로그인</button>
         <router-link class="mt-5 text-black" to="/findPw">Forgot Password?</router-link><br>
-        <a @click="kakaologin()">
-          <img class="oauthButton" :src="require('@/assets/member/kakao_login_medium_wide.png')"/>
+        <a @click="socialLogin('kakao')">
+          <img class="oauthButton" :src="require('@/assets/member/icon_kakao.png')"/>
         </a>
-        <a @click="googleLogin()">
-          <img class="oauthButton" :src="require('@/assets/member/googleLogin.png')"/>
+        <a @click="socialLogin('google')">
+          <img class="oauthButton" :src="require('@/assets/member/icon_google.png')"/>
         </a>
-        <a href="http://3.39.187.14/oauth2/authorization/naver">
-          <img class="oauthButton" :src="require('@/assets/member/naverLogin.png')"/>
+        <a @click="socialLogin('naver')">
+          <img class="oauthButton" :src="require('@/assets/member/icon_naver.png')"/>
         </a>
         <p class="mt-5 text-muted">아직 계정이 없으신가요?</p>
         <p class="text-muted">지금 바로 <router-link to="/signUp" class="text-black">회원 가입</router-link> 해보세요.</p>
@@ -59,14 +59,9 @@ export default {
         }
       })
     },
-    kakaologin () {
+    socialLogin (provider) {
       window.location.replace(
-        'http://localhost:5000/oauth2/authorization/kakao'
-      )
-    },
-    googleLogin () {
-      window.location.replace(
-        'http://localhost:5000/oauth2/authorization/google'
+        'http://narangnorang.com/login/oauth2/authorization/' + provider
       )
     }
   }
@@ -123,8 +118,11 @@ body {
 }
 
 .oauthButton {
-  width: 300px;
-  height: 45px;
-  margin-top: 10px;
+  margin: 15px;
+  margin-top: 30px;
+}
+.oauthButton:hover {
+  cursor: pointer;
+  filter: brightness(70%);
 }
 </style>
