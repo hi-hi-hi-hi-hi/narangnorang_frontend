@@ -1,7 +1,7 @@
 <template>
   <body class="text-center">
     <main class="form-signin w-100 m-auto">
-      <form>
+      <form @keyup.enter="login()">
         <img class="logo" :src="require('@/assets/common/logo.png')">
         <div class="form-floating">
           <input type="email" class="form-control" id="floatingInput" v-model="email" required="required" placeholder="abc@example.com">
