@@ -61,7 +61,7 @@ export default {
     },
     socialLogin (provider) {
       window.location.replace(
-        'http://narangnorang.com/login/oauth2/authorization/' + provider
+        'http://narangnorang.com/oauth2/authorization/' + provider
       )
     }
   }
